@@ -1,0 +1,48 @@
+import React from 'react'
+import { Platform, StyleSheet, Text, View } from 'react-native'
+
+import Background from '../components/Background'
+import Button from '../components/Button'
+import Logo from '../components/Logo'
+import { ft, hp, wp } from '../config/const'
+
+const MARGIN_HORIZONTAL = wp('5%')
+const MARGIN_VERTICAL = hp('5%')
+
+function Dashboard() {
+	function onLogoutPress() {}
+
+	return (
+		<Background style={{ flex: 'flex-end' }}>
+			<Logo style={styles.logo} />
+			<View style={styles.container}>
+				<Text style={styles.title}>Hello</Text>
+
+				<Button title='Log out' onPress={onLogoutPress} />
+			</View>
+		</Background>
+	)
+}
+
+const styles = StyleSheet.create({
+	description: {
+		fontSize: ft(14),
+		marginBottom: MARGIN_VERTICAL,
+	},
+	container: {
+		justifyContent: 'center',
+		marginHorizontal: MARGIN_HORIZONTAL,
+		marginBottom: Platform.OS === 'ios' ? hp('6%') : hp('3%'),
+	},
+	logo: {
+		position: 'absolute',
+		top: Platform.OS === 'ios' ? hp('6%') : hp('3%'),
+		left: MARGIN_HORIZONTAL,
+	},
+	title: {
+		color: 'white',
+		fontSize: ft(28),
+	},
+})
+
+export default Dashboard
