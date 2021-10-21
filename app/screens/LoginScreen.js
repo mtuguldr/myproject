@@ -70,7 +70,7 @@ function LoginScreen({ navigation }) {
 							}
 						}
 					}
-					// setResult("User doesn't exist")
+					setResult("User doesn't exist")
 					return false
 				}
 			})
