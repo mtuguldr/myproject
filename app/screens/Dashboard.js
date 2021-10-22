@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import React from 'react'
 import { Platform, StyleSheet, Text, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
@@ -13,7 +14,57 @@ const MARGIN_VERTICAL_TALL = hp('6%')
 const MARGIN_VERTICAL_SHORT = hp('3%')
 
 function Dashboard({ navigation }) {
-	function onLogoutPress() {}
+	// const [name, setName] = useState('')
+
+	const signoutUser = async () => {
+		try {
+			let result = null
+			await AsyncStorage.getItem('users').then((value) => {
+				result = value
+			})
+			let users = JSON.parse(result)
+			for (let i = 0; i < users.length; i++) {
+				if (users[i].loggedIn === true) {
+					users[i].loggedIn = false
+					AsyncStorage.setItem('users', JSON.stringify(users))
+
+					return true
+				}
+			}
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
+	// const getName = async () => {
+	// 	try {
+	// 		let result = null
+	// 		await AsyncStorage.getItem('users').then((value) => {
+	// 			result = value
+	// 		})
+	// 		let users = JSON.parse(result)
+	// 		for (let i = 0; i < users.length; i++) {
+	// 			if (users[i].loggedIn === true) {
+	// 				setName(users[i].name)
+	// 			}
+	// 		}
+	// 	} catch (err) {
+	// 		console.log(err)
+	// 	}
+	// }
+
+	function onSignoutPress() {
+		signoutUser().then((result) => {
+			if (result === true) {
+				// navigation.reset({
+				// 	index: 0,
+				// 	routes: [{ name: 'Start' }],
+				// })
+				console.log(`navigation`, navigation)
+				navigation.pop()
+			}
+		})
+	}
 
 	return (
 		<Background>
@@ -22,7 +73,7 @@ function Dashboard({ navigation }) {
 				<Text style={styles.title}>Hello{'\n'}</Text>
 			</View>
 			<View style={styles.container}>
-				<Button title='Log out' onPress={onLogoutPress} />
+				<Button title='Sign out' onPress={onSignoutPress} />
 			</View>
 		</Background>
 	)
@@ -31,16 +82,11 @@ function Dashboard({ navigation }) {
 const styles = StyleSheet.create({
 	container: {
 		justifyContent: 'center',
-		marginBottom:
-			Platform.OS === 'ios'
-				? MARGIN_VERTICAL_TALL
-				: MARGIN_VERTICAL_SHORT,
+		marginBottom: Platform.OS === 'ios' ? MARGIN_VERTICAL_TALL : MARGIN_VERTICAL_SHORT,
 	},
 	logo: {
 		position: 'absolute',
-		top: DeviceInfo.hasNotch()
-			? MARGIN_VERTICAL_TALL
-			: MARGIN_VERTICAL_SHORT,
+		top: DeviceInfo.hasNotch() ? MARGIN_VERTICAL_TALL : MARGIN_VERTICAL_SHORT,
 	},
 	title: {
 		color: colors.white,

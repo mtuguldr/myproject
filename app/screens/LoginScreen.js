@@ -1,84 +1,25 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { AppState, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import AuthContainer from '../components/AuthContainer'
 import Button from '../components/Button'
 import Divider from '../components/Divider'
 import FormInput from '../components/FormInput'
 import colors from '../config/colors'
-import {
-	emailValidator,
-	ft,
-	highlightInput,
-	hp,
-	passwordValidator,
-	wp,
-} from '../config/const'
+import { emailValidator, ft, highlightInput, hp, passwordValidator, wp } from '../config/const'
 
 const MARGIN_VERTICAL_SHORT = hp('3%')
 const ICON_SIZE = wp('5%')
 
 function LoginScreen({ navigation }) {
-	const [passwordVisible, setPasswordVisible] = useState(false)
 	const [email, setEmail] = useState({ value: '', error: '' })
 	const [password, setPassword] = useState({ value: '', error: '' })
-	const [result, setResult] = useState('')
+	const [error, setError] = useState('')
 
-	function onPressLogin() {
-		const emailError = emailValidator(email.value)
-		const passwordError = passwordValidator(password.value)
-		if (emailError || passwordError) {
-			setEmail({ ...email, error: emailError })
-			setPassword({ ...password, error: passwordError })
-			return
-		}
-
-		if (loginCheck()) {
-			navigation.reset({
-				index: 0,
-				routes: [{ name: 'Dashboard' }],
-			})
-		} else {
-		}
-	}
-
-	function loginCheck() {
-		try {
-			AsyncStorage.getItem('users').then((result) => {
-				if (result !== null) {
-					const parsed = JSON.parse(result)
-
-					for (let i = 0; i < parsed.length; i++) {
-						if (email.value === parsed[i].name) {
-							if (
-								password.value ===
-								parsed[i].password
-							) {
-								parsed[i].loggedIn = true
-								AsyncStorage.setItem(
-									'users',
-									JSON.stringify(parsed)
-								)
-								return true
-							} else {
-								setResult(
-									'Password is incorrect'
-								)
-							}
-						}
-					}
-					setResult("User doesn't exist")
-					return false
-				}
-			})
-		} catch (err) {
-			console.log(err)
-		}
-	}
-
+	const [passwordVisible, setPasswordVisible] = useState(false)
 	const PasswordToggleIcon = () => {
 		return (
 			<FontAwesome
@@ -92,12 +33,65 @@ function LoginScreen({ navigation }) {
 		)
 	}
 
+	const authUser = async () => {
+		try {
+			let result = null
+			await AsyncStorage.getItem('users').then((value) => {
+				result = value
+			})
+
+			if (result === null) {
+				setError("User doesn't exist")
+				return false
+			}
+
+			const users = JSON.parse(result)
+			console.log(users)
+			for (let i = 0; i < users.length; i++) {
+				if (email.value.toLowerCase() === users[i].email) {
+					if (password.value === users[i].password) {
+						users[i].loggedIn = true
+						AsyncStorage.setItem('users', JSON.stringify(users))
+
+						return true
+					} else {
+						setError('Password is incorrect')
+						return false
+					}
+				}
+			}
+			setError("User doesn't exist")
+			return false
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
+	function onPressLogin() {
+		const emailError = emailValidator(email.value)
+		const passwordError = passwordValidator(password.value)
+		if (emailError || passwordError) {
+			setEmail({ ...email, error: emailError })
+			setPassword({ ...password, error: passwordError })
+			return
+		}
+
+		authUser().then((result) => {
+			console.log('authUser(): ' + result)
+			if (result === true) {
+				navigation.reset({
+					index: 0,
+					routes: [{ name: 'Dashboard' }],
+				})
+			}
+		})
+	}
+
 	const EmailCheckIcon = () => {
 		return (
 			<FontAwesome
 				name={
-					emailValidator(email.value) === '' &&
-					email.value.length > 0
+					emailValidator(email.value) === '' && email.value.length > 0
 						? 'check'
 						: null
 				}
@@ -119,7 +113,7 @@ function LoginScreen({ navigation }) {
 						value: text,
 						error: '',
 					})
-					setResult('')
+					setError('')
 				}}
 				placeholder='Email'
 				value={email.value}
@@ -134,6 +128,7 @@ function LoginScreen({ navigation }) {
 						value: text,
 						error: '',
 					})
+					setError('')
 				}}
 				placeholder='Password'
 				secureTextEntry={!passwordVisible}
@@ -167,9 +162,7 @@ function LoginScreen({ navigation }) {
 						navigation.navigate('Register')
 					}}
 				/>
-				{result !== '' ? (
-					<Text style={styles.error}>{result}</Text>
-				) : null}
+				{error !== '' ? <Text style={styles.error}>{error}</Text> : null}
 			</View>
 		</AuthContainer>
 	)

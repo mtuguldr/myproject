@@ -22,6 +22,7 @@ export {
 
 export function nameValidator(text) {
 	if (text == '') return "Name can't be empty"
+	else return ''
 }
 
 export function emailValidator(text) {
@@ -31,6 +32,7 @@ export function emailValidator(text) {
 }
 export function passwordValidator(text) {
 	if (text.length < 4) return 'Password must be at least 4 characters long'
+	else return ''
 }
 
 export function highlightInput(text) {
