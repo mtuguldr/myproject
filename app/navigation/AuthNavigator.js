@@ -78,17 +78,11 @@ const AuthNavigator = () => {
 	}
 
 	return (
-		<Stack.Navigator screenOptions={{ headerShown: false }}>
-			{isLoggedIn ? (
-				<Stack.Screen name='Dashboard' component={Dashboard} />
-			) : (
-				<>
+		<Stack.Navigator initialRouteName={isLoggedIn ? 'Dashboard' : 'Start'} screenOptions={{ headerShown: false }}>
 					<Stack.Screen name='Start' component={StartScreen} />
 					<Stack.Screen name='Login' component={LoginScreen} />
 					<Stack.Screen name='Register' component={RegisterScreen} />
 					<Stack.Screen name='Dashboard' component={Dashboard} />
-				</>
-			)}
 		</Stack.Navigator>
 	)
 }

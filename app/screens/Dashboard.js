@@ -56,12 +56,12 @@ function Dashboard({ navigation }) {
 	function onSignoutPress() {
 		signoutUser().then((result) => {
 			if (result === true) {
-				// navigation.reset({
-				// 	index: 0,
-				// 	routes: [{ name: 'Start' }],
-				// })
-				console.log(`navigation`, navigation)
-				navigation.pop()
+				navigation.reset({
+					index: 0,
+					routes: [{ name: 'Start' }],
+				})
+				// console.log(`navigation`, navigation)
+				// navigation.pop()
 			}
 		})
 	}
