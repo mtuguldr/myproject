@@ -41,6 +41,7 @@ const menuItems = [
 ]
 
 // comment
+// comment1
 
 function App(props) {
     return (
