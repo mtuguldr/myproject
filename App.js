@@ -41,6 +41,7 @@ const menuItems = [
 ]
 
 function App(props) {
+    alert('test')
     return (
         <Screen style={styles.background}>
             <SafeAreaView style={styles.container}>
