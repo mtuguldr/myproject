@@ -9,81 +9,86 @@ import Logo from '../components/Logo'
 import colors from '../config/colors'
 import { ft, hp, wp } from '../config/const'
 
-const MARGIN_HORIZONTAL = wp('5%')
-const MARGIN_VERTICAL_TALL = hp('6%')
-const MARGIN_VERTICAL_SHORT = hp('3%')
+const MARGIN_HORIZONTAL = wp(5)
+const MARGIN_VERTICAL_TALL = hp(6)
+const MARGIN_VERTICAL_SHORT = hp(3)
 
 function Dashboard({ navigation }) {
-	const [user, setUser] = useState({})
+    const [user, setUser] = useState({})
 
-	React.useEffect(() => {
-		getUser()
-	}, [])
+    React.useEffect(() => {
+        getUser()
+    }, [])
 
-	const getUser = async () => {
-		try {
-			let users = JSON.parse(await AsyncStorage.getItem('users'))
+    const getUser = async () => {
+        try {
+            let users = JSON.parse(await AsyncStorage.getItem('users'))
 
-			for (let i = 0; i < users.length; i++) {
-				if (users[i].loggedIn === true) {
-					setUser(users[i])
-				}
-			}
-		} catch (err) {
-			console.log(err)
-		}
-	}
+            for (let i = 0; i < users.length; i++) {
+                if (users[i].loggedIn === true) {
+                    setUser(users[i])
+                }
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
-	const onSignoutPress = async () => {
-		try {
-			let users = JSON.parse(await AsyncStorage.getItem('users'))
+    const onSignoutPress = async () => {
+        try {
+            let users = JSON.parse(await AsyncStorage.getItem('users'))
 
-			for (let i = 0; i < users.length; i++) {
-				if (users[i].loggedIn === true) {
-					users[i].loggedIn = false
-					await AsyncStorage.setItem('users', JSON.stringify(users))
+            for (let i = 0; i < users.length; i++) {
+                if (users[i].loggedIn === true) {
+                    users[i].loggedIn = false
+                    await AsyncStorage.setItem('users', JSON.stringify(users))
 
-					navigation.reset({
-						index: 0,
-						routes: [{ name: 'Start' }],
-					})
-				}
-			}
-		} catch (err) {
-			console.log(err)
-		}
-	}
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Start' }],
+                    })
+                }
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
-	return (
-		<Background>
-			<View style={{ flex: 1, justifyContent: 'center' }}>
-				<Logo style={styles.logo} />
-				<Text style={styles.title}>
-					Hello{'\n'}
-					{user.name}
-				</Text>
-			</View>
-			<View style={styles.container}>
-				<Button title='Sign out' onPress={onSignoutPress} />
-			</View>
-		</Background>
-	)
+    return (
+        <Background>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+                <Logo style={styles.logo} />
+                <Text style={styles.title}>
+                    Hello{'\n'}
+                    {user.name}
+                </Text>
+            </View>
+            <View style={styles.container}>
+                <Button title='Sign out' onPress={onSignoutPress} />
+            </View>
+        </Background>
+    )
 }
 
 const styles = StyleSheet.create({
-	container: {
-		justifyContent: 'center',
-		marginBottom: Platform.OS === 'ios' ? MARGIN_VERTICAL_TALL : MARGIN_VERTICAL_SHORT,
-	},
-	logo: {
-		position: 'absolute',
-		top: DeviceInfo.hasNotch() ? MARGIN_VERTICAL_TALL : MARGIN_VERTICAL_SHORT,
-	},
-	title: {
-		color: colors.white,
-		fontSize: ft(28),
-		marginBottom: MARGIN_VERTICAL_SHORT,
-	},
+    container: {
+        justifyContent: 'center',
+        marginBottom:
+            Platform.OS === 'ios'
+                ? MARGIN_VERTICAL_TALL
+                : MARGIN_VERTICAL_SHORT,
+    },
+    logo: {
+        position: 'absolute',
+        top: DeviceInfo.hasNotch()
+            ? MARGIN_VERTICAL_TALL
+            : MARGIN_VERTICAL_SHORT,
+    },
+    title: {
+        color: colors.white,
+        fontSize: ft(28),
+        marginBottom: MARGIN_VERTICAL_SHORT,
+    },
 })
 
 export default Dashboard

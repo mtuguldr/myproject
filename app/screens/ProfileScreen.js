@@ -7,7 +7,7 @@ import colors from '../config/colors'
 import ListItem from '../components/ListItem'
 import ListItemSeparator from '../components/ListItemSeperator'
 import Logo from '../components/Logo'
-import Screen from '../components/Screen'
+import Background from '../components/Background'
 
 const menuItems = [
     {
@@ -32,7 +32,7 @@ const menuItems = [
 
 function ProfileScreen({ navigation }) {
     return (
-        <Screen style={styles.background}>
+        <Background style={styles.background}>
             <SafeAreaView style={styles.container}>
                 {/* <Logo style={styles.container} color={colors.black} /> */}
                 <ListItem
@@ -79,7 +79,7 @@ function ProfileScreen({ navigation }) {
                     }
                 />
             </SafeAreaView>
-        </Screen>
+        </Background>
     )
 }
 

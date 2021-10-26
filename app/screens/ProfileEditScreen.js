@@ -1,12 +1,17 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
-import Screen from '../components/Screen'
+import Background from '../components/Background'
+import FormInput from '../components/FormInput'
 
 function ProfileEditScreen(props) {
     return (
-        <Screen>
+        <Background>
             <Text>Profile Edit Screen</Text>
-        </Screen>
+            <FormInput placeholder='Name' />
+            <FormInput placeholder='Email' />
+            <FormInput placeholder='Password' />
+            <FormInput placeholder='' />
+        </Background>
     )
 }
 

@@ -3,12 +3,8 @@ import { View, StyleSheet, Text } from 'react-native'
 import colors from '../config/colors'
 import { ft, wp } from '../config/const'
 
-function Logo({ style, color = colors.white }) {
-    return (
-        <View style={style}>
-            <Text style={[styles.text, { color: color }]}>wwater</Text>
-        </View>
-    )
+function Logo({ style }) {
+    return <Text style={[styles.text, { style }]}>wwater</Text>
 }
 
 const styles = StyleSheet.create({
@@ -16,7 +12,6 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontWeight: 'bold',
         fontSize: ft(22),
-        marginHorizontal: wp('5%'),
     },
 })
 

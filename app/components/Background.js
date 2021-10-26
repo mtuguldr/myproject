@@ -1,17 +1,21 @@
-import React, { Children } from 'react'
-import { View, StyleSheet } from 'react-native'
-import colors from '../config/colors'
-import { wp } from '../config/const'
+import React from 'react'
+import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native'
 
 function Background({ children, style }) {
-    return <View style={[styles.container, style]}>{children}</View>
+    return (
+        <SafeAreaView style={[styles.screen]}>
+            <View style={[styles.view, style]}>{children}</View>
+        </SafeAreaView>
+    )
 }
 
 const styles = StyleSheet.create({
-    container: {
+    screen: {
         flex: 1,
-        backgroundColor: colors.primary,
-        paddingHorizontal: wp('5%'),
+    },
+    view: {
+        paddingTop: StatusBar.currentHeight,
+        flex: 1,
     },
 })
 
