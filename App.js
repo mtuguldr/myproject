@@ -40,6 +40,8 @@ const menuItems = [
     },
 ]
 
+// comment
+
 function App(props) {
     return (
         <Screen style={styles.background}>
