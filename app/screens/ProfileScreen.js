@@ -1,43 +1,98 @@
 import React from 'react'
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
-import Background from '../components/Background'
-import colors from '../config/colors'
-import { ft, hp, wp } from '../config/const'
+import { View, StyleSheet, SafeAreaView, FlatList, Text } from 'react-native'
 
-function ProfileScreen() {
+import { ft, hp, wp } from '../config/const'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import colors from '../config/colors'
+import ListItem from '../components/ListItem'
+import ListItemSeparator from '../components/ListItemSeperator'
+import Logo from '../components/Logo'
+import Screen from '../components/Screen'
+
+const menuItems = [
+    {
+        title: 'Orders',
+        icon: {
+            name: 'bars',
+        },
+    },
+    {
+        title: 'Wishlist',
+        icon: {
+            name: 'staro',
+        },
+    },
+    {
+        title: 'Payment',
+        icon: {
+            name: 'wallet',
+        },
+    },
+]
+
+function ProfileScreen({ navigation }) {
     return (
-        <Background style={styles.background}>
-            <View
-                style={{
-                    backgroundColor: '#f3f3f3',
-                    height: hp('20%'),
-                    width: wp('100%'),
-                    marginHorizontal: -wp('5%'),
-                    borderBottomLeftRadius: 40,
-                    borderBottomRightRadius: 40,
-                }}
-            >
-                <SafeAreaView>
-                    <Text
-                        style={{
-                            fontSize: ft(20),
-                            fontWeight: 'bold',
-                            textAlign: 'center',
-                            color: colors.secondary,
-                        }}
-                    >
-                        John Doe
-                    </Text>
-                    <Text>johndoe@mail.com</Text>
-                </SafeAreaView>
-            </View>
-        </Background>
+        <Screen style={styles.background}>
+            <SafeAreaView style={styles.container}>
+                {/* <Logo style={styles.container} color={colors.black} /> */}
+                <ListItem
+                    title='User'
+                    subTitle='user@mail.com'
+                    image={require('../assets/avatar.jpeg')}
+                    onPress={() => {
+                        navigation.navigate('ProfileEdit')
+                    }}
+                />
+                <FlatList />
+                <View style={styles.container}>
+                    <Text style={styles.title}>Account</Text>
+                    <FlatList
+                        scrollEnabled={false}
+                        data={menuItems}
+                        keyExtractor={(menuItem) => menuItem.title}
+                        ItemSeparatorComponent={ListItemSeparator}
+                        renderItem={({ item }) => (
+                            <ListItem
+                                title={item.title}
+                                IconComponent={
+                                    <AntDesign
+                                        name={item.icon.name}
+                                        size={20}
+                                        color={colors.black}
+                                    />
+                                }
+                                // onPress={() =>
+                                //     navigation.navigate(item.targetScreen)
+                                // }
+                            />
+                        )}
+                    />
+                </View>
+                <ListItem
+                    title='Log Out'
+                    IconComponent={
+                        <AntDesign
+                            color={colors.black}
+                            name='logout'
+                            size={20}
+                        />
+                    }
+                />
+            </SafeAreaView>
+        </Screen>
     )
 }
 
 const styles = StyleSheet.create({
     background: {
-        justifyContent: 'flex-start',
+        backgroundColor: colors.white,
+    },
+    container: {
+        marginVertical: 20,
+    },
+    title: {
+        fontSize: ft(12),
+        paddingHorizontal: 15,
     },
 })
 

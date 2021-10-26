@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AppState, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import AuthContainer from '../components/AuthContainer'
@@ -25,50 +25,8 @@ function LoginScreen({ navigation }) {
     const [email, setEmail] = useState({ value: '', error: '' })
     const [password, setPassword] = useState({ value: '', error: '' })
     const [error, setError] = useState('')
-
+    const [colorState, setColor] = React.useState('red')
     const [passwordVisible, setPasswordVisible] = useState(false)
-    const PasswordToggleIcon = () => {
-        return (
-            <AntDesign
-                name={passwordVisible ? 'eye-slash' : 'eye'}
-                color={colors.light}
-                size={ICON_SIZE}
-                onPress={() => {
-                    setPasswordVisible(!passwordVisible)
-                }}
-            />
-        )
-    }
-
-    const authUser = async () => {
-        try {
-            let result = await AsyncStorage.getItem('users')
-
-            if (result === null) {
-                setError("User doesn't exist")
-                return false
-            }
-
-            const users = JSON.parse(result)
-            console.log(`users`, users)
-            for (let i = 0; i < users.length; i++) {
-                if (email.value.toLowerCase() === users[i].email) {
-                    if (password.value === users[i].password) {
-                        users[i].loggedIn = true
-                        AsyncStorage.setItem('users', JSON.stringify(users))
-                        return true
-                    } else {
-                        setError('Password is incorrect')
-                        return false
-                    }
-                }
-            }
-            setError("User doesn't exist")
-            return false
-        } catch (err) {
-            console.log(err)
-        }
-    }
 
     const onPressLogin = async () => {
         const emailError = emailValidator(email.value)
@@ -79,37 +37,91 @@ function LoginScreen({ navigation }) {
             return
         }
 
-        let result = await authUser()
-        if (result === true) {
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Dashboard' }],
-            })
+        try {
+            let result = await AsyncStorage.getItem('users')
+
+            if (result === null) {
+                setError("User doesn't exist")
+                return false
+            }
+            const users = JSON.parse(result)
+            console.log(`users`, users)
+            for (let i = 0; i < users.length; i++) {
+                if (email.value.toLowerCase() === users[i].email) {
+                    if (password.value === users[i].password) {
+                        users[i].loggedIn = true
+                        AsyncStorage.setItem('users', JSON.stringify(users))
+
+                        navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'Dashboard' }],
+                        })
+                    } else {
+                        setError('Password is incorrect')
+                        return
+                    }
+                }
+            }
+            setError("User doesn't exist")
+            return
+        } catch (err) {
+            console.log(err)
         }
     }
 
-    const EmailCheckIcon = () => {
-        return (
-            <AntDesign
-                name={
-                    emailValidator(email.value) === '' && email.value.length > 0
-                        ? 'check'
-                        : null
-                }
-                color={colors.light}
-                size={ICON_SIZE}
-            />
-        )
+    const EmailIcon = () => (
+        <FontAwesome
+            color={highlightInput(email.value)}
+            name='envelope'
+            size={ICON_SIZE}
+        />
+    )
+    const EmailCheckIcon = () => (
+        <FontAwesome
+            name={
+                emailValidator(email.value) === '' && email.value.length > 0
+                    ? 'check'
+                    : null
+            }
+            color={colors.light}
+            size={ICON_SIZE}
+        />
+    )
+
+    const checkColor = (text) => {
+        const color = text.length > 0 ? colors.primary : colors.light
+        return color
     }
+
+    const LockIcon = () => (
+        <FontAwesome color={colorState} name='lock' size={ICON_SIZE} />
+    )
+    const PasswordToggleIcon = () => (
+        <FontAwesome
+            name={passwordVisible ? 'eye-slash' : 'eye'}
+            color={highlightInput(password.value)}
+            size={ICON_SIZE}
+            onPress={() => {
+                setPasswordVisible(!passwordVisible)
+            }}
+        />
+    )
 
     return (
         <AuthContainer title={'Welcome\nBack'} navigation={navigation}>
+            <FormInput placeholder='Test' icon='user' />
+
             <FormInput
-                color={highlightInput(email.value)}
+                color={colorState}
                 error={email.error}
-                extraIcon={<EmailCheckIcon />}
-                icon='envelope'
+                ExtraIcon={<EmailCheckIcon />}
+                Icon={<EmailIcon />}
                 onChangeText={(text) => {
+                    if (text.length > 3) {
+                        setColor('green')
+                    } else {
+                        setColor('red')
+                    }
                     setEmail({
                         value: text,
                         error: '',
@@ -119,11 +131,12 @@ function LoginScreen({ navigation }) {
                 placeholder='Email'
                 value={email.value}
             />
+
             <FormInput
                 color={highlightInput(password.value)}
                 error={password.error}
-                extraIcon={<PasswordToggleIcon />}
-                icon='lock'
+                ExtraIcon={<PasswordToggleIcon />}
+                Icon={<LockIcon />}
                 onChangeText={(text) => {
                     setPassword({
                         value: text,

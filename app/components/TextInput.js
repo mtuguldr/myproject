@@ -7,49 +7,41 @@ import { ft, wp } from '../config/const'
 
 const ICON_SIZE = wp('5%')
 function AppTextInput({
-	icon,
-	color = colors.light,
-	extraIcon,
-	...otherProps
+    Icon,
+    color = colors.light,
+    ExtraIcon,
+    ...otherProps
 }) {
-	return (
-		<View style={[styles.container, { borderBottomColor: color }]}>
-			{icon ? (
-				<View style={{ width: ICON_SIZE }}>
-					<FontAwesome
-						style={styles.icon}
-						name={icon}
-						size={ICON_SIZE}
-						color={color}
-					/>
-				</View>
-			) : null}
-			<TextInput
-				style={[styles.text, { color: color }]}
-				placeholderTextColor={color}
-				{...otherProps}
-			/>
-			{extraIcon}
-		</View>
-	)
+    return (
+        <View style={[styles.container, { borderBottomColor: color }]}>
+            {Icon ? <View style={{ width: ICON_SIZE }}>{Icon}</View> : null}
+            <TextInput
+                style={[styles.text, { color: color }]}
+                placeholderTextColor={colors.light}
+                {...otherProps}
+            />
+            {ExtraIcon ? (
+                <View style={{ width: ICON_SIZE }}>{ExtraIcon}</View>
+            ) : null}
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
-	container: {
-		alignItems: 'center',
-		borderBottomWidth: 1,
-		flexDirection: 'row',
-		paddingVertical: Platform.OS === 'ios' ? 14 : 0,
-		//paddingBottom: 14,
-	},
-	icon: {
-		alignSelf: 'center',
-	},
-	text: {
-		fontSize: ft(14),
-		width: '85%',
-		marginHorizontal: wp('1%'),
-	},
+    container: {
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+        paddingVertical: Platform.OS === 'ios' ? 14 : 0,
+    },
+    icon: {
+        alignSelf: 'center',
+    },
+    text: {
+        fontSize: ft(14),
+        flex: 1,
+        marginHorizontal: wp('1%'),
+    },
 })
 
 export default AppTextInput

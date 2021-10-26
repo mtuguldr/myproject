@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import colors from '../config/colors'
-import { ft } from '../config/const'
+import { ft, wp } from '../config/const'
 
 function Logo({ style, color = colors.white }) {
     return (
@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontWeight: 'bold',
         fontSize: ft(22),
+        marginHorizontal: wp('5%'),
     },
 })
 
