@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React from 'react'
+import React, { useState } from 'react'
 import { Platform, StyleSheet, Text, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 
@@ -14,21 +14,19 @@ const MARGIN_VERTICAL_TALL = hp('6%')
 const MARGIN_VERTICAL_SHORT = hp('3%')
 
 function Dashboard({ navigation }) {
-	// const [name, setName] = useState('')
+	const [user, setUser] = useState({})
 
-	const signoutUser = async () => {
+	React.useEffect(() => {
+		getUser()
+	}, [])
+
+	const getUser = async () => {
 		try {
-			let result = null
-			await AsyncStorage.getItem('users').then((value) => {
-				result = value
-			})
-			let users = JSON.parse(result)
+			let users = JSON.parse(await AsyncStorage.getItem('users'))
+
 			for (let i = 0; i < users.length; i++) {
 				if (users[i].loggedIn === true) {
-					users[i].loggedIn = false
-					AsyncStorage.setItem('users', JSON.stringify(users))
-
-					return true
+					setUser(users[i])
 				}
 			}
 		} catch (err) {
@@ -36,41 +34,34 @@ function Dashboard({ navigation }) {
 		}
 	}
 
-	// const getName = async () => {
-	// 	try {
-	// 		let result = null
-	// 		await AsyncStorage.getItem('users').then((value) => {
-	// 			result = value
-	// 		})
-	// 		let users = JSON.parse(result)
-	// 		for (let i = 0; i < users.length; i++) {
-	// 			if (users[i].loggedIn === true) {
-	// 				setName(users[i].name)
-	// 			}
-	// 		}
-	// 	} catch (err) {
-	// 		console.log(err)
-	// 	}
-	// }
+	const onSignoutPress = async () => {
+		try {
+			let users = JSON.parse(await AsyncStorage.getItem('users'))
 
-	function onSignoutPress() {
-		signoutUser().then((result) => {
-			if (result === true) {
-				navigation.reset({
-					index: 0,
-					routes: [{ name: 'Start' }],
-				})
-				// console.log(`navigation`, navigation)
-				// navigation.pop()
+			for (let i = 0; i < users.length; i++) {
+				if (users[i].loggedIn === true) {
+					users[i].loggedIn = false
+					await AsyncStorage.setItem('users', JSON.stringify(users))
+
+					navigation.reset({
+						index: 0,
+						routes: [{ name: 'Start' }],
+					})
+				}
 			}
-		})
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	return (
 		<Background>
 			<View style={{ flex: 1, justifyContent: 'center' }}>
 				<Logo style={styles.logo} />
-				<Text style={styles.title}>Hello{'\n'}</Text>
+				<Text style={styles.title}>
+					Hello{'\n'}
+					{user.name}
+				</Text>
 			</View>
 			<View style={styles.container}>
 				<Button title='Sign out' onPress={onSignoutPress} />

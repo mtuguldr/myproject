@@ -16,7 +16,7 @@ function FormInput({ error, ...otherProps }) {
 const styles = StyleSheet.create({
 	error: {
 		color: colors.danger,
-		fontSize: ft(14),
+		fontSize: ft(10),
 	},
 })
 

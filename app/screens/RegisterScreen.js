@@ -22,11 +22,11 @@ const MARGIN_VERTICAL_SHORT = hp('3%')
 const ICON_SIZE = wp('5%')
 
 function RegisterScreen({ navigation }) {
-	const [name, setName] = useState({ value: '', error: ' ' })
-	const [email, setEmail] = useState({ value: '', error: ' ' })
-	const [password, setPassword] = useState({ value: '', error: ' ' })
-	const [error, setError] = useState(' ')
-	// AsyncStorage.clear()
+	const [name, setName] = useState({ value: '', error: '' })
+	const [email, setEmail] = useState({ value: '', error: '' })
+	const [password, setPassword] = useState({ value: '', error: '' })
+	const [error, setError] = useState('')
+
 	const [passwordVisible, setPasswordVisible] = useState(false)
 	const PasswordToggleIcon = () => {
 		return (
@@ -52,10 +52,7 @@ function RegisterScreen({ navigation }) {
 				},
 			]
 
-			let result = null
-			await AsyncStorage.getItem('users').then((value) => {
-				result = value
-			})
+			let result = await AsyncStorage.getItem('users')
 
 			if (result === null) {
 				AsyncStorage.setItem('users', JSON.stringify(newUser))
@@ -63,23 +60,22 @@ function RegisterScreen({ navigation }) {
 			}
 
 			let users = JSON.parse(result)
-			console.log(users)
 			for (let i = 0; i < users.length; i++) {
 				if (users[i].email === email.value.toLowerCase()) {
 					setError('Email already registered')
 					return false
+				} else {
+					let merged = users.concat(newUser[0])
+					AsyncStorage.setItem('users', JSON.stringify(merged))
+					return true
 				}
 			}
-
-			let merged = users.concat(newUser[0])
-			AsyncStorage.setItem('users', JSON.stringify(merged))
-			return true
 		} catch (err) {
 			console.log(err)
 		}
 	}
 
-	function onPressSignup() {
+	const onPressSignup = async () => {
 		const nameError = nameValidator(name.value)
 		const emailError = emailValidator(email.value)
 		const passwordError = passwordValidator(password.value)
@@ -90,15 +86,13 @@ function RegisterScreen({ navigation }) {
 			return
 		}
 
-		registerUser().then((result) => {
-			console.log('registerUser(): ' + result)
-			if (result === true) {
-				setName({ value: '', error: ' ' })
-				setEmail({ value: '', error: ' ' })
-				setPassword({ value: '', error: ' ' })
-				navigation.navigate('Login')
-			}
-		})
+		const result = await registerUser()
+		if (result) {
+			setName({ value: '', error: '' })
+			setEmail({ value: '', error: '' })
+			setPassword({ value: '', error: '' })
+			navigation.navigate('Login')
+		}
 	}
 
 	return (
@@ -110,7 +104,7 @@ function RegisterScreen({ navigation }) {
 				onChangeText={(text) => {
 					setName({
 						value: text,
-						error: ' ',
+						error: '',
 					})
 				}}
 				placeholder='Name'
@@ -123,9 +117,9 @@ function RegisterScreen({ navigation }) {
 				onChangeText={(text) => {
 					setEmail({
 						value: text,
-						error: ' ',
+						error: '',
 					})
-					setError(' ')
+					setError('')
 				}}
 				placeholder='Email'
 				value={email.value}
@@ -138,7 +132,7 @@ function RegisterScreen({ navigation }) {
 				onChangeText={(text) => {
 					setPassword({
 						value: text,
-						error: ' ',
+						error: '',
 					})
 				}}
 				placeholder='Password'
@@ -160,7 +154,7 @@ function RegisterScreen({ navigation }) {
 						navigation.navigate('Login')
 					}}
 				/>
-				<Text style={styles.error}>{error}</Text>
+				{error ? <Text style={styles.error}>{error}</Text> : null}
 			</View>
 		</AuthContainer>
 	)
