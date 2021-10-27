@@ -1,11 +1,9 @@
 import React from 'react'
 import { View, StyleSheet, TextInput, Platform } from 'react-native'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import colors from '../config/colors'
-import { ft, wp } from '../config/const'
+import { ft, hp, wp } from '../config/const'
 
-const ICON_SIZE = wp(5)
 function AppTextInput({
     Icon,
     color = colors.light,
@@ -14,15 +12,13 @@ function AppTextInput({
 }) {
     return (
         <View style={[styles.container, { borderBottomColor: color }]}>
-            {Icon ? <View style={{ width: ICON_SIZE }}>{Icon}</View> : null}
+            {Icon}
             <TextInput
                 style={[styles.text, { color: color }]}
-                placeholderTextColor={colors.light}
+                placeholderTextColor={color}
                 {...otherProps}
             />
-            {ExtraIcon ? (
-                <View style={{ width: ICON_SIZE }}>{ExtraIcon}</View>
-            ) : null}
+            {ExtraIcon}
         </View>
     )
 }
@@ -32,15 +28,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderBottomWidth: 1,
         flexDirection: 'row',
-        paddingVertical: Platform.OS === 'ios' ? 14 : 0,
-    },
-    icon: {
-        alignSelf: 'center',
     },
     text: {
-        fontSize: ft(14),
         flex: 1,
+        fontSize: ft(14),
         marginHorizontal: wp(1),
+        paddingVertical: hp(2),
     },
 })
 

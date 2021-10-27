@@ -6,6 +6,8 @@ import ProfileScreen from '../screens/ProfileScreen'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import ProfileEditScreen from '../screens/ProfileEditScreen'
 import { createStackNavigator } from '@react-navigation/stack'
+import Button from '../components/Button'
+import colors from '../config/colors'
 
 function HomeScreen() {
     return (
@@ -36,23 +38,29 @@ function ProfileStack() {
     )
 }
 
-function CategoryScreen() {
+function CategoryScreen({ navigation }) {
     return (
         <View
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
             <Text>Category!</Text>
+            <Button
+                title='Go to Home'
+                onPress={() => {
+                    navigation.navigate('Home')
+                }}
+            />
         </View>
     )
 }
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
-//const ICON_SIZE = wp('5%')
 
 function TabNavigator() {
     return (
-        <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Navigator>
+            {/* screenOptions={{ headerShown: false }}> */}
             <Tab.Screen
                 name='Home'
                 component={HomeScreen}
@@ -60,6 +68,7 @@ function TabNavigator() {
                     tabBarIcon: ({ size, color }) => (
                         <AntDesign name='home' size={size} color={color} />
                     ),
+                    // tabBarActiveTintColor: colors.primary,
                 }}
             />
             <Tab.Screen

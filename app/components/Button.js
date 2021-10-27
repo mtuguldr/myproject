@@ -4,57 +4,49 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import colors from '../config/colors'
 import { ft, hp } from '../config/const'
 
-function Button({ title, onPress, color = colors.white, filled = false }) {
-	return (
-		<TouchableOpacity
-			style={[
-				styles.container,
-				filled
-					? {
-							backgroundColor: color,
-							borderColor: color,
-					  }
-					: {
-							backgroundColor: 'transparent',
-							borderColor: color,
-					  },
-			]}
-			onPress={onPress}
-		>
-			<Text
-				style={[
-					styles.text,
-					filled
-						? {
-								color:
-									color === colors.white
-										? colors.primary
-										: colors.white,
-						  }
-						: {
-								color: color,
-						  },
-				]}
-			>
-				{title}
-			</Text>
-		</TouchableOpacity>
-	)
+function Button({
+    backgroundColor = colors.white,
+    borderTextColor = colors.black,
+    filled = false,
+    onPress,
+    title,
+}) {
+    return (
+        <TouchableOpacity
+            style={[
+                styles.container,
+                filled
+                    ? {
+                          backgroundColor: backgroundColor,
+                          borderColor: backgroundColor,
+                      }
+                    : {
+                          backgroundColor: 'transparent',
+                          borderColor: borderTextColor,
+                      },
+            ]}
+            onPress={onPress}
+        >
+            <Text style={[styles.text, { color: borderTextColor }]}>
+                {title}
+            </Text>
+        </TouchableOpacity>
+    )
 }
 
 const styles = StyleSheet.create({
-	container: {
-		width: '100%',
-		borderRadius: 10,
-		padding: 15,
-		borderWidth: 1,
-		marginVertical: hp('1%'),
-	},
-	text: {
-		fontWeight: 'bold',
-		fontSize: ft(14),
-		alignSelf: 'center',
-	},
+    container: {
+        width: '100%',
+        borderRadius: 10,
+        padding: hp(2),
+        borderWidth: 1,
+        marginVertical: hp(1),
+    },
+    text: {
+        fontWeight: 'bold',
+        fontSize: ft(14),
+        alignSelf: 'center',
+    },
 })
 
 export default Button

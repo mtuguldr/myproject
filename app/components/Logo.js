@@ -3,8 +3,8 @@ import { View, StyleSheet, Text } from 'react-native'
 import colors from '../config/colors'
 import { ft, wp } from '../config/const'
 
-function Logo({ style }) {
-    return <Text style={[styles.text, { style }]}>wwater</Text>
+function Logo({ color }) {
+    return <Text style={[styles.text, { color: color }]}>wwater</Text>
 }
 
 const styles = StyleSheet.create({

@@ -28,11 +28,12 @@ export const hp = (heightPercent) => {
 }
 
 export function nameValidator(text) {
-    if (text == '') return "Name can't be empty"
+    if (text === '') return "Name can't be empty"
     else return ''
 }
 
 export function emailValidator(text) {
+    if (text === '') return "Email can't be empty"
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
     if (!reg.test(text)) return 'Email is incorrect'
     else return ''

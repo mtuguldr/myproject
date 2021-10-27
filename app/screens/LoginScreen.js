@@ -4,36 +4,28 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import Background from '../components/Background'
 import Button from '../components/Button'
 import Divider from '../components/Divider'
 import FormInput from '../components/FormInput'
 import colors from '../config/colors'
-import {
-    emailValidator,
-    ft,
-    highlightInput,
-    hp,
-    passwordValidator,
-    wp,
-} from '../config/const'
-import Background from '../components/Background'
+import { emailValidator, ft, hp, passwordValidator, wp } from '../config/const'
 
-const MARGIN_HORIZONTAL = wp(5)
-const MARGIN_VERTICAL_TALL = hp(6)
-const MARGIN_VERTICAL_SHORT = hp(3)
+const HORIZONTAL_SPACE = wp(5)
 const ICON_SIZE = wp(5)
 
-// error: email or password is incorrect bolgoh
-// forgot password screen hiih
-// FormInput Icon golluulah
-// FormInput ongo soligddogiig zasah
-
 function LoginScreen({ navigation }) {
-    const [email, setEmail] = useState({ value: '', error: '' })
-    const [password, setPassword] = useState({ value: '', error: '' })
+    const [email, setEmail] = useState({
+        color: colors.light,
+        error: '',
+        value: '',
+    })
+    const [password, setPassword] = useState({
+        color: colors.light,
+        error: '',
+        value: '',
+    })
     const [error, setError] = useState('')
-
-    const [colorState, setColor] = React.useState('red')
     const [passwordVisible, setPasswordVisible] = useState(false)
 
     const onPressLogin = async () => {
@@ -50,79 +42,75 @@ function LoginScreen({ navigation }) {
 
             if (result === null) {
                 setError("User doesn't exist")
-                return false
+                return
             }
             const users = JSON.parse(result)
             console.log(`users`, users)
             for (let i = 0; i < users.length; i++) {
-                if (email.value.toLowerCase() === users[i].email) {
-                    if (password.value === users[i].password) {
-                        users[i].loggedIn = true
-                        AsyncStorage.setItem('users', JSON.stringify(users))
+                if (
+                    email.value.toLowerCase() === users[i].email &&
+                    password.value === users[i].password
+                ) {
+                    users[i].loggedIn = true
+                    AsyncStorage.setItem('users', JSON.stringify(users))
 
-                        navigation.reset({
-                            index: 0,
-                            routes: [{ name: 'Dashboard' }],
-                        })
-                    } else {
-                        setError('Password is incorrect')
-                        return
-                    }
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Dashboard' }],
+                    })
+                    return
                 }
+                setError('Email or password is incorrect')
+                return
             }
             setError("User doesn't exist")
-            return
         } catch (err) {
             console.log(err)
         }
     }
 
+    const IconAlignCenter = ({ children }) => (
+        <View style={{ width: ICON_SIZE, alignItems: 'center' }}>
+            {children}
+        </View>
+    )
+
     const EmailIcon = () => (
-        <FontAwesome
-            color={highlightInput(email.value)}
-            name='envelope'
-            size={ICON_SIZE}
-        />
+        <IconAlignCenter>
+            <FontAwesome color={email.color} name='envelope' size={ICON_SIZE} />
+        </IconAlignCenter>
     )
     const EmailCheckIcon = () => (
-        <FontAwesome
-            name={
-                emailValidator(email.value) === '' && email.value.length > 0
-                    ? 'check'
-                    : null
-            }
-            color={colors.light}
-            size={ICON_SIZE}
-        />
+        <IconAlignCenter>
+            <FontAwesome name='check' color={email.color} size={ICON_SIZE} />
+        </IconAlignCenter>
     )
 
-    const checkColor = (text) => {
-        const color = text.length > 0 ? colors.primary : colors.light
-        return color
-    }
-
-    const LockIcon = () => (
-        <FontAwesome color={colorState} name='lock' size={ICON_SIZE} />
+    const PasswordIcon = () => (
+        <IconAlignCenter>
+            <FontAwesome color={password.color} name='lock' size={ICON_SIZE} />
+        </IconAlignCenter>
     )
     const PasswordToggleIcon = () => (
-        <FontAwesome
-            name={passwordVisible ? 'eye-slash' : 'eye'}
-            color={highlightInput(password.value)}
-            size={ICON_SIZE}
-            onPress={() => {
-                setPasswordVisible(!passwordVisible)
-            }}
-        />
+        <IconAlignCenter>
+            <FontAwesome
+                color={password.color}
+                name={passwordVisible ? 'eye-slash' : 'eye'}
+                onPress={() => {
+                    setPasswordVisible(!passwordVisible)
+                }}
+                size={ICON_SIZE}
+            />
+        </IconAlignCenter>
     )
 
     return (
-        <Background style={styles.background}>
+        <Background color={colors.primary} style={styles.background}>
             <View style={styles.container}>
                 <FontAwesome
                     color={colors.white}
                     name='chevron-left'
                     size={ICON_SIZE}
-                    style={styles.backButton}
                     onPress={() => {
                         navigation.goBack()
                     }}
@@ -132,19 +120,20 @@ function LoginScreen({ navigation }) {
             <View style={styles.formContainer}>
                 <View style={styles.container}>
                     <FormInput
-                        color={colorState}
+                        color={email.color}
                         error={email.error}
                         ExtraIcon={<EmailCheckIcon />}
                         Icon={<EmailIcon />}
+                        maxLength={20}
                         onChangeText={(text) => {
-                            // if (text.length > 3) {
-                            //     setColor('green')
-                            // } else {
-                            //     setColor('red')
-                            // }
                             setEmail({
                                 value: text,
                                 error: '',
+                                color:
+                                    emailValidator(text) === '' &&
+                                    text.length > 0
+                                        ? colors.primary
+                                        : colors.light,
                             })
                             setError('')
                         }}
@@ -152,14 +141,19 @@ function LoginScreen({ navigation }) {
                         value={email.value}
                     />
                     <FormInput
-                        color={highlightInput(password.value)}
+                        color={password.color}
                         error={password.error}
                         ExtraIcon={<PasswordToggleIcon />}
-                        Icon={<LockIcon />}
+                        Icon={<PasswordIcon />}
+                        maxLength={20}
                         onChangeText={(text) => {
                             setPassword({
                                 value: text,
                                 error: '',
+                                color:
+                                    passwordValidator(text) === ''
+                                        ? colors.primary
+                                        : colors.light,
                             })
                             setError('')
                         }}
@@ -167,7 +161,11 @@ function LoginScreen({ navigation }) {
                         secureTextEntry={!passwordVisible}
                         value={password.value}
                     />
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('ForgotPassword')
+                        }}
+                    >
                         <Text
                             style={{
                                 fontSize: ft(14),
@@ -180,16 +178,17 @@ function LoginScreen({ navigation }) {
                             Forgot Password?
                         </Text>
                     </TouchableOpacity>
-                    <View style={{ marginTop: MARGIN_VERTICAL_SHORT }}>
+                    <View style={{ marginTop: HORIZONTAL_SPACE }}>
                         <Button
-                            color={colors.primary}
+                            backgroundColor={colors.primary}
+                            borderTextColor={colors.white}
                             filled
                             onPress={onPressLogin}
                             title='Log in'
                         />
                         <Divider />
                         <Button
-                            color={colors.light}
+                            borderTextColor={colors.light}
                             title='Sign up'
                             onPress={() => {
                                 navigation.navigate('Register')
@@ -204,26 +203,17 @@ function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+    background: {
+        justifyContent: 'space-between',
+    },
+    container: {
+        marginHorizontal: HORIZONTAL_SPACE,
+    },
     error: {
         color: colors.danger,
         fontSize: ft('14'),
         alignSelf: 'center',
     },
-    background: {
-        backgroundColor: colors.primary,
-        justifyContent: 'space-between',
-    },
-    backButton: {
-        // top: MARGIN_VERTICAL_TALL,
-    },
-    container: {
-        marginHorizontal: MARGIN_HORIZONTAL,
-        // marginBottom:
-        //     Platform.OS === 'ios'
-        //         ? MARGIN_VERTICAL_TALL
-        //         : MARGIN_VERTICAL_SHORT,
-    },
-
     formContainer: {
         backgroundColor: colors.white,
         borderTopLeftRadius: 25,
@@ -233,9 +223,6 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontSize: ft(28),
         marginTop: hp(10),
-        // marginTop: DeviceInfo.hasNotch()
-        //     ? MARGIN_VERTICAL_TALL * 2
-        //     : MARGIN_VERTICAL_SHORT,
     },
 })
 

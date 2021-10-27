@@ -33,52 +33,45 @@ const menuItems = [
 function ProfileScreen({ navigation }) {
     return (
         <Background style={styles.background}>
-            <SafeAreaView style={styles.container}>
-                {/* <Logo style={styles.container} color={colors.black} /> */}
-                <ListItem
-                    title='User'
-                    subTitle='user@mail.com'
-                    image={require('../assets/avatar.jpeg')}
-                    onPress={() => {
-                        navigation.navigate('ProfileEdit')
-                    }}
-                />
-                <FlatList />
-                <View style={styles.container}>
-                    <Text style={styles.title}>Account</Text>
-                    <FlatList
-                        scrollEnabled={false}
-                        data={menuItems}
-                        keyExtractor={(menuItem) => menuItem.title}
-                        ItemSeparatorComponent={ListItemSeparator}
-                        renderItem={({ item }) => (
-                            <ListItem
-                                title={item.title}
-                                IconComponent={
-                                    <AntDesign
-                                        name={item.icon.name}
-                                        size={20}
-                                        color={colors.black}
-                                    />
-                                }
-                                // onPress={() =>
-                                //     navigation.navigate(item.targetScreen)
-                                // }
-                            />
-                        )}
-                    />
-                </View>
-                <ListItem
-                    title='Log Out'
-                    IconComponent={
-                        <AntDesign
-                            color={colors.black}
-                            name='logout'
-                            size={20}
+            <Logo style={styles.container} color={colors.black} />
+            <ListItem
+                title='User'
+                subTitle='user@mail.com'
+                image={require('../assets/avatar.png')}
+                onPress={() => {
+                    navigation.navigate('ProfileEdit')
+                }}
+            />
+            <View style={styles.container}>
+                <Text style={styles.title}>Account</Text>
+                <FlatList
+                    scrollEnabled={false}
+                    data={menuItems}
+                    keyExtractor={(menuItem) => menuItem.title}
+                    ItemSeparatorComponent={ListItemSeparator}
+                    renderItem={({ item }) => (
+                        <ListItem
+                            title={item.title}
+                            IconComponent={
+                                <AntDesign
+                                    name={item.icon.name}
+                                    size={20}
+                                    color={colors.black}
+                                />
+                            }
+                            // onPress={() =>
+                            //     navigation.navigate(item.targetScreen)
+                            // }
                         />
-                    }
+                    )}
                 />
-            </SafeAreaView>
+            </View>
+            <ListItem
+                title='Log Out'
+                IconComponent={
+                    <AntDesign color={colors.black} name='logout' size={20} />
+                }
+            />
         </Background>
     )
 }

@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
-import AuthContainer from '../components/AuthContainer'
 import Background from '../components/Background'
 import Button from '../components/Button'
 import Divider from '../components/Divider'
@@ -12,39 +11,46 @@ import colors from '../config/colors'
 import {
     emailValidator,
     ft,
-    highlightInput,
     hp,
     nameValidator,
     passwordValidator,
     wp,
 } from '../config/const'
 
-const MARGIN_HORIZONTAL = wp(5)
-const MARGIN_VERTICAL_TALL = hp(6)
-const MARGIN_VERTICAL_SHORT = hp(3)
+const HORIZONTAL_SPACE = wp(5)
 const ICON_SIZE = wp(5)
 
 function RegisterScreen({ navigation }) {
-    const [name, setName] = useState({ value: '', error: '' })
-    const [email, setEmail] = useState({ value: '', error: '' })
-    const [password, setPassword] = useState({ value: '', error: '' })
+    const [name, setName] = useState({
+        value: '',
+        error: '',
+        color: colors.light,
+    })
+    const [email, setEmail] = useState({
+        value: '',
+        error: '',
+        color: colors.light,
+    })
+    const [password, setPassword] = useState({
+        value: '',
+        error: '',
+        color: colors.light,
+    })
     const [error, setError] = useState('')
 
     const [passwordVisible, setPasswordVisible] = useState(false)
-    const PasswordToggleIcon = () => {
-        return (
-            <FontAwesome
-                name={passwordVisible ? 'eye-slash' : 'eye'}
-                color={colors.light}
-                size={ICON_SIZE}
-                onPress={() => {
-                    setPasswordVisible(!passwordVisible)
-                }}
-            />
-        )
-    }
 
-    const registerUser = async () => {
+    const onPressSignup = async () => {
+        const nameError = nameValidator(name.value)
+        const emailError = emailValidator(email.value)
+        const passwordError = passwordValidator(password.value)
+        if (nameError || emailError || passwordError) {
+            setName({ ...name, error: nameError })
+            setEmail({ ...email, error: emailError })
+            setPassword({ ...password, error: passwordError })
+            return
+        }
+
         try {
             const newUser = [
                 {
@@ -59,18 +65,22 @@ function RegisterScreen({ navigation }) {
 
             if (result === null) {
                 AsyncStorage.setItem('users', JSON.stringify(newUser))
-                return true
+                return
             }
 
             let users = JSON.parse(result)
             for (let i = 0; i < users.length; i++) {
                 if (users[i].email === email.value.toLowerCase()) {
                     setError('Email already registered')
-                    return false
+                    return
                 } else {
                     let merged = users.concat(newUser[0])
                     AsyncStorage.setItem('users', JSON.stringify(merged))
-                    return true
+
+                    setName({ value: '', error: '', color: colors.light })
+                    setEmail({ value: '', error: '', color: colors.light })
+                    setPassword({ value: '', error: '', color: colors.light })
+                    navigation.navigate('Login')
                 }
             }
         } catch (err) {
@@ -78,34 +88,49 @@ function RegisterScreen({ navigation }) {
         }
     }
 
-    const onPressSignup = async () => {
-        const nameError = nameValidator(name.value)
-        const emailError = emailValidator(email.value)
-        const passwordError = passwordValidator(password.value)
-        if (nameError || emailError || passwordError) {
-            setName({ ...name, error: nameError })
-            setEmail({ ...email, error: emailError })
-            setPassword({ ...password, error: passwordError })
-            return
-        }
+    const IconAlignCenter = ({ children }) => (
+        <View style={{ width: ICON_SIZE, alignItems: 'center' }}>
+            {children}
+        </View>
+    )
 
-        const result = await registerUser()
-        if (result) {
-            setName({ value: '', error: '' })
-            setEmail({ value: '', error: '' })
-            setPassword({ value: '', error: '' })
-            navigation.navigate('Login')
-        }
-    }
+    const NameIcon = () => (
+        <IconAlignCenter>
+            <FontAwesome color={name.color} name='user' size={ICON_SIZE} />
+        </IconAlignCenter>
+    )
+    const EmailIcon = () => (
+        <IconAlignCenter>
+            <FontAwesome name='envelope' color={email.color} size={ICON_SIZE} />
+        </IconAlignCenter>
+    )
+
+    const PasswordIcon = () => (
+        <IconAlignCenter>
+            <FontAwesome color={password.color} name='lock' size={ICON_SIZE} />
+        </IconAlignCenter>
+    )
+
+    const PasswordToggleIcon = () => (
+        <IconAlignCenter>
+            <FontAwesome
+                color={password.color}
+                name={passwordVisible ? 'eye-slash' : 'eye'}
+                onPress={() => {
+                    setPasswordVisible(!passwordVisible)
+                }}
+                size={ICON_SIZE}
+            />
+        </IconAlignCenter>
+    )
 
     return (
-        <Background style={styles.background}>
+        <Background color={colors.primary} style={styles.background}>
             <View style={styles.container}>
                 <FontAwesome
                     color={colors.white}
                     name='chevron-left'
                     size={ICON_SIZE}
-                    style={styles.backButton}
                     onPress={() => {
                         navigation.goBack()
                     }}
@@ -116,26 +141,39 @@ function RegisterScreen({ navigation }) {
             <View style={styles.formContainer}>
                 <View style={styles.container}>
                     <FormInput
-                        color={highlightInput(name.value)}
+                        color={name.color}
                         error={name.error}
-                        icon='user'
+                        Icon={<NameIcon />}
+                        maxLength={20}
                         onChangeText={(text) => {
                             setName({
                                 value: text,
                                 error: '',
+                                color:
+                                    nameValidator(text) === '' &&
+                                    text.length > 0
+                                        ? colors.primary
+                                        : colors.light,
                             })
+                            setError('')
                         }}
                         placeholder='Name'
                         value={name.value}
                     />
                     <FormInput
-                        color={highlightInput(email.value)}
+                        color={email.color}
                         error={email.error}
-                        icon='envelope'
+                        Icon={<EmailIcon />}
+                        maxLength={20}
                         onChangeText={(text) => {
                             setEmail({
                                 value: text,
                                 error: '',
+                                color:
+                                    emailValidator(text) === '' &&
+                                    text.length > 0
+                                        ? colors.primary
+                                        : colors.light,
                             })
                             setError('')
                         }}
@@ -143,38 +181,44 @@ function RegisterScreen({ navigation }) {
                         value={email.value}
                     />
                     <FormInput
-                        color={highlightInput(password.value)}
+                        color={password.color}
                         error={password.error}
-                        extraIcon={<PasswordToggleIcon />}
-                        icon='lock'
+                        ExtraIcon={<PasswordToggleIcon />}
+                        Icon={<PasswordIcon />}
+                        maxLength={20}
                         onChangeText={(text) => {
                             setPassword({
                                 value: text,
                                 error: '',
+                                color:
+                                    passwordValidator(text) === '' &&
+                                    text.length > 0
+                                        ? colors.primary
+                                        : colors.light,
                             })
+                            setError('')
                         }}
                         placeholder='Password'
                         secureTextEntry={!passwordVisible}
                         value={password.value}
                     />
-                    <View style={{ marginTop: MARGIN_VERTICAL_SHORT }}>
+                    <View style={{ marginTop: HORIZONTAL_SPACE }}>
                         <Button
                             title='Sign up'
-                            color={colors.primary}
+                            backgroundColor={colors.primary}
+                            borderTextColor={colors.white}
                             filled
                             onPress={onPressSignup}
                         />
                         <Divider />
                         <Button
                             title='Log in'
-                            color={colors.light}
+                            borderTextColor={colors.light}
                             onPress={() => {
                                 navigation.navigate('Login')
                             }}
                         />
-                        {error ? (
-                            <Text style={styles.error}>{error}</Text>
-                        ) : null}
+                        <Text style={styles.error}>{error}</Text>
                     </View>
                 </View>
             </View>
@@ -188,24 +232,11 @@ const styles = StyleSheet.create({
         fontSize: ft('14'),
         alignSelf: 'center',
     },
-    error: {
-        color: colors.danger,
-        fontSize: ft('14'),
-        alignSelf: 'center',
-    },
     background: {
-        backgroundColor: colors.primary,
         justifyContent: 'space-between',
     },
-    backButton: {
-        // top: MARGIN_VERTICAL_TALL,
-    },
     container: {
-        marginHorizontal: MARGIN_HORIZONTAL,
-        // marginBottom:
-        //     Platform.OS === 'ios'
-        //         ? MARGIN_VERTICAL_TALL
-        //         : MARGIN_VERTICAL_SHORT,
+        marginHorizontal: HORIZONTAL_SPACE,
     },
 
     formContainer: {
@@ -217,9 +248,6 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontSize: ft(28),
         marginTop: hp(10),
-        // marginTop: DeviceInfo.hasNotch()
-        //     ? MARGIN_VERTICAL_TALL * 2
-        //     : MARGIN_VERTICAL_SHORT,
     },
 })
 

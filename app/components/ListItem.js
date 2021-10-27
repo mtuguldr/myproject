@@ -3,7 +3,7 @@ import { Image, View, StyleSheet, TouchableHighlight, Text } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
 import colors from '../config/colors'
-import { ft } from '../config/const'
+import { ft, wp } from '../config/const'
 
 function ListItem({ title, subTitle, image, IconComponent, onPress }) {
     return (
@@ -39,12 +39,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     image: {
-        width: 70,
-        height: 70,
-        borderRadius: 35,
+        width: wp(20),
+        height: wp(20),
+        borderRadius: wp(20) / 2,
     },
     title: {
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         fontSize: ft(14),
         color: colors.black,
     },

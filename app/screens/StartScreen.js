@@ -13,7 +13,7 @@ const MARGIN_VERTICAL_SHORT = hp(3)
 
 function StartScreen({ navigation }) {
     return (
-        <Background style={styles.background}>
+        <Background color={colors.primary} style={styles.background}>
             <Logo />
             <View style={styles.container}>
                 <Text style={styles.title}>Water Delivery</Text>
@@ -22,7 +22,8 @@ function StartScreen({ navigation }) {
                 </Text>
 
                 <Button
-                    color={colors.white}
+                    backgroundColor={colors.white}
+                    borderTextColor={colors.primary}
                     filled
                     onPress={() => {
                         navigation.navigate('Login')
@@ -30,7 +31,7 @@ function StartScreen({ navigation }) {
                     title='Log in'
                 />
                 <Button
-                    color={colors.white}
+                    borderTextColor={colors.white}
                     onPress={() => {
                         navigation.navigate('Register')
                     }}
@@ -43,7 +44,7 @@ function StartScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     background: {
-        backgroundColor: colors.primary,
+        // backgroundColor: colors.primary,
         paddingHorizontal: wp(5),
         justifyContent: 'space-between',
     },
