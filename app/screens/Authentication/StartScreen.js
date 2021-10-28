@@ -1,12 +1,9 @@
-import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
 import { Platform, StyleSheet, Text, View } from 'react-native'
 
-import Background from '../components/Background'
-import Button from '../components/Button'
-import Logo from '../components/Logo'
-import colors from '../config/colors'
-import { ft, hp, wp } from '../config/const'
+import { Background, Button, Logo } from '../../components'
+import colors from '../../config/colors'
+import { ft, hp, wp } from '../../config/const'
 
 const MARGIN_VERTICAL_TALL = hp(6)
 const MARGIN_VERTICAL_SHORT = hp(3)

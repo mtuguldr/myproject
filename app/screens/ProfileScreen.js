@@ -33,7 +33,6 @@ const menuItems = [
 function ProfileScreen({ navigation }) {
     return (
         <Background style={styles.background}>
-            <Logo style={styles.container} color={colors.black} />
             <ListItem
                 title='User'
                 subTitle='user@mail.com'

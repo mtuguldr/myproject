@@ -2,11 +2,9 @@ import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
-import Background from '../components/Background'
-import Button from '../components/Button'
-import FormInput from '../components/FormInput'
-import colors from '../config/colors'
-import { ft, hp, wp } from '../config/const'
+import { Background, Button, FormInput } from '../../components'
+import colors from '../../config/colors'
+import { ft, hp, wp } from '../../config/const'
 
 const ICON_SIZE = wp(5)
 const HORIZONTAL_SPACE = wp(5)

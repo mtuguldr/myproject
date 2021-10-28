@@ -1,54 +1,86 @@
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import AuthNavigator from './app/navigation/AuthNavigator'
+import { SafeAreaView, StyleSheet, View } from 'react-native'
+import { ft, wp } from './app/config/const'
+import CustomHeader from './app/components/CustomHeader'
+import { NavigationContainer } from '@react-navigation/native'
 import TabNavigator from './app/navigation/TabNavigator'
-import Background from './app/components/Background'
-import { SafeAreaView, Text, View } from 'react-native'
-import colors from './app/config/colors'
-import { ft, hp, wp } from './app/config/const'
+import DrawerNavigator from './app/navigation/DrawerNavigator'
 
 export default function App() {
     return (
-        // <NavigationContainer>
-        //     <TabNavigator />
-        // </NavigationContainer>
-        <View style={{ flex: 1 }}>
-            <View
-                style={{
-                    backgroundColor: colors.primary,
-                    height: hp(10),
-                    width: wp(100),
-                }}
-            >
-                <SafeAreaView
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        // justifyContent: 'center',
-                        width: '100%',
-                    }}
-                >
-                    {/* <FontAwesome
-                        name='chevron-left'
-                        color='white'
-                        size={wp(5)}
-                    /> */}
-
-                    <View style={{ flex: 1 }}>
-                        <Text
-                            style={{
-                                textAlign: 'center',
-                                fontSize: ft(20),
-                                color: 'white',
-                            }}
-                        >
-                            Text
-                        </Text>
-                    </View>
-                </SafeAreaView>
-            </View>
-        </View>
+        // <View style={{ backgroundColor: 'orange', flex: 1 }}>
+        //     {/* <View style={{ backgroundColor: 'red', flex: 1 }} /> */}
+        //     <CustomHeader
+        //         title='Home'
+        //         titleStyle={{
+        //             color: 'black',
+        //             fontSize: ft(16),
+        //             fontWeight: 'bold',
+        //         }}
+        //         headerLeft={
+        //             <FontAwesome
+        //                 name='chevron-left'
+        //                 size={wp(5)}
+        //                 color='black'
+        //             />
+        //         }
+        //         headerRight={
+        //             <>
+        //                 <FontAwesome
+        //                     name='shopping-cart'
+        //                     size={wp(5)}
+        //                     color='black'
+        //                 />
+        //                 {/* <FontAwesome
+        //                      name='shopping-cart'
+        //                      size={wp(5)}
+        //                      color='black'
+        //                  /> */}
+        //             </>
+        //         }
+        //     />
+        // </View>
+        <NavigationContainer>
+            <DrawerNavigator />
+        </NavigationContainer>
+        // <View style={{ backgroundColor: '#f2f2f2', flex: 1 }}>
+        //     <CustomHeader
+        //         title='Home'
+        //         titleStyle={{
+        //             color: 'black',
+        //             fontSize: ft(16),
+        //             fontWeight: 'bold',
+        //         }}
+        //         // headerLeft={
+        //         //     <FontAwesome
+        //         //         name='chevron-left'
+        //         //         size={wp(5)}
+        //         //         color='black'
+        //         //     />
+        //         // }
+        //         headerRight={
+        //             <>
+        //                 <FontAwesome
+        //                     name='shopping-cart'
+        //                     size={wp(5)}
+        //                     color='black'
+        //                 />
+        //                 {/* <FontAwesome
+        //                     name='shopping-cart'
+        //                     size={wp(5)}
+        //                     color='black'
+        //                 /> */}
+        //             </>
+        //         }
+        //     />
+        // </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        paddingHorizontal: wp(2),
+    },
+})

@@ -2,65 +2,16 @@ import * as React from 'react'
 import { Text, View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import ProfileScreen from '../screens/ProfileScreen'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import ProfileEditScreen from '../screens/ProfileEditScreen'
-import { createStackNavigator } from '@react-navigation/stack'
-import Button from '../components/Button'
-import colors from '../config/colors'
-
-function HomeScreen() {
-    return (
-        <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-            <Text>Home!</Text>
-        </View>
-    )
-}
-
-function SearchScreen() {
-    return (
-        <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-            <Text>Search!</Text>
-        </View>
-    )
-}
-
-function ProfileStack() {
-    return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
-            <Stack.Screen name='ProfileEdit' component={ProfileEditScreen} />
-        </Stack.Navigator>
-    )
-}
-
-function CategoryScreen({ navigation }) {
-    return (
-        <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-            <Text>Category!</Text>
-            <Button
-                title='Go to Home'
-                onPress={() => {
-                    navigation.navigate('Home')
-                }}
-            />
-        </View>
-    )
-}
+import HomeScreen from '../screens/HomeScreen'
+import SearchScreen from '../screens/SearchScreen'
+import CategoryScreen from '../screens/CategoryScreen'
+import ProfileScreen from '../screens/ProfileScreen'
 
 const Tab = createBottomTabNavigator()
-const Stack = createStackNavigator()
-
 function TabNavigator() {
     return (
         <Tab.Navigator>
-            {/* screenOptions={{ headerShown: false }}> */}
             <Tab.Screen
                 name='Home'
                 component={HomeScreen}
@@ -68,7 +19,6 @@ function TabNavigator() {
                     tabBarIcon: ({ size, color }) => (
                         <AntDesign name='home' size={size} color={color} />
                     ),
-                    // tabBarActiveTintColor: colors.primary,
                 }}
             />
             <Tab.Screen
@@ -95,11 +45,12 @@ function TabNavigator() {
             />
             <Tab.Screen
                 name='Profile'
-                component={ProfileStack}
+                component={ProfileScreen}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <AntDesign name='user' size={size} color={color} />
                     ),
+                    // headerShown: false,
                 }}
             />
         </Tab.Navigator>

@@ -1,88 +1,72 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import Background from '../components/Background'
-import Button from '../components/Button'
-import Divider from '../components/Divider'
-import FormInput from '../components/FormInput'
-import colors from '../config/colors'
+import { Background, Button, FormInput, Divider } from '../../components'
+import colors from '../../config/colors'
 import {
-    emailValidator,
     ft,
     hp,
-    nameValidator,
-    passwordValidator,
     wp,
-} from '../config/const'
+    emailValidator,
+    passwordValidator,
+} from '../../config/const'
 
 const HORIZONTAL_SPACE = wp(5)
 const ICON_SIZE = wp(5)
 
-function RegisterScreen({ navigation }) {
-    const [name, setName] = useState({
-        value: '',
-        error: '',
-        color: colors.light,
-    })
+function LoginScreen({ navigation }) {
     const [email, setEmail] = useState({
-        value: '',
-        error: '',
         color: colors.light,
+        error: '',
+        value: '',
     })
     const [password, setPassword] = useState({
-        value: '',
-        error: '',
         color: colors.light,
+        error: '',
+        value: '',
     })
     const [error, setError] = useState('')
-
     const [passwordVisible, setPasswordVisible] = useState(false)
 
-    const onPressSignup = async () => {
-        const nameError = nameValidator(name.value)
+    const onPressLogin = async () => {
         const emailError = emailValidator(email.value)
         const passwordError = passwordValidator(password.value)
-        if (nameError || emailError || passwordError) {
-            setName({ ...name, error: nameError })
+        if (emailError || passwordError) {
             setEmail({ ...email, error: emailError })
             setPassword({ ...password, error: passwordError })
             return
         }
 
         try {
-            const newUser = [
-                {
-                    name: name.value,
-                    email: email.value.toLowerCase(),
-                    password: password.value,
-                    loggedIn: false,
-                },
-            ]
-
             let result = await AsyncStorage.getItem('users')
 
             if (result === null) {
-                AsyncStorage.setItem('users', JSON.stringify(newUser))
+                setError("User doesn't exist")
                 return
             }
-
-            let users = JSON.parse(result)
+            const users = JSON.parse(result)
+            console.log(`users`, users)
             for (let i = 0; i < users.length; i++) {
-                if (users[i].email === email.value.toLowerCase()) {
-                    setError('Email already registered')
-                    return
-                } else {
-                    let merged = users.concat(newUser[0])
-                    AsyncStorage.setItem('users', JSON.stringify(merged))
+                if (
+                    email.value.toLowerCase() === users[i].email &&
+                    password.value === users[i].password
+                ) {
+                    users[i].loggedIn = true
+                    AsyncStorage.setItem('users', JSON.stringify(users))
 
-                    setName({ value: '', error: '', color: colors.light })
-                    setEmail({ value: '', error: '', color: colors.light })
-                    setPassword({ value: '', error: '', color: colors.light })
-                    navigation.navigate('Login')
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Dashboard' }],
+                    })
+                    return
                 }
+                setError('Email or password is incorrect')
+                return
             }
+            setError("User doesn't exist")
         } catch (err) {
             console.log(err)
         }
@@ -94,14 +78,14 @@ function RegisterScreen({ navigation }) {
         </View>
     )
 
-    const NameIcon = () => (
-        <IconAlignCenter>
-            <FontAwesome color={name.color} name='user' size={ICON_SIZE} />
-        </IconAlignCenter>
-    )
     const EmailIcon = () => (
         <IconAlignCenter>
-            <FontAwesome name='envelope' color={email.color} size={ICON_SIZE} />
+            <FontAwesome color={email.color} name='envelope' size={ICON_SIZE} />
+        </IconAlignCenter>
+    )
+    const EmailCheckIcon = () => (
+        <IconAlignCenter>
+            <FontAwesome name='check' color={email.color} size={ICON_SIZE} />
         </IconAlignCenter>
     )
 
@@ -110,7 +94,6 @@ function RegisterScreen({ navigation }) {
             <FontAwesome color={password.color} name='lock' size={ICON_SIZE} />
         </IconAlignCenter>
     )
-
     const PasswordToggleIcon = () => (
         <IconAlignCenter>
             <FontAwesome
@@ -135,34 +118,14 @@ function RegisterScreen({ navigation }) {
                         navigation.goBack()
                     }}
                 />
-
-                <Text style={styles.title}>Create{'\n'}Account</Text>
+                <Text style={styles.title}>Welcome{'\n'}Back</Text>
             </View>
             <View style={styles.formContainer}>
                 <View style={styles.container}>
                     <FormInput
-                        color={name.color}
-                        error={name.error}
-                        Icon={<NameIcon />}
-                        maxLength={20}
-                        onChangeText={(text) => {
-                            setName({
-                                value: text,
-                                error: '',
-                                color:
-                                    nameValidator(text) === '' &&
-                                    text.length > 0
-                                        ? colors.primary
-                                        : colors.light,
-                            })
-                            setError('')
-                        }}
-                        placeholder='Name'
-                        value={name.value}
-                    />
-                    <FormInput
                         color={email.color}
                         error={email.error}
+                        ExtraIcon={<EmailCheckIcon />}
                         Icon={<EmailIcon />}
                         maxLength={20}
                         onChangeText={(text) => {
@@ -191,8 +154,7 @@ function RegisterScreen({ navigation }) {
                                 value: text,
                                 error: '',
                                 color:
-                                    passwordValidator(text) === '' &&
-                                    text.length > 0
+                                    passwordValidator(text) === ''
                                         ? colors.primary
                                         : colors.light,
                             })
@@ -202,20 +164,37 @@ function RegisterScreen({ navigation }) {
                         secureTextEntry={!passwordVisible}
                         value={password.value}
                     />
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('ForgotPassword')
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontSize: ft(14),
+                                fontWeight: 'bold',
+                                textAlign: 'right',
+                                color: colors.primary,
+                                marginTop: hp('1%'),
+                            }}
+                        >
+                            Forgot Password?
+                        </Text>
+                    </TouchableOpacity>
                     <View style={{ marginTop: HORIZONTAL_SPACE }}>
                         <Button
-                            title='Sign up'
                             backgroundColor={colors.primary}
                             borderTextColor={colors.white}
                             filled
-                            onPress={onPressSignup}
+                            onPress={onPressLogin}
+                            title='Log in'
                         />
                         <Divider />
                         <Button
-                            title='Log in'
                             borderTextColor={colors.light}
+                            title='Sign up'
                             onPress={() => {
-                                navigation.navigate('Login')
+                                navigation.navigate('Register')
                             }}
                         />
                         <Text style={styles.error}>{error}</Text>
@@ -227,18 +206,17 @@ function RegisterScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    error: {
-        color: colors.danger,
-        fontSize: ft('14'),
-        alignSelf: 'center',
-    },
     background: {
         justifyContent: 'space-between',
     },
     container: {
         marginHorizontal: HORIZONTAL_SPACE,
     },
-
+    error: {
+        color: colors.danger,
+        fontSize: ft('14'),
+        alignSelf: 'center',
+    },
     formContainer: {
         backgroundColor: colors.white,
         borderTopLeftRadius: 25,
@@ -251,4 +229,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default RegisterScreen
+export default LoginScreen

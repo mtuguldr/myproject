@@ -3,11 +3,13 @@ import { createStackNavigator } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Text } from 'react-native'
-import LoginScreen from '../screens/LoginScreen'
-import RegisterScreen from '../screens/RegisterScreen'
-import StartScreen from '../screens/StartScreen'
 import Dashboard from '../screens/Dashboard'
-import ForgotPasswordScreen from '../screens/ForgotPasswordScreen'
+import {
+    ForgotPasswordScreen,
+    LoginScreen,
+    RegisterScreen,
+    StartScreen,
+} from '../screens/Authentication'
 
 const Stack = createStackNavigator()
 
