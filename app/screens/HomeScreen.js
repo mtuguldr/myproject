@@ -1,10 +1,17 @@
+import { DrawerActions } from '@react-navigation/routers'
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
+import { Button } from '../components'
 
-function HomeScreen(props) {
+function HomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
-            <Text>Home!</Text>
+            <Button
+                title='toggleDrawer'
+                onPress={() => {
+                    navigation.dispatch(DrawerActions.toggleDrawer())
+                }}
+            />
         </View>
     )
 }

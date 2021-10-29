@@ -42,8 +42,3 @@ export function passwordValidator(text) {
     if (text.length < 4) return 'Password must be at least 4 characters long'
     else return ''
 }
-
-export function highlightInput(text) {
-    const color = text.length > 0 ? colors.primary : colors.light
-    return color
-}

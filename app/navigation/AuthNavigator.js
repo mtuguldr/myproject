@@ -26,8 +26,6 @@ const AuthNavigator = () => {
             let result = await AsyncStorage.getItem('users')
             if (result === null) {
                 setLoggedIn(false)
-                console.log('setload')
-
                 return
             }
 
@@ -36,11 +34,9 @@ const AuthNavigator = () => {
             for (let i = 0; i < users.length; i++) {
                 if (users[i].loggedIn === true) {
                     setLoggedIn(true)
-                    console.log('setload')
                     return
                 }
             }
-            console.log('setload')
             setLoggedIn(false)
         } catch (err) {
             console.log(err)

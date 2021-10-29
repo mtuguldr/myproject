@@ -1,3 +1,4 @@
+import { createDrawerNavigator } from '@react-navigation/drawer'
 import React from 'react'
 import { View, StyleSheet, SafeAreaView, Text } from 'react-native'
 import { ft, hp } from '../config/const'
@@ -6,31 +7,28 @@ function CustomHeader({
     backgroundStyle,
     headerLeft,
     headerRight,
-    title,
+    title = 'Title',
     titleStyle,
+    style,
 }) {
     return (
         <SafeAreaView
             style={[
                 {
-                    backgroundColor: 'white',
-                    height: hp(10),
-                    backgroundColor: 'skyblue',
-                    flexDirection: 'row',
                     alignItems: 'center',
+                    backgroundColor: 'white',
+                    flexDirection: 'row',
+                    height: hp(10),
                 },
-                backgroundStyle,
             ]}
         >
             <View style={[styles.container, {}]}>{headerLeft}</View>
-            {/* <View>{headerLeft}</View> */}
             <View style={[styles.container, { alignItems: 'center' }]}>
                 <Text
                     style={[
                         {
-                            // alignSelf: 'center',
                             fontSize: ft(20),
-                            color: 'white',
+                            color: 'black',
                         },
                         titleStyle,
                     ]}
@@ -41,7 +39,6 @@ function CustomHeader({
             <View style={[styles.container, { alignItems: 'flex-end' }]}>
                 {headerRight}
             </View>
-            {/* {headerRight} */}
         </SafeAreaView>
     )
 }

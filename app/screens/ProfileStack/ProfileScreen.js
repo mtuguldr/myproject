@@ -1,13 +1,17 @@
 import React from 'react'
-import { View, StyleSheet, SafeAreaView, FlatList, Text } from 'react-native'
+import { View, StyleSheet, FlatList } from 'react-native'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
-import { ft, hp, wp } from '../config/const'
+import { ft } from '../../config/const'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import colors from '../config/colors'
-import ListItem from '../components/ListItem'
-import ListItemSeparator from '../components/ListItemSeperator'
-import Logo from '../components/Logo'
-import Background from '../components/Background'
+import colors from '../../config/colors'
+import ListItem from '../../components/ListItem'
+import ListItemSeparator from '../../components/ListItemSeperator'
+
+import Background from '../../components/Background'
+import CustomHeader from '../../components/CustomHeader'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { DrawerActions } from '@react-navigation/routers'
 
 const menuItems = [
     {
@@ -32,17 +36,17 @@ const menuItems = [
 
 function ProfileScreen({ navigation }) {
     return (
-        <Background style={styles.background}>
+        <Background color='#f2f2f2' style={styles.background}>
             <ListItem
                 title='User'
                 subTitle='user@mail.com'
-                image={require('../assets/avatar.png')}
+                image={require('../../assets/avatar.png')}
                 onPress={() => {
                     navigation.navigate('ProfileEdit')
                 }}
             />
             <View style={styles.container}>
-                <Text style={styles.title}>Account</Text>
+                {/* <Text style={styles.title}>Account</Text> */}
                 <FlatList
                     scrollEnabled={false}
                     data={menuItems}
@@ -58,9 +62,6 @@ function ProfileScreen({ navigation }) {
                                     color={colors.black}
                                 />
                             }
-                            // onPress={() =>
-                            //     navigation.navigate(item.targetScreen)
-                            // }
                         />
                     )}
                 />
@@ -76,9 +77,7 @@ function ProfileScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    background: {
-        backgroundColor: colors.white,
-    },
+    background: {},
     container: {
         marginVertical: 20,
     },

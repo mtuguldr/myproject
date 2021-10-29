@@ -6,10 +6,10 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import HomeScreen from '../screens/HomeScreen'
 import SearchScreen from '../screens/SearchScreen'
 import CategoryScreen from '../screens/CategoryScreen'
-import ProfileScreen from '../screens/ProfileScreen'
+import ProfileStack from '../screens/ProfileStack/ProfileStack'
 
 const Tab = createBottomTabNavigator()
-function TabNavigator() {
+function TabNavigator({ navigation }) {
     return (
         <Tab.Navigator>
             <Tab.Screen
@@ -44,13 +44,12 @@ function TabNavigator() {
                 }}
             />
             <Tab.Screen
-                name='Profile'
-                component={ProfileScreen}
+                name='ProfileStack'
+                component={ProfileStack}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <AntDesign name='user' size={size} color={color} />
                     ),
-                    // headerShown: false,
                 }}
             />
         </Tab.Navigator>
