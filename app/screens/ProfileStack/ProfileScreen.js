@@ -19,18 +19,21 @@ const menuItems = [
         icon: {
             name: 'bars',
         },
+        targetScreen: 'Orders',
     },
     {
         title: 'Wishlist',
         icon: {
             name: 'staro',
         },
+        targetScreen: 'Wishlist',
     },
     {
-        title: 'Payment',
+        title: 'Edit Profile',
         icon: {
-            name: 'wallet',
+            name: 'setting',
         },
+        targetScreen: 'ProfileEdit',
     },
 ]
 
@@ -61,6 +64,9 @@ function ProfileScreen({ navigation }) {
                                     size={20}
                                     color={colors.black}
                                 />
+                            }
+                            onPress={() =>
+                                navigation.navigate(item.targetScreen)
                             }
                         />
                     )}

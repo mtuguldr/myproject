@@ -1,67 +1,52 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
 import {
     createDrawerNavigator,
     DrawerContentScrollView,
+    DrawerItem,
     DrawerItemList,
 } from '@react-navigation/drawer'
 
-import { getHeaderTitle } from '@react-navigation/elements'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-
+import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
+// import CustomHeader from '../components/CustomHeader'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 import ListItem from '../components/ListItem'
-import HomeScreen from '../screens/HomeScreen'
-import ProfileStack from '../screens/ProfileStack/ProfileStack'
-import SearchScreen from '../screens/SearchScreen'
-import CategoryScreen from '../screens/CategoryScreen'
-import CustomHeader from '../components/CustomHeader'
-import { Button } from '../components'
-import { DrawerActions } from '@react-navigation/routers'
 import TabNavigator from './TabNavigator'
+import { ListItemSeparator } from '../components'
 
 const Drawer = createDrawerNavigator()
 
-function OrdersScreen({ navigation }) {
-    return (
-        <>
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <Text>Orders!</Text>
-                <Button
-                    onPress={() => {
-                        navigation.dispatch(DrawerActions.toggleDrawer())
-                    }}
-                    title='drawer'
-                />
-            </View>
-        </>
-    )
-}
+const drawerItems = [
+    {
+        title: 'Home',
+        icon: {
+            name: 'home',
+        },
+        targetScreen: 'Home',
+    },
+    {
+        title: 'Orders',
+        icon: {
+            name: 'bars',
+        },
+        targetScreen: 'Orders',
+    },
 
-function WishListScreen() {
-    return (
-        <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-            <Text>WishList!</Text>
-        </View>
-    )
-}
-
-function PaymentScreen() {
-    return (
-        <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-            <Text>Payment!</Text>
-        </View>
-    )
-}
+    {
+        title: 'Wishlist',
+        icon: {
+            name: 'staro',
+        },
+        targetScreen: 'Wishlist',
+    },
+    {
+        title: 'Payment',
+        icon: {
+            name: 'setting',
+        },
+        targetScreen: 'Payment',
+    },
+]
 
 const CustomDrawer = (props) => {
     return (
@@ -71,82 +56,110 @@ const CustomDrawer = (props) => {
                     title='User'
                     image={require('../assets/avatar.png')}
                     onPress={() => {
-                        props.navigation.navigate('ProfileEdit')
+                        props.navigation.navigate('Profile')
                     }}
                 />
-                <DrawerItemList {...props} />
+                <DrawerItem
+                    label='Home'
+                    icon={({ focused, color, size }) => (
+                        <AntDesign color={color} size={size} name='home' />
+                    )}
+                    focused={
+                        props.state.index ===
+                        props.state.routes.findIndex((e) => e.name === 'TabNav')
+                    }
+                    onPress={() => {
+                        console.log(`props.state.index`, props.state.index)
+                        console.log(`props.state.routes`, props.state.routes)
+                        props.navigation.navigate('Home')
+                    }}
+                />
+                <DrawerItem
+                    label='Orders1'
+                    focused={
+                        props.state.index ===
+                        props.state.routes.findIndex(
+                            (e) => e.name === 'Orders1'
+                        )
+                    }
+                    icon={({ focused, color, size }) => (
+                        <AntDesign color={color} size={size} name='bars' />
+                    )}
+                    onPress={() => props.navigation.navigate('Orders1')}
+                />
+                <DrawerItem
+                    label='Orders'
+                    icon={({ focused, color, size }) => (
+                        <AntDesign color={color} size={size} name='bars' />
+                    )}
+                    onPress={() => props.navigation.navigate('Orders')}
+                />
+                <DrawerItem
+                    label='WishList'
+                    icon={({ focused, color, size }) => (
+                        <AntDesign color={color} size={size} name='hearto' />
+                    )}
+                    onPress={() => props.navigation.navigate('Wishlist')}
+                />
+                <DrawerItem
+                    label='Payment'
+                    icon={({ focused, color, size }) => (
+                        <AntDesign
+                            color={color}
+                            size={size}
+                            name='creditcard'
+                        />
+                    )}
+                    onPress={() => props.navigation.navigate('Payment')}
+                />
             </DrawerContentScrollView>
         </View>
     )
 }
 
+function getHeaderTitle(route) {
+    // If the focused route is not found, we need to assume it's the initial screen
+    // This can happen during if there hasn't been any navigation inside the screen
+    // In our case, it's "Feed" as that's the first screen inside the navigator
+    const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
+
+    switch (routeName) {
+        case 'Home':
+            return 'Home'
+        case 'Search':
+            return 'Search'
+        case 'Category':
+            return 'Category'
+        case 'Profile':
+            return 'Profile'
+    }
+}
+
 function DrawerNavigator() {
     return (
         <Drawer.Navigator
+            screenOptions={({ route }) => ({
+                headerTitle: getHeaderTitle(route),
+            })}
             drawerContent={(props) => <CustomDrawer {...props} />}
-            screenOptions={{
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                    color: 'black',
-                },
-                headerTitleContainerStyle: {
-                    backgroundColor: 'blue',
-                },
-                headerBackgroundContainerStyle: {
-                    color: 'red',
-                },
-                headerStyle: {
-                    backgroundColor: 'red',
-                },
-                headerTintColor: 'white',
+        >
+            <Drawer.Screen name='TabNav' component={TabNavigator} />
+            <Drawer.Screen name='Orders1' component={OrdersScreen1} />
+        </Drawer.Navigator>
+    )
+}
 
-                // title: 'AppName',
-                // header: ({ navigation, route, options }) => {
-                //     const title = getHeaderTitle(options, route.name)
-
-                //     return (
-                //         <CustomHeader
-                //             title='wwater'
-                //             titleStyle={options.headerTitleStyle}
-                //             headerLeft={
-                //                 <FontAwesome
-                //                     name='bars'
-                //                     size={20}
-                //                     color='black'
-                //                     onPress={() => {
-                //                         navigation.dispatch(
-                //                             DrawerActions.toggleDrawer()
-                //                         )
-                //                     }}
-                //                 />
-                //             }
-                //             headerRight={
-                //                 <FontAwesome
-                //                     color='black'
-                //                     name='shopping-cart'
-                //                     size={20}
-                //                 />
-                //             }
-                //         />
-                //     )
-                // },
+function OrdersScreen1() {
+    return (
+        <View
+            style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
             }}
         >
-            <Drawer.Screen
-                name='TabNav'
-                component={TabNavigator}
-                options={
-                    {
-                        // drawerLabel: () => null,
-                        // title: null,
-                        // drawerIcon: () => null,
-                    }
-                }
-            />
-            <Drawer.Screen name='Orders' component={OrdersScreen} />
-            <Drawer.Screen name='WishList' component={WishListScreen} />
-            <Drawer.Screen name='Payment' component={PaymentScreen} />
-        </Drawer.Navigator>
+            <Text>Orders!</Text>
+        </View>
     )
 }
 

@@ -6,12 +6,7 @@ import { Button } from '../components'
 function HomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
-            <Button
-                title='toggleDrawer'
-                onPress={() => {
-                    navigation.dispatch(DrawerActions.toggleDrawer())
-                }}
-            />
+            <Text>Home!</Text>
         </View>
     )
 }
