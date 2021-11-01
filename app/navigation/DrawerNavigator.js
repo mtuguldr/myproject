@@ -1,126 +1,164 @@
-import React from 'react'
-import { View, Text, FlatList } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Switch } from 'react-native'
 import {
     createDrawerNavigator,
     DrawerContentScrollView,
     DrawerItem,
     DrawerItemList,
 } from '@react-navigation/drawer'
-
+import { DrawerActions } from '@react-navigation/routers'
 import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
-// import CustomHeader from '../components/CustomHeader'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+
+import { ft, hp, wp } from '../config/const'
+import { Icon } from '../components/Icon'
+import Header from '../components/Header'
 import ListItem from '../components/ListItem'
 import TabNavigator from './TabNavigator'
-import { ListItemSeparator } from '../components'
+import colors from '../config/colors'
 
 const Drawer = createDrawerNavigator()
 
-const drawerItems = [
-    {
-        title: 'Home',
-        icon: {
-            name: 'home',
-        },
-        targetScreen: 'Home',
-    },
-    {
-        title: 'Orders',
-        icon: {
-            name: 'bars',
-        },
-        targetScreen: 'Orders',
-    },
-
-    {
-        title: 'Wishlist',
-        icon: {
-            name: 'staro',
-        },
-        targetScreen: 'Wishlist',
-    },
-    {
-        title: 'Payment',
-        icon: {
-            name: 'setting',
-        },
-        targetScreen: 'Payment',
-    },
-]
-
-const CustomDrawer = (props) => {
+const Seperator = () => {
     return (
-        <View style={{ flex: 1 }}>
+        <View
+            style={{
+                width: '100%',
+                borderBottomColor: '#dcdcdc',
+                borderBottomWidth: 1,
+                left: 75,
+            }}
+        />
+    )
+}
+
+const DrawerContent = (props) => {
+    const [darkMode, setDarkMode] = useState(false)
+    return (
+        <View style={{ flex: 1, backgroundColor: '#dcdcdc' }}>
             <DrawerContentScrollView {...props}>
-                <ListItem
-                    title='User'
-                    image={require('../assets/avatar.png')}
-                    onPress={() => {
-                        props.navigation.navigate('Profile')
-                    }}
-                />
-                <DrawerItem
-                    label='Home'
-                    icon={({ focused, color, size }) => (
-                        <AntDesign color={color} size={size} name='home' />
-                    )}
-                    focused={
-                        props.state.index ===
-                        props.state.routes.findIndex((e) => e.name === 'TabNav')
-                    }
-                    onPress={() => {
-                        console.log(`props.state.index`, props.state.index)
-                        console.log(`props.state.routes`, props.state.routes)
-                        props.navigation.navigate('Home')
-                    }}
-                />
-                <DrawerItem
-                    label='Orders1'
-                    focused={
-                        props.state.index ===
-                        props.state.routes.findIndex(
-                            (e) => e.name === 'Orders1'
-                        )
-                    }
-                    icon={({ focused, color, size }) => (
-                        <AntDesign color={color} size={size} name='bars' />
-                    )}
-                    onPress={() => props.navigation.navigate('Orders1')}
-                />
-                <DrawerItem
-                    label='Orders'
-                    icon={({ focused, color, size }) => (
-                        <AntDesign color={color} size={size} name='bars' />
-                    )}
-                    onPress={() => props.navigation.navigate('Orders')}
-                />
-                <DrawerItem
-                    label='WishList'
-                    icon={({ focused, color, size }) => (
-                        <AntDesign color={color} size={size} name='hearto' />
-                    )}
-                    onPress={() => props.navigation.navigate('Wishlist')}
-                />
-                <DrawerItem
-                    label='Payment'
-                    icon={({ focused, color, size }) => (
-                        <AntDesign
-                            color={color}
-                            size={size}
-                            name='creditcard'
+                <View style={{ backgroundColor: 'red' }}>
+                    <ListItem
+                        title='User'
+                        image={require('../assets/avatar.png')}
+                        onPress={() => {
+                            props.navigation.navigate('Profile')
+                        }}
+                    />
+                </View>
+                <View
+                    style={{ marginVertical: hp(1), backgroundColor: 'white' }}
+                >
+                    <DrawerItem
+                        label='HOME'
+                        icon={({ focused, color, size }) => (
+                            <Icon
+                                iconFamily='AD'
+                                color={color}
+                                size={size}
+                                name='home'
+                            />
+                        )}
+                        // focused={
+                        //     props.state.index ===
+                        //     props.state.routes.findIndex((e) => e.name === 'TabNav')
+                        // }
+                        onPress={() => {
+                            console.log(`props.state.index`, props.state.index)
+                            console.log(
+                                `props.state.routes`,
+                                props.state.routes
+                            )
+                            props.navigation.navigate('Home')
+                        }}
+                    />
+                    <Seperator />
+                    <DrawerItem
+                        label='ORDERS'
+                        icon={({ focused, color, size }) => (
+                            <Icon
+                                iconFamily='AD'
+                                color={color}
+                                size={size}
+                                name='shoppingcart'
+                            />
+                        )}
+                        onPress={() => props.navigation.navigate('Orders')}
+                    />
+                    <Seperator />
+                    <DrawerItem
+                        label='WISHLIST'
+                        icon={({ focused, color, size }) => (
+                            <Icon
+                                iconFamily='AD'
+                                color={color}
+                                size={size}
+                                name='hearto'
+                            />
+                        )}
+                        onPress={() => props.navigation.navigate('Wishlist')}
+                    />
+                    <Seperator />
+                    <DrawerItem
+                        label='PAYMENT'
+                        labelStyle={{ borderWidth: 1 }}
+                        style={{ borderWidth: 1 }}
+                        icon={({ focused, color, size }) => {
+                            return (
+                                <Icon
+                                    style={{ borderWidth: 1 }}
+                                    iconFamily='AD'
+                                    color={color}
+                                    size={size}
+                                    name='creditcard'
+                                />
+                            )
+                        }}
+                        onPress={() => props.navigation.navigate('Payment')}
+                    />
+                </View>
+                <View
+                    style={{ marginVertical: hp(1), backgroundColor: 'white' }}
+                >
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            borderWidth: 1,
+                            marginHorizontal: 10,
+                            borderRadius: 5,
+                        }}
+                    >
+                        <Icon
+                            color='black'
+                            style={{ borderWidth: 1 }}
+                            iconFamily='AD'
+                            name='eyeo'
+                            size={24}
                         />
-                    )}
-                    onPress={() => props.navigation.navigate('Payment')}
-                />
+                        <Text
+                            style={{
+                                marginHorizontal: 18,
+                                borderWidth: 1,
+                                color: 'black',
+                            }}
+                        >
+                            DARK MODE
+                        </Text>
+
+                        <Switch
+                            value={darkMode}
+                            onChange={() => {
+                                setDarkMode(!darkMode)
+                            }}
+                        />
+                    </View>
+                </View>
             </DrawerContentScrollView>
         </View>
     )
 }
 
 function getHeaderTitle(route) {
-    // If the focused route is not found, we need to assume it's the initial screen
-    // This can happen during if there hasn't been any navigation inside the screen
-    // In our case, it's "Feed" as that's the first screen inside the navigator
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
 
     switch (routeName) {
@@ -135,31 +173,74 @@ function getHeaderTitle(route) {
     }
 }
 
-function DrawerNavigator() {
+function DrawerNavigator({ navigation }) {
     return (
         <Drawer.Navigator
-            screenOptions={({ route }) => ({
-                headerTitle: getHeaderTitle(route),
+            screenOptions={() => ({
+                header: ({ route }) => (
+                    <Header
+                        left={
+                            <Icon
+                                iconFamily='AD'
+                                color={colors.primary}
+                                name='bars'
+                                size={wp(6)}
+                                style={{
+                                    paddingHorizontal: 12,
+                                }}
+                                onPress={() => {
+                                    navigation.dispatch(
+                                        DrawerActions.openDrawer()
+                                    )
+                                }}
+                            />
+                        }
+                        center={
+                            <Text
+                                style={{
+                                    color: colors.black,
+                                    fontSize: ft(14),
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                {getHeaderTitle(route)}
+                            </Text>
+                        }
+                        right={
+                            <View style={{ flexDirection: 'row' }}>
+                                <Icon
+                                    iconFamily='AD'
+                                    color={colors.primary}
+                                    name='hearto'
+                                    size={wp(6)}
+                                    style={{
+                                        paddingHorizontal: 12,
+                                    }}
+                                    onPress={() => {
+                                        navigation.navigate('Wishlist')
+                                    }}
+                                />
+                                <Icon
+                                    iconFamily='AD'
+                                    color={colors.primary}
+                                    name='shoppingcart'
+                                    size={wp(6)}
+                                    style={{
+                                        paddingHorizontal: 12,
+                                    }}
+                                    onPress={() => {
+                                        navigation.navigate('Orders')
+                                    }}
+                                />
+                            </View>
+                        }
+                    />
+                ),
             })}
-            drawerContent={(props) => <CustomDrawer {...props} />}
+            drawerContent={(props) => <DrawerContent {...props} />}
         >
             <Drawer.Screen name='TabNav' component={TabNavigator} />
-            <Drawer.Screen name='Orders1' component={OrdersScreen1} />
         </Drawer.Navigator>
-    )
-}
-
-function OrdersScreen1() {
-    return (
-        <View
-            style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-        >
-            <Text>Orders!</Text>
-        </View>
     )
 }
 

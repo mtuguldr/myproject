@@ -9,9 +9,6 @@ import ListItem from '../../components/ListItem'
 import ListItemSeparator from '../../components/ListItemSeperator'
 
 import Background from '../../components/Background'
-import CustomHeader from '../../components/CustomHeader'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { DrawerActions } from '@react-navigation/routers'
 
 const menuItems = [
     {
@@ -49,7 +46,6 @@ function ProfileScreen({ navigation }) {
                 }}
             />
             <View style={styles.container}>
-                {/* <Text style={styles.title}>Account</Text> */}
                 <FlatList
                     scrollEnabled={false}
                     data={menuItems}
