@@ -1,9 +1,9 @@
 import React from 'react'
 import { Image, View, StyleSheet, TouchableHighlight, Text } from 'react-native'
-import AntDesign from 'react-native-vector-icons/AntDesign'
 
 import colors from '../config/colors'
 import { ft, wp } from '../config/const'
+import { Icon } from './Icon'
 
 function ListItem({ title, subTitle, image, IconComponent, onPress }) {
     return (
@@ -21,7 +21,12 @@ function ListItem({ title, subTitle, image, IconComponent, onPress }) {
                         </Text>
                     )}
                 </View>
-                <AntDesign color={colors.medium} name='right' size={15} />
+                <Icon
+                    iconFamily='AD'
+                    color={colors.medium}
+                    name='right'
+                    size={15}
+                />
             </View>
         </TouchableHighlight>
     )
@@ -47,6 +52,7 @@ const styles = StyleSheet.create({
         // fontWeight: 'bold',
         fontSize: ft(14),
         color: colors.black,
+        textTransform: 'capitalize',
     },
     subTitle: {
         color: colors.medium,

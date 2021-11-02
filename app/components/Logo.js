@@ -4,7 +4,7 @@ import colors from '../config/colors'
 import { ft } from '../config/const'
 
 function Logo({ color = colors.white }) {
-    return <Text style={[styles.text, { color: color }]}>wwater</Text>
+    return <Text style={[styles.text, { color: color }]}>shoppr</Text>
 }
 
 const styles = StyleSheet.create({

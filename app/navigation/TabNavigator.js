@@ -6,13 +6,21 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import HomeScreen from '../screens/HomeScreen'
 import SearchScreen from '../screens/SearchScreen'
 import CategoryScreen from '../screens/CategoryScreen'
-// import ProfileStack from '../screens/ProfileStack/ProfileStack'
 import ProfileScreen from '../screens/ProfileStack/ProfileScreen'
+import colors from '../config/colors'
 
 const Tab = createBottomTabNavigator()
 function TabNavigator() {
     return (
-        <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Navigator
+            screenOptions={{
+                headerShown: false,
+                tabBarActiveTintColor: colors.primary,
+                // tabBarActiveBackgroundColor: colors.lightest,
+                // tabBarInactiveTintColor: colors.white,
+                // tabBarInactiveBackgroundColor: colors.lightest,
+            }}
+        >
             <Tab.Screen
                 name='Home'
                 component={HomeScreen}

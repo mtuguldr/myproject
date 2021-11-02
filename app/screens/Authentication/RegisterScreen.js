@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
-import { Background, Button, FormInput } from '../../components'
+import { Background, Button, Divider, FormInput } from '../../components'
+import { Icon } from '../../components/Icon'
 import colors from '../../config/colors'
 import {
     ft,
@@ -93,24 +93,40 @@ function RegisterScreen({ navigation }) {
 
     const NameIcon = () => (
         <IconAlignCenter>
-            <FontAwesome color={name.color} name='user' size={ICON_SIZE} />
+            <Icon
+                iconFamily='FA'
+                color={name.color}
+                name='user'
+                size={ICON_SIZE}
+            />
         </IconAlignCenter>
     )
     const EmailIcon = () => (
         <IconAlignCenter>
-            <FontAwesome name='envelope' color={email.color} size={ICON_SIZE} />
+            <Icon
+                iconFamily='FA'
+                name='envelope'
+                color={email.color}
+                size={ICON_SIZE}
+            />
         </IconAlignCenter>
     )
 
     const PasswordIcon = () => (
         <IconAlignCenter>
-            <FontAwesome color={password.color} name='lock' size={ICON_SIZE} />
+            <Icon
+                iconFamily='FA'
+                color={password.color}
+                name='lock'
+                size={ICON_SIZE}
+            />
         </IconAlignCenter>
     )
 
     const PasswordToggleIcon = () => (
         <IconAlignCenter>
-            <FontAwesome
+            <Icon
+                iconFamily='FA'
                 color={password.color}
                 name={passwordVisible ? 'eye-slash' : 'eye'}
                 onPress={() => {
@@ -124,7 +140,8 @@ function RegisterScreen({ navigation }) {
     return (
         <Background color={colors.primary} style={styles.background}>
             <View style={styles.container}>
-                <FontAwesome
+                <Icon
+                    iconFamily='FA'
                     color={colors.white}
                     name='chevron-left'
                     size={ICON_SIZE}

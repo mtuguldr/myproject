@@ -13,9 +13,9 @@ function StartScreen({ navigation }) {
         <Background color={colors.primary} style={styles.background}>
             <Logo />
             <View style={styles.container}>
-                <Text style={styles.title}>Water Delivery</Text>
+                <Text style={styles.title}>Online Store</Text>
                 <Text style={[styles.description, styles.container]}>
-                    We deliver water at any point of the Earth in 30 minutes
+                    We deliver anything at any point of the Earth in 30 minutes
                 </Text>
 
                 <Button

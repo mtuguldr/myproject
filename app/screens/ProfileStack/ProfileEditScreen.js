@@ -6,7 +6,7 @@ import { ft, hp, wp } from '../../config/const'
 
 function ProfileEditScreen(props) {
     return (
-        <Background color='#f2f2f2' style={styles.background}>
+        <Background color={colors.screenBg} style={styles.background}>
             <View style={{ alignItems: 'center' }}>
                 {/* <Text style={styles.title}>Edit Profile</Text> */}
                 <Image

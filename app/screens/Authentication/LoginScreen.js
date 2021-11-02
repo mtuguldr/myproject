@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Background, Button, FormInput, Divider } from '../../components'
@@ -13,6 +12,7 @@ import {
     emailValidator,
     passwordValidator,
 } from '../../config/const'
+import { Icon } from '../../components/Icon'
 
 const HORIZONTAL_SPACE = wp(5)
 const ICON_SIZE = wp(5)
@@ -80,23 +80,39 @@ function LoginScreen({ navigation }) {
 
     const EmailIcon = () => (
         <IconAlignCenter>
-            <FontAwesome color={email.color} name='envelope' size={ICON_SIZE} />
+            <Icon
+                iconFamily='FA'
+                color={email.color}
+                name='envelope'
+                size={ICON_SIZE}
+            />
         </IconAlignCenter>
     )
     const EmailCheckIcon = () => (
         <IconAlignCenter>
-            <FontAwesome name='check' color={email.color} size={ICON_SIZE} />
+            <Icon
+                iconFamily='FA'
+                name='check'
+                color={email.color}
+                size={ICON_SIZE}
+            />
         </IconAlignCenter>
     )
 
     const PasswordIcon = () => (
         <IconAlignCenter>
-            <FontAwesome color={password.color} name='lock' size={ICON_SIZE} />
+            <Icon
+                iconFamily='FA'
+                color={password.color}
+                name='lock'
+                size={ICON_SIZE}
+            />
         </IconAlignCenter>
     )
     const PasswordToggleIcon = () => (
         <IconAlignCenter>
-            <FontAwesome
+            <Icon
+                iconFamily='FA'
                 color={password.color}
                 name={passwordVisible ? 'eye-slash' : 'eye'}
                 onPress={() => {
@@ -110,7 +126,8 @@ function LoginScreen({ navigation }) {
     return (
         <Background color={colors.primary} style={styles.background}>
             <View style={styles.container}>
-                <FontAwesome
+                <Icon
+                    iconFamily='FA'
                     color={colors.white}
                     name='chevron-left'
                     size={ICON_SIZE}

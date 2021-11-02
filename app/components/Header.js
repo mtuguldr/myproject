@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions } from 'react-native'
 
 import DeviceInfo from 'react-native-device-info'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
+import colors from '../config/colors'
 import { hp } from '../config/const'
 
 function Header({ left, right, center }) {
@@ -19,15 +20,15 @@ function Header({ left, right, center }) {
 
 const styles = StyleSheet.create({
     container: {
-        top: 0,
+        // elevation: 10,
         // position: 'absolute',
-        width: '100%',
-        backgroundColor: '#f8f8f8',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: '#dcdcdc',
         // shadowOffset: { width: 0, height: 2 },
         // shadowOpacity: 0.3,
-        // elevation: 10,
+        backgroundColor: colors.white,
+        borderBottomColor: colors.lightest,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        top: 0,
+        width: '100%',
     },
     content: {
         flexDirection: 'row',
