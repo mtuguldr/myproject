@@ -37,10 +37,10 @@ function Button({
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        borderRadius: 10,
-        padding: hp(2),
+        borderRadius: 5,
+        padding: hp(1),
         borderWidth: 1,
-        marginVertical: hp(1),
+        // marginVertical: hp(1),
     },
     text: {
         fontWeight: 'bold',

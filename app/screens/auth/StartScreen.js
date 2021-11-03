@@ -25,7 +25,7 @@ function StartScreen({ navigation }) {
                     onPress={() => {
                         navigation.navigate('Login')
                     }}
-                    title='Log in'
+                    title='Sign in'
                 />
                 <Button
                     borderTextColor={colors.white}

@@ -1,5 +1,12 @@
 import React from 'react'
-import { Image, View, StyleSheet, TouchableHighlight, Text } from 'react-native'
+import {
+    Image,
+    View,
+    StyleSheet,
+    TouchableHighlight,
+    Text,
+    TouchableOpacity,
+} from 'react-native'
 
 import colors from '../config/colors'
 import { ft, wp } from '../config/const'
@@ -7,7 +14,7 @@ import { Icon } from './Icon'
 
 function ListItem({ title, subTitle, image, IconComponent, onPress }) {
     return (
-        <TouchableHighlight onPress={onPress} underlayColor={colors.light}>
+        <TouchableOpacity onPress={onPress}>
             <View style={styles.container}>
                 {IconComponent}
                 {image && <Image style={styles.image} source={image} />}
@@ -23,12 +30,12 @@ function ListItem({ title, subTitle, image, IconComponent, onPress }) {
                 </View>
                 <Icon
                     iconFamily='AD'
-                    color={colors.medium}
+                    color={colors.white}
                     name='right'
                     size={15}
                 />
             </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
     )
 }
 
@@ -51,7 +58,7 @@ const styles = StyleSheet.create({
     title: {
         // fontWeight: 'bold',
         fontSize: ft(14),
-        color: colors.black,
+        color: colors.white,
         textTransform: 'capitalize',
     },
     subTitle: {

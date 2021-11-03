@@ -140,16 +140,6 @@ function RegisterScreen({ navigation }) {
     return (
         <Background color={colors.primary} style={styles.background}>
             <View style={styles.container}>
-                <Icon
-                    iconFamily='FA'
-                    color={colors.white}
-                    name='chevron-left'
-                    size={ICON_SIZE}
-                    onPress={() => {
-                        navigation.goBack()
-                    }}
-                />
-
                 <Text style={styles.title}>Create{'\n'}Account</Text>
             </View>
             <View style={styles.formContainer}>
@@ -226,7 +216,7 @@ function RegisterScreen({ navigation }) {
                         />
                         <Divider />
                         <Button
-                            title='Log in'
+                            title='Sign in'
                             borderTextColor={colors.light}
                             onPress={() => {
                                 navigation.navigate('Login')

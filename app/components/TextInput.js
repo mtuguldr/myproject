@@ -11,7 +11,7 @@ function AppTextInput({
     ...otherProps
 }) {
     return (
-        <View style={[styles.container, { borderBottomColor: color }]}>
+        <View style={[styles.container, { borderColor: color }]}>
             {Icon}
             <TextInput
                 style={[styles.text, { color: color }]}
@@ -26,7 +26,10 @@ function AppTextInput({
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
+        // paddingHorizontal: 10,
         borderBottomWidth: 1,
+        // borderWidth: 1,
+        // borderRadius: 5,
         flexDirection: 'row',
     },
     text: {

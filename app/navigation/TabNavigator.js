@@ -6,7 +6,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import HomeScreen from '../screens/HomeScreen'
 import SearchScreen from '../screens/SearchScreen'
 import CategoryScreen from '../screens/CategoryScreen'
-import ProfileScreen from '../screens/ProfileStack/ProfileScreen'
+import ProfileScreen from '../screens/profileStack/ProfileScreen'
 import colors from '../config/colors'
 
 const Tab = createBottomTabNavigator()

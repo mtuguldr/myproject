@@ -5,8 +5,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { ft, hp } from '../config/const'
 import TabNavigator from './TabNavigator'
 import colors from '../config/colors'
-import DrawerHeader from '../components/Drawer/DrawerHeader'
-import DrawerItemCustom from '../components/Drawer/DrawerItemCustom'
+import DrawerHeader from '../components/drawer/DrawerHeader'
+import DrawerItemCustom from '../components/drawer/DrawerItemCustom'
 import deviceInfoModule from 'react-native-device-info'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 import { ListItem, Separator } from '../components'
@@ -14,7 +14,12 @@ import { ListItem, Separator } from '../components'
 const Drawer = createDrawerNavigator()
 
 const DrawerHeadLogin = (props) => (
-    <>
+    <View
+        style={{
+            paddingBottom: 10,
+            paddingHorizontal: 10,
+        }}
+    >
         <Text
             style={{
                 color: colors.white,
@@ -39,6 +44,7 @@ const DrawerHeadLogin = (props) => (
                 borderRadius: 5,
                 backgroundColor: colors.white,
                 width: 100,
+                alignSelf: 'center',
             }}
             onPress={() => {
                 props.navigation.navigate('AuthNav')
@@ -54,7 +60,7 @@ const DrawerHeadLogin = (props) => (
                 sign in
             </Text>
         </TouchableOpacity>
-    </>
+    </View>
 )
 
 const DrawerHeadProfile = (props) => (
@@ -81,17 +87,14 @@ const DrawerContent = (props) => {
         <View style={styles.background}>
             <View
                 style={{
+                    backgroundColor: colors.primary,
                     paddingTop: deviceInfoModule.hasNotch()
                         ? getStatusBarHeight()
                         : 10,
-                    paddingBottom: 10,
-                    backgroundColor: colors.primary,
-                    alignItems: 'center',
                 }}
             >
                 <DrawerHeadLogin {...props} />
                 {/* <DrawerHeadProfile {...props} /> */}
-                {/* <DrawerContentScrollView {...props} scrollEnabled={false}> */}
             </View>
             <View style={styles.container}></View>
             <View style={[styles.container, { paddingVertical: 10 }]}>
@@ -126,10 +129,9 @@ const DrawerContent = (props) => {
                     }
                 />
             </View>
-            {/* <View style={styles.container}>
-                    <DrawerItemCustom title='LOG OUT' icon='logout' />
-                </View> */}
-            {/* </DrawerContentScrollView> */}
+            <View style={styles.container}>
+                <DrawerItemCustom title='LOG OUT' icon='logout' />
+            </View>
         </View>
     )
 }

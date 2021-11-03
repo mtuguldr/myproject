@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import DrawerNavigator from './DrawerNavigator'
-import ProfileEditScreen from '../screens/ProfileStack/ProfileEditScreen'
+import ProfileEditScreen from '../screens/profileStack/ProfileEditScreen'
 import { Icon } from '../components/Icon'
 import Header from '../components/Header'
 import colors from '../config/colors'
@@ -15,6 +15,19 @@ const Stack = createStackNavigator()
 
 const ICON_SIZE = wp(6)
 const ICON_COLOR = colors.primary
+
+function getHeaderTitle(route) {
+    const routeName = getFocusedRouteNameFromRoute(route) ?? 'Start'
+    switch (routeName) {
+        case 'Start':
+            return 'Start'
+        case 'Login':
+            return 'Login'
+        case 'Register':
+            return 'Register'
+    }
+}
+
 const mainStackHeader = (props) => {
     return (
         <Header
@@ -40,7 +53,7 @@ const mainStackHeader = (props) => {
                         color: colors.black,
                     }}
                 >
-                    {props.route.name}
+                    {getHeaderTitle(props.route)}
                 </Text>
             }
             {...props}
@@ -64,11 +77,7 @@ function MainNavigator() {
             <Stack.Screen name='Wishlist' component={WishListScreen} />
             <Stack.Screen name='Payment' component={PaymentScreen} />
             <Stack.Screen name='ProfileEdit' component={ProfileEditScreen} />
-            <Stack.Screen
-                name='AuthNav'
-                component={AuthNavigator}
-                options={{}}
-            />
+            <Stack.Screen name='AuthNav' component={AuthNavigator} />
         </Stack.Navigator>
     )
 }

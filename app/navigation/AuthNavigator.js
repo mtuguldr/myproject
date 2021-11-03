@@ -8,7 +8,7 @@ import {
     LoginScreen,
     RegisterScreen,
     StartScreen,
-} from '../screens/Authentication'
+} from '../screens/auth'
 
 const Stack = createStackNavigator()
 
@@ -29,7 +29,7 @@ const AuthNavigator = () => {
             }
 
             let users = JSON.parse(result)
-            console.log(`users`, users)
+            // console.log(`users`, users)
             for (let i = 0; i < users.length; i++) {
                 if (users[i].loggedIn === true) {
                     setLoggedIn(true)
@@ -44,7 +44,7 @@ const AuthNavigator = () => {
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name='Start' component={StartScreen} />
+            {/* <Stack.Screen name='Start' component={StartScreen} /> */}
             <Stack.Screen name='Login' component={LoginScreen} />
             <Stack.Screen name='Register' component={RegisterScreen} />
             <Stack.Screen
