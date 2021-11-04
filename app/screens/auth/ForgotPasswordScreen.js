@@ -1,14 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import { Background, Button, FormInput } from '../../components'
-import colors from '../../config/colors'
-import { ft, hp, wp } from '../../config/const'
+import defaultStyles from '../../config/styles'
+import { emailValidator, ft, hp, wp } from '../../config/const'
 
 const ICON_SIZE = wp(5)
 const HORIZONTAL_SPACE = wp(5)
 function ForgotPasswordScreen({ navigation }) {
+    const [email, setEmail] = useState({
+        value: '',
+        error: '',
+        color: defaultStyles.colors.light,
+    })
+    const [error, setError] = useState('')
+
+    const onSubmitPress = async () => {
+        const emailError = emailValidator(email.value)
+        if (emailError) {
+            setEmail({ ...email, error: emailError })
+            return
+        }
+        setError(
+            'Please check your email and reset your password using provided link'
+        )
+        navigation.goBack()
+    }
+
     const IconAlignCenter = ({ children }) => (
         <View style={{ width: ICON_SIZE, alignItems: 'center' }}>
             {children}
@@ -17,62 +36,66 @@ function ForgotPasswordScreen({ navigation }) {
 
     const EmailIcon = () => (
         <IconAlignCenter>
-            <FontAwesome
-                color={colors.white}
-                name='envelope'
-                size={ICON_SIZE}
-            />
+            <FontAwesome color={email.color} name='envelope' size={ICON_SIZE} />
         </IconAlignCenter>
     )
     return (
-        <Background color={colors.primary} style={styles.background}>
-            <View style={{ flex: 1 }}>
-                <FontAwesome
-                    color={colors.white}
-                    name='chevron-left'
-                    size={ICON_SIZE}
-                    onPress={() => {
-                        navigation.goBack()
-                    }}
-                />
-                <Text style={styles.title}>Forgot{'\n'}Password?</Text>
+        <View style={styles.background}>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+                <Text style={defaultStyles.title}>Reset password</Text>
+            </View>
+            <View style={{ flex: 2 }}>
+                <View style={styles.container}>
+                    <FormInput
+                        color={email.color}
+                        error={email.error}
+                        Icon={<EmailIcon />}
+                        maxLength={20}
+                        onChangeText={(text) => {
+                            setEmail({
+                                value: text,
+                                error: '',
+                                color:
+                                    emailValidator(text) === '' &&
+                                    text.length > 0
+                                        ? defaultStyles.colors.primary
+                                        : defaultStyles.colors.light,
+                            })
+                            setError('')
+                        }}
+                        placeholder='Email'
+                        value={email.value}
+                    />
+                </View>
             </View>
             <View style={{ flex: 1 }}>
-                <FormInput
-                    Icon={<EmailIcon />}
-                    color={colors.white}
-                    placeholder='Email'
-                />
                 <Button
-                    filled
-                    backgroundColor={colors.white}
-                    borderTextColor={colors.primary}
                     title='Submit'
+                    backgroundColor={defaultStyles.colors.primary}
+                    borderTextColor={defaultStyles.colors.white}
+                    filled
+                    onPress={onSubmitPress}
                 />
+                <Text style={[defaultStyles.text, styles.error]}>{error}</Text>
             </View>
-            {/* <View style={styles.formContainer}>
-                <View style={styles.container}></View>
-            </View> */}
-        </Background>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     background: {
-        justifyContent: 'space-between',
+        flex: 1,
+        // justifyContent: 'space-around',
         paddingHorizontal: HORIZONTAL_SPACE,
+        backgroundColor: '#fcfcfc',
     },
-    container: {},
-
-    formContainer: {
-        backgroundColor: colors.white,
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
+    container: {
+        marginVertical: hp(1),
     },
-    title: {
-        color: colors.white,
-        fontSize: ft(28),
-        marginTop: hp(10),
+    error: {
+        marginTop: hp(1),
+        color: defaultStyles.colors.ok,
+        textAlign: 'center',
     },
 })
 

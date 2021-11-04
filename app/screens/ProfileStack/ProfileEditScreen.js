@@ -1,46 +1,72 @@
 import React from 'react'
-import { View, StyleSheet, Text, Image } from 'react-native'
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
 import { Background, Button, FormInput } from '../../components'
-import colors from '../../config/colors'
+import defaultStyles from '../../config/styles'
 import { ft, hp, wp } from '../../config/const'
 
-function ProfileEditScreen(props) {
+const HORIZONTAL_SPACE = wp(5)
+function ProfileEditScreen({ route }) {
+    const user = route.params
     return (
-        <Background color={colors.screenBg} style={styles.background}>
-            <View style={{ alignItems: 'center' }}>
-                {/* <Text style={styles.title}>Edit Profile</Text> */}
-                <Image
-                    style={{
-                        width: wp(20),
-                        height: wp(20),
-                        borderRadius: wp(20) / 2,
-                    }}
-                    source={require('../../assets/avatar.png')}
+        <View style={styles.background}>
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <TouchableOpacity>
+                    <Image
+                        style={{
+                            width: wp(25),
+                            height: wp(25),
+                            borderRadius: wp(25) / 2,
+                        }}
+                        source={require('../../assets/avatar.png')}
+                    />
+                </TouchableOpacity>
+            </View>
+            <View style={{ flex: 2 }}>
+                <FormInput
+                    // color={defaultStyles.colors.black}
+                    value={user.name}
+                    placeholder='Name'
+                />
+                <FormInput
+                    // color={defaultStyles.colors.black}
+                    placeholder='Email'
+                />
+                <FormInput
+                    // color={defaultStyles.colors.black}
+                    placeholder='Password'
                 />
             </View>
-            <View>
-                <FormInput color={colors.black} placeholder='Name' />
-                <FormInput color={colors.black} placeholder='Email' />
-                <FormInput color={colors.black} placeholder='Password' />
+            <View style={{ flex: 1 }}>
+                <Button
+                    title='Save changes'
+                    filled
+                    borderTextColor={defaultStyles.colors.white}
+                    backgroundColor={defaultStyles.colors.primary}
+                />
             </View>
-            <View>
-                <Button title='Save changes' borderTextColor={colors.black} />
-            </View>
-        </Background>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     background: {
-        paddingHorizontal: wp(5),
+        flex: 1,
         justifyContent: 'space-around',
+        paddingHorizontal: HORIZONTAL_SPACE,
+        backgroundColor: '#fcfcfc',
     },
     title: {
         fontSize: ft(16),
         marginBottom: 20,
     },
     container: {
-        // marginVertical: hp(2),
+        // marginVertical: hp(1),
     },
 })
 

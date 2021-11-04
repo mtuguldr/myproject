@@ -3,7 +3,7 @@ import { View, StyleSheet, Dimensions } from 'react-native'
 
 import DeviceInfo from 'react-native-device-info'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
-import colors from '../config/colors'
+import defaultStyles from '../config/styles'
 import { hp } from '../config/const'
 
 function Header({ left, right, center }) {
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
         // position: 'absolute',
         // shadowOffset: { width: 0, height: 2 },
         // shadowOpacity: 0.3,
-        backgroundColor: colors.white,
-        borderBottomColor: colors.lightest,
+        backgroundColor: defaultStyles.colors.white,
+        borderBottomColor: defaultStyles.colors.lightest,
         borderBottomWidth: StyleSheet.hairlineWidth,
         top: 0,
         width: '100%',

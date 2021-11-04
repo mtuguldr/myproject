@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
-import colors from '../config/colors'
+import defaultStyles from '../config/styles'
 
 function Separator(props) {
     return <View style={styles.seperator} />
@@ -9,7 +9,7 @@ function Separator(props) {
 
 const styles = StyleSheet.create({
     seperator: {
-        backgroundColor: colors.lightest,
+        backgroundColor: defaultStyles.colors.lightest,
         height: 1,
     },
 })

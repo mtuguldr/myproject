@@ -1,7 +1,8 @@
 import React from 'react'
 import { TouchableOpacity, Text } from 'react-native'
+import { ft } from '../../config/const'
 
-import colors from '../../config/colors'
+import defaultStyles from '../../config/styles'
 import { Icon } from '../Icon'
 
 function DrawerItemCustom({ title, icon, onPress, switchComponent }) {
@@ -15,14 +16,22 @@ function DrawerItemCustom({ title, icon, onPress, switchComponent }) {
             }}
             onPress={onPress}
         >
-            <Icon color={colors.black} iconFamily='AD' name={icon} size={24} />
+            <Icon
+                color={defaultStyles.colors.dark}
+                iconFamily='AD'
+                name={icon}
+                size={24}
+            />
             <Text
-                style={{
-                    flex: 1,
-                    marginHorizontal: 20,
-                    color: colors.black,
-                    textTransform: 'uppercase',
-                }}
+                style={[
+                    defaultStyles.text,
+                    {
+                        flex: 1,
+                        marginHorizontal: 20,
+                        textTransform: 'uppercase',
+                        fontSize: ft(12),
+                    },
+                ]}
             >
                 {title}
             </Text>

@@ -5,7 +5,7 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
 
 import { ft, wp } from '../../config/const'
 import { Icon } from '../Icon'
-import colors from '../../config/colors'
+import defaultStyles from '../../config/styles'
 import Header from '../Header'
 
 function getHeaderTitle(route) {
@@ -24,7 +24,7 @@ function getHeaderTitle(route) {
 }
 
 const ICON_SIZE = wp(6)
-const ICON_COLOR = colors.primary
+const ICON_COLOR = defaultStyles.colors.primary
 function DrawerHeader({ route, navigation }) {
     return (
         <Header
@@ -43,13 +43,7 @@ function DrawerHeader({ route, navigation }) {
                 />
             }
             center={
-                <Text
-                    style={{
-                        color: colors.black,
-                        fontSize: ft(18),
-                        fontWeight: 'bold',
-                    }}
-                >
+                <Text style={defaultStyles.titleNav}>
                     {/* {getHeaderTitle(route)} */}
                     shoppr
                 </Text>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, StyleSheet, View } from 'react-native'
-import colors from '../config/colors'
-import { ft, hp } from '../config/const'
+import defaultStyles from '../config/styles'
+import { ft, hp, wp } from '../config/const'
 import AppTextInput from './TextInput'
 
 function FormInput({ error, ...otherProps }) {
@@ -15,8 +15,9 @@ function FormInput({ error, ...otherProps }) {
 
 const styles = StyleSheet.create({
     error: {
-        color: colors.danger,
+        color: defaultStyles.colors.danger,
         fontSize: ft(10),
+        paddingHorizontal: wp(4),
     },
 })
 

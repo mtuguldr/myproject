@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 
-import colors from '../config/colors'
-import { ft, hp } from '../config/const'
+import defaultStyles from '../config/styles'
+import { ft, hp, wp } from '../config/const'
 
 function Button({
-    backgroundColor = colors.white,
-    borderTextColor = colors.black,
+    backgroundColor = defaultStyles.colors.white,
+    borderTextColor = defaultStyles.colors.black,
     filled = false,
     onPress,
     title,
@@ -27,7 +27,13 @@ function Button({
             ]}
             onPress={onPress}
         >
-            <Text style={[styles.text, { color: borderTextColor }]}>
+            <Text
+                style={[
+                    defaultStyles.text,
+                    styles.text,
+                    { color: borderTextColor },
+                ]}
+            >
                 {title}
             </Text>
         </TouchableOpacity>
@@ -36,16 +42,14 @@ function Button({
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
-        borderRadius: 5,
-        padding: hp(1),
+        borderRadius: defaultStyles.borderRadius,
         borderWidth: 1,
-        // marginVertical: hp(1),
     },
     text: {
-        fontWeight: 'bold',
-        fontSize: ft(14),
         alignSelf: 'center',
+        fontWeight: 'bold',
+        paddingVertical: hp(2),
+        textTransform: 'uppercase',
     },
 })
 

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { Button, FormInput, Divider } from '../../components'
-import colors from '../../config/colors'
+import { Button, FormInput } from '../../components'
+import defaultStyles from '../../config/styles'
 import {
     ft,
     hp,
@@ -19,13 +19,15 @@ const ICON_SIZE = wp(5)
 
 function LoginScreen({ navigation }) {
     const [email, setEmail] = useState({
-        color: colors.light,
+        color: defaultStyles.colors.light,
         error: '',
+        focused: false,
         value: '',
     })
     const [password, setPassword] = useState({
-        color: colors.light,
+        color: defaultStyles.colors.light,
         error: '',
+        focused: false,
         value: '',
     })
     const [error, setError] = useState('')
@@ -125,84 +127,107 @@ function LoginScreen({ navigation }) {
 
     return (
         <View style={styles.background}>
-            <Text style={styles.title}>Welcome Back</Text>
-            <View>
-                <FormInput
-                    color={email.color}
-                    error={email.error}
-                    ExtraIcon={<EmailCheckIcon />}
-                    Icon={<EmailIcon />}
-                    maxLength={20}
-                    onChangeText={(text) => {
-                        setEmail({
-                            value: text,
-                            error: '',
-                            color:
-                                emailValidator(text) === '' && text.length > 0
-                                    ? colors.primary
-                                    : colors.light,
-                        })
-                        setError('')
-                    }}
-                    placeholder='Email'
-                    value={email.value}
-                />
-                <FormInput
-                    color={password.color}
-                    error={password.error}
-                    ExtraIcon={<PasswordToggleIcon />}
-                    Icon={<PasswordIcon />}
-                    maxLength={20}
-                    onChangeText={(text) => {
-                        setPassword({
-                            value: text,
-                            error: '',
-                            color:
-                                passwordValidator(text) === ''
-                                    ? colors.primary
-                                    : colors.light,
-                        })
-                        setError('')
-                    }}
-                    placeholder='Password'
-                    secureTextEntry={!passwordVisible}
-                    value={password.value}
-                />
-                <TouchableOpacity
-                    onPress={() => {
-                        navigation.navigate('ForgotPassword')
-                    }}
-                >
-                    <Text
-                        style={{
-                            fontSize: ft(14),
-                            fontWeight: 'bold',
-                            textAlign: 'right',
-                            color: colors.primary,
-                            marginTop: hp('1%'),
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+                <Text style={defaultStyles.title}>Welcome Back</Text>
+            </View>
+            <View style={{ flex: 2 }}>
+                <View style={styles.container}>
+                    <FormInput
+                        color={email.color}
+                        error={email.error}
+                        focusColor={defaultStyles.colors.primary}
+                        ExtraIcon={<EmailCheckIcon />}
+                        Icon={<EmailIcon />}
+                        maxLength={30}
+                        onChangeText={(text) => {
+                            setEmail({
+                                value: text,
+                                error: '',
+                                color:
+                                    emailValidator(text) === '' &&
+                                    text.length > 0
+                                        ? defaultStyles.colors.primary
+                                        : defaultStyles.colors.light,
+                            })
+                            setError('')
+                        }}
+                        placeholder='Email'
+                        value={email.value}
+                    />
+                </View>
+                <View style={styles.container}>
+                    <FormInput
+                        color={password.color}
+                        error={password.error}
+                        focusColor={defaultStyles.colors.primary}
+                        ExtraIcon={<PasswordToggleIcon />}
+                        Icon={<PasswordIcon />}
+                        maxLength={30}
+                        onChangeText={(text) => {
+                            setPassword({
+                                value: text,
+                                error: '',
+                                color:
+                                    passwordValidator(text) === ''
+                                        ? defaultStyles.colors.primary
+                                        : defaultStyles.colors.light,
+                            })
+                            setError('')
+                        }}
+                        placeholder='Password'
+                        secureTextEntry={!passwordVisible}
+                        value={password.value}
+                    />
+                </View>
+
+                <View style={styles.container}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('ForgotPassword')
                         }}
                     >
-                        Forgot Password?
-                    </Text>
-                </TouchableOpacity>
+                        <Text
+                            style={[defaultStyles.text, { textAlign: 'right' }]}
+                        >
+                            Forgot Password?
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style={{ marginTop: HORIZONTAL_SPACE }}>
+            <View style={{ flex: 1 }}>
                 <Button
-                    backgroundColor={colors.primary}
-                    borderTextColor={colors.white}
+                    backgroundColor={defaultStyles.colors.primary}
+                    borderTextColor={defaultStyles.colors.white}
                     filled
                     onPress={onPressLogin}
                     title='Sign in'
                 />
-                <Divider />
-                <Button
-                    borderTextColor={colors.light}
-                    title='Sign up'
-                    onPress={() => {
-                        navigation.navigate('Register')
-                    }}
-                />
-                <Text style={styles.error}>{error}</Text>
+                <Text style={[defaultStyles.text, styles.error]}>{error}</Text>
+                <View
+                    style={{ flexDirection: 'row', justifyContent: 'center' }}
+                >
+                    <Text style={defaultStyles.text}>
+                        Don't have an account?
+                    </Text>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('Register')
+                        }}
+                    >
+                        <Text
+                            style={[
+                                defaultStyles.text,
+                                {
+                                    color: defaultStyles.colors.primary,
+                                    fontWeight: 'bold',
+                                },
+                            ]}
+                        >
+                            {' '}
+                            Sign up
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     )
@@ -211,22 +236,18 @@ function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-around',
         paddingHorizontal: HORIZONTAL_SPACE,
-        backgroundColor: colors.white,
+        backgroundColor: '#fcfcfc',
     },
     container: {
-        marginHorizontal: HORIZONTAL_SPACE,
+        marginVertical: hp(1),
     },
     error: {
-        color: colors.danger,
-        fontSize: ft('14'),
+        height: hp(3),
+        marginTop: hp(1),
+        color: defaultStyles.colors.danger,
         alignSelf: 'center',
-    },
-    title: {
-        color: colors.black,
-        fontSize: ft(28),
-        marginTop: hp(10),
     },
 })
 

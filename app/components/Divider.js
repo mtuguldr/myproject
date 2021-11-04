@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import colors from '../config/colors'
+import defaultStyles from '../config/styles'
 import { ft, wp } from '../config/const'
 
 function Divider(props) {
@@ -9,7 +9,7 @@ function Divider(props) {
             <View
                 style={{
                     borderBottomWidth: 1,
-                    borderColor: colors.light,
+                    borderColor: defaultStyles.colors.light,
                     width: '25%',
                 }}
             />
@@ -29,7 +29,7 @@ function Divider(props) {
                 style={{
                     width: '25%', //wp('10%'),
                     fontSize: ft(14),
-                    color: colors.light,
+                    color: defaultStyles.colors.light,
                     textAlign: 'center',
                 }}
             >

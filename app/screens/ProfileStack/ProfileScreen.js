@@ -7,12 +7,10 @@ import {
     TouchableOpacity,
 } from 'react-native'
 
-import { ft } from '../../config/const'
+import defaultStyles from '../../config/styles'
 import { Icon } from '../../components/Icon'
-import Background from '../../components/Background'
-import colors from '../../config/colors'
-import ListItem from '../../components/ListItem'
-import Separator from '../../components/Separator'
+import { Background, ListItem, Separator } from '../../components'
+import { ft } from '../../config/const'
 
 const menuItems = [
     // { title: 'edit profile', icon: 'user', targetScreen: 'ProfileEdit' },
@@ -25,40 +23,33 @@ const DrawerHeadLogin = () => (
     <View
         style={{
             paddingVertical: 10,
-            backgroundColor: colors.white,
+            backgroundColor: defaultStyles.colors.white,
             alignItems: 'center',
         }}
     >
         {/* <Text
             style={{
-                color: colors.black,
+                color: defaultStyles.colors.black,
                 fontWeight: 'bold',
                 fontSize: ft(16),
             }}
         >
             shoppr
         </Text> */}
-        <Text
-            style={{
-                color: colors.black,
-                fontSize: ft(14),
-            }}
-        >
-            Buy everything you need!
-        </Text>
+        <Text style={defaultStyles.text}>Buy everything you need!</Text>
         <TouchableOpacity
             style={{
                 marginTop: 15,
                 padding: 5,
-                borderRadius: 5,
-                backgroundColor: colors.primary,
+                borderRadius: defaultStyles.borderRadius,
+                backgroundColor: defaultStyles.colors.primary,
                 width: 100,
             }}
         >
             <Text
                 style={{
                     textAlign: 'center',
-                    color: colors.white,
+                    color: defaultStyles.colors.white,
                     fontSize: ft(14),
                 }}
             >
@@ -70,18 +61,21 @@ const DrawerHeadLogin = () => (
 
 function ProfileScreen({ navigation }) {
     return (
-        <Background color={colors.screenBg} style={styles.background}>
+        <View style={styles.background}>
             <DrawerHeadLogin />
-            {/* <View style={{ backgroundColor: colors.white }}>
+            <View style={{ backgroundColor: defaultStyles.colors.white }}>
                 <ListItem
-                    title='User'
+                    title='John Doe'
                     subTitle='user@mail.com'
                     image={require('../../assets/avatar.png')}
                     onPress={() => {
-                        navigation.navigate('ProfileEdit')
+                        navigation.navigate('ProfileEdit', {
+                            name: 'John Doe',
+                            email: 'user@mail.com',
+                        })
                     }}
                 />
-            </View> */}
+            </View>
             <View style={styles.container}>
                 <FlatList
                     scrollEnabled={false}
@@ -96,7 +90,7 @@ function ProfileScreen({ navigation }) {
                                     iconFamily='AD'
                                     name={item.icon}
                                     size={20}
-                                    color={colors.black}
+                                    color={defaultStyles.colors.black}
                                 />
                             }
                             onPress={() =>
@@ -111,20 +105,21 @@ function ProfileScreen({ navigation }) {
                 IconComponent={
                     <Icon
                         iconFamily='AD'
-                        color={colors.black}
+                        color={defaultStyles.colors.black}
                         name='logout'
                         size={20}
                     />
                 }
             /> */}
-        </Background>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    background: { flex: 1 },
     container: {
         marginVertical: 10,
-        backgroundColor: colors.white,
+        backgroundColor: defaultStyles.colors.white,
     },
     title: {
         fontSize: ft(12),

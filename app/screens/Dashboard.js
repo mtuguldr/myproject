@@ -6,7 +6,7 @@ import DeviceInfo from 'react-native-device-info'
 import Background from '../components/Background'
 import Button from '../components/Button'
 import Logo from '../components/Logo'
-import colors from '../config/colors'
+import defaultStyles from '../config/styles'
 import { ft, hp, wp } from '../config/const'
 
 const MARGIN_HORIZONTAL = wp(5)
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
             : MARGIN_VERTICAL_SHORT,
     },
     title: {
-        color: colors.white,
+        color: defaultStyles.colors.white,
         fontSize: ft(28),
         marginBottom: MARGIN_VERTICAL_SHORT,
     },

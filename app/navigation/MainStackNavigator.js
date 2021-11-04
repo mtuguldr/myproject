@@ -6,7 +6,7 @@ import DrawerNavigator from './DrawerNavigator'
 import ProfileEditScreen from '../screens/profileStack/ProfileEditScreen'
 import { Icon } from '../components/Icon'
 import Header from '../components/Header'
-import colors from '../config/colors'
+import defaultStyles from '../config/styles'
 import { ft, wp } from '../config/const'
 import AuthNavigator from './AuthNavigator'
 import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
@@ -14,17 +14,20 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
 const Stack = createStackNavigator()
 
 const ICON_SIZE = wp(6)
-const ICON_COLOR = colors.primary
+const ICON_COLOR = defaultStyles.colors.primary
 
 function getHeaderTitle(route) {
-    const routeName = getFocusedRouteNameFromRoute(route) ?? 'Start'
+    const routeName = getFocusedRouteNameFromRoute(route) ?? 'Login'
+    console.log(route)
     switch (routeName) {
-        case 'Start':
-            return 'Start'
         case 'Login':
             return 'Login'
         case 'Register':
             return 'Register'
+        case 'ForgotPassword':
+            return 'Password'
+        case 'ProfileEdit':
+            return 'Edit'
     }
 }
 
@@ -41,18 +44,12 @@ const mainStackHeader = (props) => {
                         paddingHorizontal: 12,
                     }}
                     onPress={() => {
-                        props.navigation.goBack()
+                        props.navigation.pop()
                     }}
                 />
             }
             center={
-                <Text
-                    style={{
-                        fontSize: ft(18),
-                        fontWeight: 'bold',
-                        color: colors.black,
-                    }}
-                >
+                <Text style={[defaultStyles.titleNav]}>
                     {getHeaderTitle(props.route)}
                 </Text>
             }

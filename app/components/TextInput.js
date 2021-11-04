@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, StyleSheet, TextInput, Platform } from 'react-native'
 
-import colors from '../config/colors'
+import defaultStyles from '../config/styles'
 import { ft, hp, wp } from '../config/const'
 
 function AppTextInput({
     Icon,
-    color = colors.light,
+    color = defaultStyles.colors.light,
     ExtraIcon,
     ...otherProps
 }) {
@@ -14,7 +14,7 @@ function AppTextInput({
         <View style={[styles.container, { borderColor: color }]}>
             {Icon}
             <TextInput
-                style={[styles.text, { color: color }]}
+                style={[defaultStyles.text, styles.text, { color: color }]}
                 placeholderTextColor={color}
                 {...otherProps}
             />
@@ -26,15 +26,15 @@ function AppTextInput({
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        // paddingHorizontal: 10,
+        backgroundColor: defaultStyles.colors.white,
         borderBottomWidth: 1,
-        // borderWidth: 1,
-        // borderRadius: 5,
+        borderRadius: defaultStyles.borderRadius,
+        borderWidth: 1,
         flexDirection: 'row',
+        paddingHorizontal: 15,
     },
     text: {
         flex: 1,
-        fontSize: ft(14),
         marginHorizontal: wp(1),
         paddingVertical: hp(2),
     },

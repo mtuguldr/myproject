@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
 } from 'react-native'
 
-import colors from '../config/colors'
+import defaultStyles from '../config/styles'
 import { ft, wp } from '../config/const'
 import { Icon } from './Icon'
 
@@ -30,7 +30,7 @@ function ListItem({ title, subTitle, image, IconComponent, onPress }) {
                 </View>
                 <Icon
                     iconFamily='AD'
-                    color={colors.white}
+                    color={defaultStyles.colors.medium}
                     name='right'
                     size={15}
                 />
@@ -58,11 +58,11 @@ const styles = StyleSheet.create({
     title: {
         // fontWeight: 'bold',
         fontSize: ft(14),
-        color: colors.white,
+        color: defaultStyles.colors.dark,
         textTransform: 'capitalize',
     },
     subTitle: {
-        color: colors.medium,
+        color: defaultStyles.colors.medium,
         fontSize: ft(12),
     },
 })

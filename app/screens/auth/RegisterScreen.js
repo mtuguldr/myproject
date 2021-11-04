@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { Background, Button, Divider, FormInput } from '../../components'
 import { Icon } from '../../components/Icon'
-import colors from '../../config/colors'
+import defaultStyles from '../../config/styles'
 import {
     ft,
     hp,
@@ -21,17 +21,17 @@ function RegisterScreen({ navigation }) {
     const [name, setName] = useState({
         value: '',
         error: '',
-        color: colors.light,
+        color: defaultStyles.colors.light,
     })
     const [email, setEmail] = useState({
         value: '',
         error: '',
-        color: colors.light,
+        color: defaultStyles.colors.light,
     })
     const [password, setPassword] = useState({
         value: '',
         error: '',
-        color: colors.light,
+        color: defaultStyles.colors.light,
     })
     const [error, setError] = useState('')
 
@@ -74,9 +74,21 @@ function RegisterScreen({ navigation }) {
                     let merged = users.concat(newUser[0])
                     AsyncStorage.setItem('users', JSON.stringify(merged))
 
-                    setName({ value: '', error: '', color: colors.light })
-                    setEmail({ value: '', error: '', color: colors.light })
-                    setPassword({ value: '', error: '', color: colors.light })
+                    setName({
+                        value: '',
+                        error: '',
+                        color: defaultStyles.colors.light,
+                    })
+                    setEmail({
+                        value: '',
+                        error: '',
+                        color: defaultStyles.colors.light,
+                    })
+                    setPassword({
+                        value: '',
+                        error: '',
+                        color: defaultStyles.colors.light,
+                    })
                     navigation.navigate('Login')
                 }
             }
@@ -138,11 +150,11 @@ function RegisterScreen({ navigation }) {
     )
 
     return (
-        <Background color={colors.primary} style={styles.background}>
-            <View style={styles.container}>
-                <Text style={styles.title}>Create{'\n'}Account</Text>
+        <View style={styles.background}>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+                <Text style={defaultStyles.title}>Create Account</Text>
             </View>
-            <View style={styles.formContainer}>
+            <View style={{ flex: 2 }}>
                 <View style={styles.container}>
                     <FormInput
                         color={name.color}
@@ -156,14 +168,16 @@ function RegisterScreen({ navigation }) {
                                 color:
                                     nameValidator(text) === '' &&
                                     text.length > 0
-                                        ? colors.primary
-                                        : colors.light,
+                                        ? defaultStyles.colors.primary
+                                        : defaultStyles.colors.light,
                             })
                             setError('')
                         }}
                         placeholder='Name'
                         value={name.value}
                     />
+                </View>
+                <View style={styles.container}>
                     <FormInput
                         color={email.color}
                         error={email.error}
@@ -176,14 +190,16 @@ function RegisterScreen({ navigation }) {
                                 color:
                                     emailValidator(text) === '' &&
                                     text.length > 0
-                                        ? colors.primary
-                                        : colors.light,
+                                        ? defaultStyles.colors.primary
+                                        : defaultStyles.colors.light,
                             })
                             setError('')
                         }}
                         placeholder='Email'
                         value={email.value}
                     />
+                </View>
+                <View style={styles.container}>
                     <FormInput
                         color={password.color}
                         error={password.error}
@@ -197,8 +213,8 @@ function RegisterScreen({ navigation }) {
                                 color:
                                     passwordValidator(text) === '' &&
                                     text.length > 0
-                                        ? colors.primary
-                                        : colors.light,
+                                        ? defaultStyles.colors.primary
+                                        : defaultStyles.colors.light,
                             })
                             setError('')
                         }}
@@ -206,52 +222,63 @@ function RegisterScreen({ navigation }) {
                         secureTextEntry={!passwordVisible}
                         value={password.value}
                     />
-                    <View style={{ marginTop: HORIZONTAL_SPACE }}>
-                        <Button
-                            title='Sign up'
-                            backgroundColor={colors.primary}
-                            borderTextColor={colors.white}
-                            filled
-                            onPress={onPressSignup}
-                        />
-                        <Divider />
-                        <Button
-                            title='Sign in'
-                            borderTextColor={colors.light}
-                            onPress={() => {
-                                navigation.navigate('Login')
-                            }}
-                        />
-                        <Text style={styles.error}>{error}</Text>
-                    </View>
                 </View>
             </View>
-        </Background>
+            <View style={{ flex: 1 }}>
+                <Button
+                    title='Sign up'
+                    backgroundColor={defaultStyles.colors.primary}
+                    borderTextColor={defaultStyles.colors.white}
+                    filled
+                    onPress={onPressSignup}
+                />
+                <Text style={[defaultStyles.text, styles.error]}>{error}</Text>
+
+                <View
+                    style={{ flexDirection: 'row', justifyContent: 'center' }}
+                >
+                    <Text style={defaultStyles.text}>
+                        Already have an account?
+                    </Text>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('Login')
+                        }}
+                    >
+                        <Text
+                            style={[
+                                defaultStyles.text,
+                                {
+                                    color: defaultStyles.colors.primary,
+                                    fontWeight: 'bold',
+                                },
+                            ]}
+                        >
+                            {' '}
+                            Sign in
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
-    error: {
-        color: colors.danger,
-        fontSize: ft('14'),
-        alignSelf: 'center',
-    },
     background: {
-        justifyContent: 'space-between',
+        flex: 1,
+        justifyContent: 'space-evenly',
+        paddingHorizontal: HORIZONTAL_SPACE,
+        backgroundColor: '#fcfcfc',
     },
     container: {
-        marginHorizontal: HORIZONTAL_SPACE,
+        marginVertical: hp(1),
     },
-
-    formContainer: {
-        backgroundColor: colors.white,
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
-    },
-    title: {
-        color: colors.white,
-        fontSize: ft(28),
-        marginTop: hp(10),
+    error: {
+        height: hp(3),
+        marginTop: hp(1),
+        color: defaultStyles.colors.danger,
+        alignSelf: 'center',
     },
 })
 

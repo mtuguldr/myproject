@@ -7,7 +7,7 @@ import HomeScreen from '../screens/HomeScreen'
 import SearchScreen from '../screens/SearchScreen'
 import CategoryScreen from '../screens/CategoryScreen'
 import ProfileScreen from '../screens/profileStack/ProfileScreen'
-import colors from '../config/colors'
+import defaultStyles from '../config/styles'
 
 const Tab = createBottomTabNavigator()
 function TabNavigator() {
@@ -15,10 +15,10 @@ function TabNavigator() {
         <Tab.Navigator
             screenOptions={{
                 headerShown: false,
-                tabBarActiveTintColor: colors.primary,
-                // tabBarActiveBackgroundColor: colors.lightest,
-                // tabBarInactiveTintColor: colors.white,
-                // tabBarInactiveBackgroundColor: colors.lightest,
+                tabBarActiveTintColor: defaultStyles.colors.primary,
+                // tabBarActiveBackgroundColor: defaultStyles.colors.lightest,
+                // tabBarInactiveTintColor: defaultStyles.colors.white,
+                // tabBarInactiveBackgroundColor: defaultStyles.colors.lightest,
             }}
         >
             <Tab.Screen

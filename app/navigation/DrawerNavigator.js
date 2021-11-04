@@ -4,7 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 
 import { ft, hp } from '../config/const'
 import TabNavigator from './TabNavigator'
-import colors from '../config/colors'
+import defaultStyles from '../config/styles'
 import DrawerHeader from '../components/drawer/DrawerHeader'
 import DrawerItemCustom from '../components/drawer/DrawerItemCustom'
 import deviceInfoModule from 'react-native-device-info'
@@ -20,29 +20,14 @@ const DrawerHeadLogin = (props) => (
             paddingHorizontal: 10,
         }}
     >
-        <Text
-            style={{
-                color: colors.white,
-                fontWeight: 'bold',
-                fontSize: ft(16),
-            }}
-        >
-            shoppr
-        </Text>
-        <Text
-            style={{
-                color: colors.white,
-                fontSize: ft(14),
-            }}
-        >
-            Buy everything you need!
-        </Text>
+        <Text style={defaultStyles.titleNav}>shoppr</Text>
+        <Text style={defaultStyles.text}>Buy everything you need!</Text>
         <TouchableOpacity
             style={{
                 marginTop: 15,
                 padding: 5,
-                borderRadius: 5,
-                backgroundColor: colors.white,
+                borderRadius: defaultStyles.borderRadius,
+                backgroundColor: defaultStyles.colors.primary,
                 width: 100,
                 alignSelf: 'center',
             }}
@@ -53,7 +38,7 @@ const DrawerHeadLogin = (props) => (
             <Text
                 style={{
                     textAlign: 'center',
-                    color: colors.black,
+                    color: defaultStyles.colors.white,
                     fontSize: ft(14),
                 }}
             >
@@ -65,7 +50,7 @@ const DrawerHeadLogin = (props) => (
 
 const DrawerHeadProfile = (props) => (
     <ListItem
-        title='User'
+        title='John Doe'
         image={require('../assets/avatar.png')}
         onPress={() => {
             props.navigation.navigate('Profile')
@@ -87,7 +72,7 @@ const DrawerContent = (props) => {
         <View style={styles.background}>
             <View
                 style={{
-                    backgroundColor: colors.primary,
+                    // backgroundColor: defaultStyles.colors.primary,
                     paddingTop: deviceInfoModule.hasNotch()
                         ? getStatusBarHeight()
                         : 10,
@@ -117,7 +102,7 @@ const DrawerContent = (props) => {
             </View>
             <View style={styles.container}>
                 <DrawerItemCustom
-                    title='DARK MODE'
+                    title='dark mode'
                     icon='eyeo'
                     switchComponent={
                         <Switch
@@ -130,7 +115,7 @@ const DrawerContent = (props) => {
                 />
             </View>
             <View style={styles.container}>
-                <DrawerItemCustom title='LOG OUT' icon='logout' />
+                <DrawerItemCustom title='log out' icon='logout' />
             </View>
         </View>
     )
@@ -154,11 +139,11 @@ function DrawerNavigator({ navigation }) {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: colors.screenBg,
+        backgroundColor: defaultStyles.colors.screenBg,
     },
     container: {
         marginBottom: hp(1),
-        backgroundColor: colors.white,
+        backgroundColor: defaultStyles.colors.white,
     },
 })
 

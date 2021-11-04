@@ -10,4 +10,5 @@ export default {
     secondary: '#1768d3',
     screenBg: '#f2f2f2',
     white: '#fff',
+    ok: '#54cd8f',
 }
