@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
-import { Background, Button, FormInput } from '../../components'
+import { Button, FormInput } from '../../components'
 import defaultStyles from '../../config/styles'
 import { ft, hp, wp } from '../../config/const'
 
@@ -27,20 +27,26 @@ function ProfileEditScreen({ route }) {
                     />
                 </TouchableOpacity>
             </View>
-            <View style={{ flex: 2 }}>
-                <FormInput
-                    // color={defaultStyles.colors.black}
-                    value={user.name}
-                    placeholder='Name'
-                />
-                <FormInput
-                    // color={defaultStyles.colors.black}
-                    placeholder='Email'
-                />
-                <FormInput
-                    // color={defaultStyles.colors.black}
-                    placeholder='Password'
-                />
+            <View style={{ flex: 2, justifyContent: 'center' }}>
+                <View style={styles.container}>
+                    <FormInput
+                        // color={defaultStyles.colors.black}
+                        value={user.name}
+                        placeholder='Name'
+                    />
+                </View>
+                <View style={styles.container}>
+                    <FormInput
+                        // color={defaultStyles.colors.black}
+                        placeholder='Email'
+                    />
+                </View>
+                <View style={styles.container}>
+                    <FormInput
+                        // color={defaultStyles.colors.black}
+                        placeholder='Password'
+                    />
+                </View>
             </View>
             <View style={{ flex: 1 }}>
                 <Button
@@ -56,17 +62,13 @@ function ProfileEditScreen({ route }) {
 
 const styles = StyleSheet.create({
     background: {
+        backgroundColor: defaultStyles.colors.white,
         flex: 1,
         justifyContent: 'space-around',
         paddingHorizontal: HORIZONTAL_SPACE,
-        backgroundColor: '#fcfcfc',
-    },
-    title: {
-        fontSize: ft(16),
-        marginBottom: 20,
     },
     container: {
-        // marginVertical: hp(1),
+        marginVertical: hp(1.5),
     },
 })
 

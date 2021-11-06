@@ -25,7 +25,7 @@ function ForgotPasswordScreen({ navigation }) {
         setError(
             'Please check your email and reset your password using provided link'
         )
-        navigation.goBack()
+        // navigation.goBack()
     }
 
     const IconAlignCenter = ({ children }) => (

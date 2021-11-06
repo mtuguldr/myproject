@@ -5,8 +5,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { ft, hp } from '../config/const'
 import TabNavigator from './TabNavigator'
 import defaultStyles from '../config/styles'
-import DrawerHeader from '../components/drawer/DrawerHeader'
-import DrawerItemCustom from '../components/drawer/DrawerItemCustom'
+import HeaderDrawer from '../components/HeaderDrawer'
+import DrawerItemCustom from '../components/DrawerItemCustom'
 import deviceInfoModule from 'react-native-device-info'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 import { ListItem, Separator } from '../components'
@@ -51,7 +51,7 @@ const DrawerHeadLogin = (props) => (
 const DrawerHeadProfile = (props) => (
     <ListItem
         title='John Doe'
-        image={require('../assets/avatar.png')}
+        image={require('../assets/avatar.jpeg')}
         onPress={() => {
             props.navigation.navigate('Profile')
         }}
@@ -80,40 +80,42 @@ const DrawerContent = (props) => {
             >
                 <DrawerHeadLogin {...props} />
                 {/* <DrawerHeadProfile {...props} /> */}
-            </View>
-            <View style={styles.container}></View>
-            <View style={[styles.container, { paddingVertical: 10 }]}>
-                {drawerItems.map((item, index) => {
-                    return (
-                        <View key={index}>
-                            <DrawerItemCustom
-                                title={item.title}
-                                icon={item.icon}
-                                onPress={() =>
-                                    props.navigation.navigate(item.targetScreen)
-                                }
+                <View style={[styles.container, { paddingVertical: 10 }]}>
+                    {drawerItems.map((item, index) => {
+                        return (
+                            <View key={index}>
+                                <DrawerItemCustom
+                                    title={item.title}
+                                    icon={item.icon}
+                                    onPress={() =>
+                                        props.navigation.navigate(
+                                            item.targetScreen
+                                        )
+                                    }
+                                />
+                                {index !== drawerItems.length - 1 ? (
+                                    <Separator />
+                                ) : null}
+                            </View>
+                        )
+                    })}
+                </View>
+                <View style={styles.container}>
+                    <DrawerItemCustom
+                        title='dark mode'
+                        icon='eyeo'
+                        switchComponent={
+                            <Switch
+                                value={darkMode}
+                                onChange={() => {
+                                    setDarkMode(!darkMode)
+                                }}
                             />
-                            {index !== drawerItems.length - 1 ? (
-                                <Separator />
-                            ) : null}
-                        </View>
-                    )
-                })}
+                        }
+                    />
+                </View>
             </View>
-            <View style={styles.container}>
-                <DrawerItemCustom
-                    title='dark mode'
-                    icon='eyeo'
-                    switchComponent={
-                        <Switch
-                            value={darkMode}
-                            onChange={() => {
-                                setDarkMode(!darkMode)
-                            }}
-                        />
-                    }
-                />
-            </View>
+
             <View style={styles.container}>
                 <DrawerItemCustom title='log out' icon='logout' />
             </View>
@@ -126,7 +128,7 @@ function DrawerNavigator({ navigation }) {
         <Drawer.Navigator
             screenOptions={() => ({
                 header: ({ route }) => (
-                    <DrawerHeader route={route} navigation={navigation} />
+                    <HeaderDrawer route={route} navigation={navigation} />
                 ),
             })}
             drawerContent={(props) => <DrawerContent {...props} />}
@@ -138,12 +140,13 @@ function DrawerNavigator({ navigation }) {
 
 const styles = StyleSheet.create({
     background: {
-        flex: 1,
         backgroundColor: defaultStyles.colors.screenBg,
+        flex: 1,
+        justifyContent: 'space-between',
     },
     container: {
-        marginBottom: hp(1),
         backgroundColor: defaultStyles.colors.white,
+        marginBottom: hp(1.5),
     },
 })
 

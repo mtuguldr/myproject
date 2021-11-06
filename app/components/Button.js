@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
+import { StyleSheet, TouchableOpacity, Text } from 'react-native'
 
 import defaultStyles from '../config/styles'
-import { ft, hp, wp } from '../config/const'
+import { hp } from '../config/const'
 
 function Button({
     backgroundColor = defaultStyles.colors.white,

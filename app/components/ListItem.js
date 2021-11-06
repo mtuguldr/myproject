@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-    Image,
-    View,
-    StyleSheet,
-    TouchableHighlight,
-    Text,
-    TouchableOpacity,
-} from 'react-native'
+import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 import defaultStyles from '../config/styles'
 import { ft, wp } from '../config/const'
@@ -46,24 +39,24 @@ const styles = StyleSheet.create({
         padding: 15,
     },
     detailsContainer: {
-        marginLeft: 10,
         flex: 1,
         justifyContent: 'center',
+        marginLeft: 10,
     },
     image: {
-        width: wp(20),
-        height: wp(20),
         borderRadius: wp(20) / 2,
-    },
-    title: {
-        // fontWeight: 'bold',
-        fontSize: ft(14),
-        color: defaultStyles.colors.dark,
-        textTransform: 'capitalize',
+        height: wp(20),
+        width: wp(20),
     },
     subTitle: {
         color: defaultStyles.colors.medium,
         fontSize: ft(12),
+    },
+    title: {
+        // fontWeight: 'bold',
+        color: defaultStyles.colors.dark,
+        fontSize: ft(14),
+        textTransform: 'capitalize',
     },
 })
 

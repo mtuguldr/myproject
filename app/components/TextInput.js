@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, StyleSheet, TextInput, Platform } from 'react-native'
+import { View, StyleSheet, TextInput } from 'react-native'
 
 import defaultStyles from '../config/styles'
-import { ft, hp, wp } from '../config/const'
+import { hp, wp } from '../config/const'
 
 function AppTextInput({
     Icon,
@@ -26,10 +26,10 @@ function AppTextInput({
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        backgroundColor: defaultStyles.colors.white,
-        borderBottomWidth: 1,
+        backgroundColor: '#edf0f7', //defaultStyles.colors.white,
+        // borderBottomWidth: 1,
         borderRadius: defaultStyles.borderRadius,
-        borderWidth: 1,
+        // borderWidth: 1,
         flexDirection: 'row',
         paddingHorizontal: 15,
     },

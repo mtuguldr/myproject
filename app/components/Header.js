@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
 import DeviceInfo from 'react-native-device-info'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
@@ -19,6 +19,10 @@ function Header({ left, right, center }) {
 }
 
 const styles = StyleSheet.create({
+    center: {
+        alignItems: 'center',
+        flex: 1,
+    },
     container: {
         // elevation: 10,
         // position: 'absolute',
@@ -31,17 +35,13 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     content: {
-        flexDirection: 'row',
         alignItems: 'center',
-        marginTop: DeviceInfo.hasNotch() ? getStatusBarHeight() : 0,
+        flexDirection: 'row',
         height: DeviceInfo.hasNotch() ? getStatusBarHeight() : hp(7),
+        marginTop: DeviceInfo.hasNotch() ? getStatusBarHeight() : 0,
     },
     left: {
         alignItems: 'flex-start',
-        flex: 1,
-    },
-    center: {
-        alignItems: 'center',
         flex: 1,
     },
     right: {

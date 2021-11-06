@@ -3,29 +3,29 @@ import { View, Text } from 'react-native'
 import { DrawerActions } from '@react-navigation/routers'
 import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
 
-import { ft, wp } from '../../config/const'
-import { Icon } from '../Icon'
-import defaultStyles from '../../config/styles'
-import Header from '../Header'
+import { ft, wp } from '../config/const'
+import { Icon } from './Icon'
+import defaultStyles from '../config/styles'
+import Header from './Header'
 
-function getHeaderTitle(route) {
-    const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
+// function getHeaderTitle(route) {
+//     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
 
-    switch (routeName) {
-        case 'Home':
-            return 'Home'
-        case 'Search':
-            return 'Search'
-        case 'Category':
-            return 'Category'
-        case 'Profile':
-            return 'Profile'
-    }
-}
+//     switch (routeName) {
+//         case 'Home':
+//             return 'Home'
+//         case 'Search':
+//             return 'Search'
+//         case 'Category':
+//             return 'Category'
+//         case 'Profile':
+//             return 'Profile'
+//     }
+// }
 
 const ICON_SIZE = wp(6)
 const ICON_COLOR = defaultStyles.colors.primary
-function DrawerHeader({ route, navigation }) {
+function HeaderDrawer({ route, navigation }) {
     return (
         <Header
             left={
@@ -80,4 +80,4 @@ function DrawerHeader({ route, navigation }) {
     )
 }
 
-export default DrawerHeader
+export default HeaderDrawer

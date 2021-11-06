@@ -5,11 +5,9 @@ import DeviceInfo from 'react-native-device-info'
 
 import Background from '../components/Background'
 import Button from '../components/Button'
-import Logo from '../components/Logo'
 import defaultStyles from '../config/styles'
 import { ft, hp, wp } from '../config/const'
 
-const MARGIN_HORIZONTAL = wp(5)
 const MARGIN_VERTICAL_TALL = hp(6)
 const MARGIN_VERTICAL_SHORT = hp(3)
 

@@ -6,6 +6,7 @@ import colors from './colors'
 export default {
     text: {
         color: colors.dark,
+        fontSize: ft(14),
         fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Avenir',
     },
     title: {

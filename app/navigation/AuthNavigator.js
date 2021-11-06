@@ -7,8 +7,8 @@ import {
     ForgotPasswordScreen,
     LoginScreen,
     RegisterScreen,
-    StartScreen,
 } from '../screens/auth'
+import HeaderStack from '../components/HeaderStack'
 
 const Stack = createStackNavigator()
 
@@ -43,8 +43,11 @@ const AuthNavigator = () => {
     }
 
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-            {/* <Stack.Screen name='Start' component={StartScreen} /> */}
+        <Stack.Navigator
+            screenOptions={() => ({
+                header: (props) => <HeaderStack {...props} />,
+            })}
+        >
             <Stack.Screen name='Login' component={LoginScreen} />
             <Stack.Screen name='Register' component={RegisterScreen} />
             <Stack.Screen

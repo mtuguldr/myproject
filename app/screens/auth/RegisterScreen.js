@@ -2,11 +2,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 
-import { Background, Button, Divider, FormInput } from '../../components'
+import { Button, FormInput, TextButton } from '../../components'
 import { Icon } from '../../components/Icon'
 import defaultStyles from '../../config/styles'
 import {
-    ft,
     hp,
     wp,
     emailValidator,
@@ -240,24 +239,12 @@ function RegisterScreen({ navigation }) {
                     <Text style={defaultStyles.text}>
                         Already have an account?
                     </Text>
-                    <TouchableOpacity
+                    <TextButton
+                        title=' Sign in'
                         onPress={() => {
                             navigation.navigate('Login')
                         }}
-                    >
-                        <Text
-                            style={[
-                                defaultStyles.text,
-                                {
-                                    color: defaultStyles.colors.primary,
-                                    fontWeight: 'bold',
-                                },
-                            ]}
-                        >
-                            {' '}
-                            Sign in
-                        </Text>
-                    </TouchableOpacity>
+                    />
                 </View>
             </View>
         </View>
@@ -266,19 +253,19 @@ function RegisterScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     background: {
-        flex: 1,
-        justifyContent: 'space-evenly',
-        paddingHorizontal: HORIZONTAL_SPACE,
         backgroundColor: '#fcfcfc',
+        flex: 1,
+        paddingHorizontal: HORIZONTAL_SPACE,
+        justifyContent: 'space-evenly',
     },
     container: {
-        marginVertical: hp(1),
+        marginVertical: hp(1.5),
     },
     error: {
+        alignSelf: 'center',
+        color: defaultStyles.colors.danger,
         height: hp(3),
         marginTop: hp(1),
-        color: defaultStyles.colors.danger,
-        alignSelf: 'center',
     },
 })
 

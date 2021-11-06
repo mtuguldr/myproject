@@ -1,68 +1,19 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, Text } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 
+import AuthNavigator from './AuthNavigator'
 import DrawerNavigator from './DrawerNavigator'
 import ProfileEditScreen from '../screens/profileStack/ProfileEditScreen'
-import { Icon } from '../components/Icon'
-import Header from '../components/Header'
-import defaultStyles from '../config/styles'
-import { ft, wp } from '../config/const'
-import AuthNavigator from './AuthNavigator'
-import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
+import HeaderStack from '../components/HeaderStack'
 
 const Stack = createStackNavigator()
-
-const ICON_SIZE = wp(6)
-const ICON_COLOR = defaultStyles.colors.primary
-
-function getHeaderTitle(route) {
-    const routeName = getFocusedRouteNameFromRoute(route) ?? 'Login'
-    console.log(route)
-    switch (routeName) {
-        case 'Login':
-            return 'Login'
-        case 'Register':
-            return 'Register'
-        case 'ForgotPassword':
-            return 'Password'
-        case 'ProfileEdit':
-            return 'Edit'
-    }
-}
-
-const mainStackHeader = (props) => {
-    return (
-        <Header
-            left={
-                <Icon
-                    iconFamily='AD'
-                    color={ICON_COLOR}
-                    name='back'
-                    size={ICON_SIZE}
-                    style={{
-                        paddingHorizontal: 12,
-                    }}
-                    onPress={() => {
-                        props.navigation.pop()
-                    }}
-                />
-            }
-            center={
-                <Text style={[defaultStyles.titleNav]}>
-                    {getHeaderTitle(props.route)}
-                </Text>
-            }
-            {...props}
-        />
-    )
-}
 
 function MainNavigator() {
     return (
         <Stack.Navigator
             screenOptions={() => ({
-                header: (props) => mainStackHeader(props),
+                header: (props) => <HeaderStack {...props} />,
             })}
         >
             <Stack.Screen
@@ -70,11 +21,15 @@ function MainNavigator() {
                 component={DrawerNavigator}
                 options={{ headerShown: false }}
             />
+            <Stack.Screen
+                name='AuthNav'
+                component={AuthNavigator}
+                options={{ headerShown: false }}
+            />
             <Stack.Screen name='Orders' component={OrdersScreen} />
-            <Stack.Screen name='Wishlist' component={WishListScreen} />
             <Stack.Screen name='Payment' component={PaymentScreen} />
             <Stack.Screen name='ProfileEdit' component={ProfileEditScreen} />
-            <Stack.Screen name='AuthNav' component={AuthNavigator} />
+            <Stack.Screen name='Wishlist' component={WishListScreen} />
         </Stack.Navigator>
     )
 }

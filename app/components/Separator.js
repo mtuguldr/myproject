@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 
 import defaultStyles from '../config/styles'
 
-function Separator(props) {
+function Separator() {
     return <View style={styles.seperator} />
 }
 

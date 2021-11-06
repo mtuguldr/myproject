@@ -1,17 +1,11 @@
 import React, { useState } from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { Button, FormInput } from '../../components'
+import { Button, FormInput, TextButton } from '../../components'
 import defaultStyles from '../../config/styles'
-import {
-    ft,
-    hp,
-    wp,
-    emailValidator,
-    passwordValidator,
-} from '../../config/const'
+import { hp, wp, emailValidator, passwordValidator } from '../../config/const'
 import { Icon } from '../../components/Icon'
 
 const HORIZONTAL_SPACE = wp(5)
@@ -50,7 +44,6 @@ function LoginScreen({ navigation }) {
                 return
             }
             const users = JSON.parse(result)
-            // console.log(`users`, users)
             for (let i = 0; i < users.length; i++) {
                 if (
                     email.value.toLowerCase() === users[i].email &&
@@ -180,18 +173,13 @@ function LoginScreen({ navigation }) {
                     />
                 </View>
 
-                <View style={styles.container}>
-                    <TouchableOpacity
+                <View style={{ alignItems: 'flex-end' }}>
+                    <TextButton
+                        title='Forgot Password?'
                         onPress={() => {
                             navigation.navigate('ForgotPassword')
                         }}
-                    >
-                        <Text
-                            style={[defaultStyles.text, { textAlign: 'right' }]}
-                        >
-                            Forgot Password?
-                        </Text>
-                    </TouchableOpacity>
+                    />
                 </View>
             </View>
             <View style={{ flex: 1 }}>
@@ -209,24 +197,12 @@ function LoginScreen({ navigation }) {
                     <Text style={defaultStyles.text}>
                         Don't have an account?
                     </Text>
-                    <TouchableOpacity
+                    <TextButton
+                        title=' Sign up'
                         onPress={() => {
                             navigation.navigate('Register')
                         }}
-                    >
-                        <Text
-                            style={[
-                                defaultStyles.text,
-                                {
-                                    color: defaultStyles.colors.primary,
-                                    fontWeight: 'bold',
-                                },
-                            ]}
-                        >
-                            {' '}
-                            Sign up
-                        </Text>
-                    </TouchableOpacity>
+                    />
                 </View>
             </View>
         </View>
@@ -235,19 +211,19 @@ function LoginScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     background: {
+        backgroundColor: defaultStyles.colors.white, //'#fcfcfc',
         flex: 1,
         justifyContent: 'space-around',
         paddingHorizontal: HORIZONTAL_SPACE,
-        backgroundColor: '#fcfcfc',
     },
     container: {
-        marginVertical: hp(1),
+        marginVertical: hp(1.5),
     },
     error: {
+        alignSelf: 'center',
+        color: defaultStyles.colors.danger,
         height: hp(3),
         marginTop: hp(1),
-        color: defaultStyles.colors.danger,
-        alignSelf: 'center',
     },
 })
 

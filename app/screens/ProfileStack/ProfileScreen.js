@@ -10,7 +10,7 @@ import {
 import defaultStyles from '../../config/styles'
 import { Icon } from '../../components/Icon'
 import { Background, ListItem, Separator } from '../../components'
-import { ft } from '../../config/const'
+import { ft, hp } from '../../config/const'
 
 const menuItems = [
     // { title: 'edit profile', icon: 'user', targetScreen: 'ProfileEdit' },
@@ -19,7 +19,7 @@ const menuItems = [
     { title: 'payment', icon: 'creditcard', targetScreen: 'Payment' },
 ]
 
-const DrawerHeadLogin = () => (
+const DrawerHeadLogin = ({ navigation }) => (
     <View
         style={{
             paddingVertical: 10,
@@ -27,15 +27,6 @@ const DrawerHeadLogin = () => (
             alignItems: 'center',
         }}
     >
-        {/* <Text
-            style={{
-                color: defaultStyles.colors.black,
-                fontWeight: 'bold',
-                fontSize: ft(16),
-            }}
-        >
-            shoppr
-        </Text> */}
         <Text style={defaultStyles.text}>Buy everything you need!</Text>
         <TouchableOpacity
             style={{
@@ -44,6 +35,9 @@ const DrawerHeadLogin = () => (
                 borderRadius: defaultStyles.borderRadius,
                 backgroundColor: defaultStyles.colors.primary,
                 width: 100,
+            }}
+            onPress={() => {
+                navigation.navigate('AuthNav')
             }}
         >
             <Text
@@ -62,8 +56,13 @@ const DrawerHeadLogin = () => (
 function ProfileScreen({ navigation }) {
     return (
         <View style={styles.background}>
-            <DrawerHeadLogin />
-            <View style={{ backgroundColor: defaultStyles.colors.white }}>
+            <DrawerHeadLogin navigation={navigation} />
+            {/* <View
+                style={[
+                    styles.container,
+                    { backgroundColor: defaultStyles.colors.white },
+                ]}
+            >
                 <ListItem
                     title='John Doe'
                     subTitle='user@mail.com'
@@ -75,7 +74,7 @@ function ProfileScreen({ navigation }) {
                         })
                     }}
                 />
-            </View>
+            </View> */}
             <View style={styles.container}>
                 <FlatList
                     scrollEnabled={false}
@@ -90,7 +89,7 @@ function ProfileScreen({ navigation }) {
                                     iconFamily='AD'
                                     name={item.icon}
                                     size={20}
-                                    color={defaultStyles.colors.black}
+                                    color={defaultStyles.colors.medium}
                                 />
                             }
                             onPress={() =>
@@ -100,17 +99,19 @@ function ProfileScreen({ navigation }) {
                     )}
                 />
             </View>
-            {/* <ListItem
-                title='log out'
-                IconComponent={
-                    <Icon
-                        iconFamily='AD'
-                        color={defaultStyles.colors.black}
-                        name='logout'
-                        size={20}
-                    />
-                }
-            /> */}
+            <View style={styles.container}>
+                <ListItem
+                    title='log out'
+                    IconComponent={
+                        <Icon
+                            iconFamily='AD'
+                            color={defaultStyles.colors.medium}
+                            name='logout'
+                            size={20}
+                        />
+                    }
+                />
+            </View>
         </View>
     )
 }
@@ -118,12 +119,8 @@ function ProfileScreen({ navigation }) {
 const styles = StyleSheet.create({
     background: { flex: 1 },
     container: {
-        marginVertical: 10,
         backgroundColor: defaultStyles.colors.white,
-    },
-    title: {
-        fontSize: ft(12),
-        paddingHorizontal: 15,
+        marginBottom: hp(1.5),
     },
 })
 
