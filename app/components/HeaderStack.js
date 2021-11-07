@@ -39,7 +39,7 @@ function HeaderStack(props) {
                 />
             }
             center={
-                <Text style={defaultStyles.titleNav}>
+                <Text style={(defaultStyles.text, defaultStyles.medium)}>
                     {getHeaderTitle(props.route)}
                     {/* {props.title} */}
                 </Text>

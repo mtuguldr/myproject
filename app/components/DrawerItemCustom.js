@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
     text: {
         flex: 1,
-        fontSize: ft(12),
+        // fontSize: ft(12),
         marginHorizontal: 20,
         textTransform: 'uppercase',
     },

@@ -1,25 +1,25 @@
 import { Platform } from 'react-native'
 
-import { ft } from './const'
+import { ft, wp } from './const'
 import colors from './colors'
 
 export default {
     text: {
         color: colors.dark,
-        fontSize: ft(14),
         fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Avenir',
     },
-    title: {
-        color: colors.dark,
+    large: {
         fontSize: ft(28),
-        fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Avenir',
     },
-    titleNav: {
-        color: colors.dark,
-        fontSize: ft(18),
+    medium: {
         fontWeight: 'bold',
-        fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Avenir',
+        fontSize: ft(18),
     },
+    small: {
+        fontSize: ft(14),
+    },
+
     borderRadius: 25,
+    backgroundPadding: wp(5),
     colors,
 }

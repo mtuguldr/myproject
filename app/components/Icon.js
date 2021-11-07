@@ -11,33 +11,19 @@ export const Icon = (props) => {
     const renderIcon = () => {
         switch (props.iconFamily) {
             case 'AD':
-                return (
-                    <IconAD size={props.size} {...props} style={props.style} />
-                )
+                return <IconAD {...props} />
             case 'EN':
-                return (
-                    <IconEN size={props.size} {...props} style={props.style} />
-                )
+                return <IconEN {...props} />
             case 'FA':
-                return (
-                    <IconFA size={props.size} {...props} style={props.style} />
-                )
+                return <IconFA {...props} />
             case 'FE':
-                return (
-                    <IconFE size={props.size} {...props} style={props.style} />
-                )
+                return <IconFE {...props} />
             case 'IO':
-                return (
-                    <IconIO size={props.size} {...props} style={props.style} />
-                )
+                return <IconIO {...props} />
             case 'MC':
-                return (
-                    <IconMC size={props.size} {...props} style={props.style} />
-                )
+                return <IconMC {...props} />
             case 'MI':
-                return (
-                    <IconMI size={props.size} {...props} style={props.style} />
-                )
+                return <IconMI {...props} />
         }
     }
     return renderIcon()

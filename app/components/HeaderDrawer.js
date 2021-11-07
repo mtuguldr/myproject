@@ -43,7 +43,7 @@ function HeaderDrawer({ route, navigation }) {
                 />
             }
             center={
-                <Text style={defaultStyles.titleNav}>
+                <Text style={[defaultStyles.text, defaultStyles.medium]}>
                     {/* {getHeaderTitle(route)} */}
                     shoppr
                 </Text>

@@ -8,7 +8,6 @@ import defaultStyles from '../../config/styles'
 import { hp, wp, emailValidator, passwordValidator } from '../../config/const'
 import { Icon } from '../../components/Icon'
 
-const HORIZONTAL_SPACE = wp(5)
 const ICON_SIZE = wp(5)
 
 function LoginScreen({ navigation }) {
@@ -121,7 +120,9 @@ function LoginScreen({ navigation }) {
     return (
         <View style={styles.background}>
             <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text style={defaultStyles.title}>Welcome Back</Text>
+                <Text style={[defaultStyles.text, defaultStyles.large]}>
+                    Welcome Back
+                </Text>
             </View>
             <View style={{ flex: 2 }}>
                 <View style={styles.container}>
@@ -214,7 +215,7 @@ const styles = StyleSheet.create({
         backgroundColor: defaultStyles.colors.white, //'#fcfcfc',
         flex: 1,
         justifyContent: 'space-around',
-        paddingHorizontal: HORIZONTAL_SPACE,
+        paddingHorizontal: defaultStyles.backgroundPadding,
     },
     container: {
         marginVertical: hp(1.5),

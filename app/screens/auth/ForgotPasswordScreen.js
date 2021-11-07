@@ -42,7 +42,9 @@ function ForgotPasswordScreen({ navigation }) {
     return (
         <View style={styles.background}>
             <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text style={defaultStyles.title}>Reset password</Text>
+                <Text style={[defaultStyles.text, defaultStyles.large]}>
+                    Reset password
+                </Text>
             </View>
             <View style={{ flex: 2 }}>
                 <View style={styles.container}>
@@ -67,6 +69,7 @@ function ForgotPasswordScreen({ navigation }) {
                         value={email.value}
                     />
                 </View>
+                <Text style={[defaultStyles.text, styles.error]}>{error}</Text>
             </View>
             <View style={{ flex: 1 }}>
                 <Button
@@ -76,7 +79,6 @@ function ForgotPasswordScreen({ navigation }) {
                     filled
                     onPress={onSubmitPress}
                 />
-                <Text style={[defaultStyles.text, styles.error]}>{error}</Text>
             </View>
         </View>
     )
@@ -84,17 +86,17 @@ function ForgotPasswordScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     background: {
+        backgroundColor: defaultStyles.colors.white,
         flex: 1,
+        paddingHorizontal: defaultStyles.backgroundPadding,
         // justifyContent: 'space-around',
-        paddingHorizontal: HORIZONTAL_SPACE,
-        backgroundColor: '#fcfcfc',
     },
     container: {
         marginVertical: hp(1),
     },
     error: {
-        marginTop: hp(1),
         color: defaultStyles.colors.ok,
+        marginTop: hp(1),
         textAlign: 'center',
     },
 })

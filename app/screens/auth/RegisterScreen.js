@@ -13,7 +13,6 @@ import {
     nameValidator,
 } from '../../config/const'
 
-const HORIZONTAL_SPACE = wp(5)
 const ICON_SIZE = wp(5)
 
 function RegisterScreen({ navigation }) {
@@ -151,7 +150,9 @@ function RegisterScreen({ navigation }) {
     return (
         <View style={styles.background}>
             <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text style={defaultStyles.title}>Create Account</Text>
+                <Text style={[defaultStyles.text, defaultStyles.large]}>
+                    Create Account
+                </Text>
             </View>
             <View style={{ flex: 2 }}>
                 <View style={styles.container}>
@@ -253,10 +254,10 @@ function RegisterScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     background: {
-        backgroundColor: '#fcfcfc',
+        backgroundColor: defaultStyles.colors.white,
         flex: 1,
-        paddingHorizontal: HORIZONTAL_SPACE,
         justifyContent: 'space-evenly',
+        paddingHorizontal: defaultStyles.backgroundPadding,
     },
     container: {
         marginVertical: hp(1.5),

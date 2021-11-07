@@ -20,8 +20,10 @@ const DrawerHeadLogin = (props) => (
             paddingHorizontal: 10,
         }}
     >
-        <Text style={defaultStyles.titleNav}>shoppr</Text>
-        <Text style={defaultStyles.text}>Buy everything you need!</Text>
+        <Text style={[defaultStyles.text, defaultStyles.medium]}>shoppr</Text>
+        <Text style={[defaultStyles.text, defaultStyles.small]}>
+            Buy everything you need!
+        </Text>
         <TouchableOpacity
             style={{
                 marginTop: 15,
@@ -36,11 +38,14 @@ const DrawerHeadLogin = (props) => (
             }}
         >
             <Text
-                style={{
-                    textAlign: 'center',
-                    color: defaultStyles.colors.white,
-                    fontSize: ft(14),
-                }}
+                style={
+                    (defaultStyles.text,
+                    defaultStyles.small,
+                    {
+                        textAlign: 'center',
+                        color: defaultStyles.colors.white,
+                    })
+                }
             >
                 sign in
             </Text>
