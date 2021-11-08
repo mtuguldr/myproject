@@ -6,15 +6,13 @@ import defaultStyles from '../config/styles'
 
 function ListItemDeleteAction({ onPress }) {
     return (
-        <TouchableOpacity onPress={onPress}>
-            <View style={styles.container}>
-                <Icon
-                    iconFamily='AD'
-                    name='delete'
-                    size={35}
-                    color={defaultStyles.colors.white}
-                />
-            </View>
+        <TouchableOpacity onPress={onPress} style={styles.container}>
+            <Icon
+                iconFamily='AD'
+                name='delete'
+                size={35}
+                color={defaultStyles.colors.white}
+            />
         </TouchableOpacity>
     )
 }

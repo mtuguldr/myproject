@@ -39,7 +39,7 @@ const categories = [
     },
 ]
 
-function CategoryScreen(props) {
+function CategoryScreen() {
     const [messages, setMessages] = React.useState(categories)
 
     const handleDelete = (message) => {
@@ -56,12 +56,12 @@ function CategoryScreen(props) {
                 {messages.map((item, index) => {
                     return (
                         <View
+                            key={index}
                             style={{
                                 marginVertical: hp(1),
                             }}
                         >
                             <Card
-                                key={index}
                                 title={item.title}
                                 renderRightActions={() => (
                                     <ListItemDeleteAction

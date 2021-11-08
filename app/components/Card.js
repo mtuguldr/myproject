@@ -5,10 +5,14 @@ import Swipeable from 'react-native-gesture-handler/Swipeable'
 import { hp, wp } from '../config/const'
 import defaultStyles from '../config/styles'
 
-function Card({ title, renderRightActions }) {
+function Card({ title, renderRightActions, onPress, ...otherProps }) {
     return (
-        <Swipeable rightThreshold={70} renderRightActions={renderRightActions}>
-            <TouchableOpacity style={styles.container}>
+        <Swipeable
+            renderRightActions={renderRightActions}
+            overshootRight={false}
+            {...otherProps}
+        >
+            <TouchableOpacity onPress={onPress} style={styles.container}>
                 <Text
                     style={[
                         defaultStyles.text,
