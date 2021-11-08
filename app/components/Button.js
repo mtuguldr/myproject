@@ -10,6 +10,7 @@ function Button({
     filled = false,
     onPress,
     title,
+    style,
 }) {
     return (
         <TouchableOpacity
@@ -24,6 +25,7 @@ function Button({
                           backgroundColor: 'transparent',
                           borderColor: borderTextColor,
                       },
+                style,
             ]}
             onPress={onPress}
         >

@@ -7,8 +7,9 @@ export default {
     lightest: '#dcdcdc',
     medium: '#646464',
     primary: '#006bff', //#b2fce3 afterpay
-    secondary: '#1768d3',
     screenBg: '#f2f2f2',
+    secondary: '#1768d3',
+    shadow: '#0000007f',
+    success: '#54cd8f',
     white: '#fff',
-    ok: '#54cd8f',
 }

@@ -4,9 +4,9 @@ import defaultStyles from '../config/styles'
 import { ft, hp, wp } from '../config/const'
 import AppTextInput from './TextInput'
 
-function FormInput({ error, ...otherProps }) {
+function FormInput({ error, style, ...otherProps }) {
     return (
-        <View style={{ height: hp(8) }}>
+        <View style={[style]}>
             <AppTextInput {...otherProps} />
             {error !== '' ? <Text style={styles.error}>{error}</Text> : null}
         </View>

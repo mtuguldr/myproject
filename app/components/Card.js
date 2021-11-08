@@ -5,7 +5,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable'
 import { hp, wp } from '../config/const'
 import defaultStyles from '../config/styles'
 
-function Card({ title, renderRightActions, onPress, ...otherProps }) {
+function Card({ Title, renderRightActions, onPress, ...otherProps }) {
     return (
         <Swipeable
             renderRightActions={renderRightActions}
@@ -13,15 +13,7 @@ function Card({ title, renderRightActions, onPress, ...otherProps }) {
             {...otherProps}
         >
             <TouchableOpacity onPress={onPress} style={styles.container}>
-                <Text
-                    style={[
-                        defaultStyles.text,
-                        defaultStyles.medium,
-                        { textTransform: 'uppercase' },
-                    ]}
-                >
-                    {title}
-                </Text>
+                {Title}
             </TouchableOpacity>
         </Swipeable>
     )
