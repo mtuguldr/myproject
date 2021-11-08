@@ -79,7 +79,7 @@ function CategoryScreen() {
             >
                 {messages.map((item, index) => {
                     return (
-                        <View style={{ marginVertical: hp(1) }}>
+                        <View style={{ marginBottom: hp(2) }}>
                             <Card
                                 key={index}
                                 Title={
