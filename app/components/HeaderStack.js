@@ -18,6 +18,8 @@ function getHeaderTitle(route) {
             return 'Password'
         case 'ProfileEdit':
             return 'Profile'
+        case 'ProductDetails':
+            return 'Product'
         default:
             return routeName
     }

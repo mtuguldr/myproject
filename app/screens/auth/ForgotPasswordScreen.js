@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         marginVertical: hp(1),
     },
     error: {
-        color: defaultStyles.colors.ok,
+        color: defaultStyles.colors.success,
         marginTop: hp(1),
         textAlign: 'center',
     },

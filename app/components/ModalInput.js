@@ -67,7 +67,7 @@ function ModalInput({
 
 const styles = StyleSheet.create({
     modalContainer: {
-        backgroundColor: defaultStyles.colors.shadow,
+        backgroundColor: defaultStyles.colors.shadowBlack,
         flex: 1,
         justifyContent: 'center',
     },

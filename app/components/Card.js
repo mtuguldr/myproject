@@ -1,32 +1,59 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import Swipeable from 'react-native-gesture-handler/Swipeable'
+import {
+    ImageBackground,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native'
 
-import { hp, wp } from '../config/const'
 import defaultStyles from '../config/styles'
+import { ft, hp, wp } from '../config/const'
+import LikeButton from './LikeButton'
 
-function Card({ Title, renderRightActions, onPress, ...otherProps }) {
+function Card({ image, title, subTitle, onPressIcon, onPress, style }) {
     return (
-        <Swipeable
-            renderRightActions={renderRightActions}
-            overshootRight={false}
-            {...otherProps}
-        >
-            <TouchableOpacity onPress={onPress} style={styles.container}>
-                {Title}
-            </TouchableOpacity>
-        </Swipeable>
+        <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
+            <ImageBackground
+                source={image}
+                resizeMode='cover'
+                style={styles.image}
+            >
+                <LikeButton onPress={onPressIcon} size={wp(5)} />
+            </ImageBackground>
+            <Text
+                style={[defaultStyles.text, defaultStyles.small, styles.title]}
+                ellipsizeMode='tail'
+                numberOfLines={3}
+            >
+                {title}
+            </Text>
+            <Text style={[defaultStyles.text, styles.subTitle]}>
+                {subTitle}
+            </Text>
+        </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        backgroundColor: '#efefef', //defaultStyles.colors.lightest,
-        height: hp(10),
-        justifyContent: 'center',
-        // marginVertical: hp(1),
-        paddingHorizontal: defaultStyles.backgroundPadding,
+        // borderWidth: 1,
+        marginVertical: hp(1),
+    },
+    image: {
+        alignItems: 'flex-end',
+        height: 200,
+        justifyContent: 'flex-end',
+        width: '100%',
+    },
+    subTitle: {
+        color: defaultStyles.colors.medium,
+        fontSize: ft(12),
+        marginTop: 5,
+    },
+    title: {
+        fontWeight: 'bold',
+        marginTop: 10,
     },
 })
 

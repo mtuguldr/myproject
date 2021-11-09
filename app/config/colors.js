@@ -9,7 +9,8 @@ export default {
     primary: '#006bff', //#b2fce3 afterpay
     screenBg: '#f2f2f2',
     secondary: '#1768d3',
-    shadow: '#0000007f',
-    success: '#54cd8f',
+    shadowBlack: '#0000007f',
+    shadowWhite: '#ffffff7f',
+    success: '#30d17e',
     white: '#fff',
 }

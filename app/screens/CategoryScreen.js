@@ -1,20 +1,14 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { View, StyleSheet, Text, ScrollView } from 'react-native'
 
 import { hp, wp } from '../config/const'
-import Card from '../components/Card'
+import CardList from '../components/CardList'
 import defaultStyles from '../config/styles'
 import ListItemDeleteAction from '../components/ListItemDeleteAction'
 import { Icon } from '../components/Icon'
 import ModalInput from '../components/ModalInput'
 
-const categories = [
-    {
-        title: 'new in',
-    },
-    {
-        title: 'topshop',
-    },
+let data = [
     {
         title: 'clothing',
     },
@@ -42,19 +36,30 @@ const categories = [
 ]
 
 function CategoryScreen() {
-    const [messages, setMessages] = React.useState(categories)
+    const [categories, setCategories] = React.useState(data)
     const [modalVisible, setModalVisible] = React.useState(false)
-    const [error, setError] = React.useState('')
 
-    const handleDelete = (message) => {
-        // Delete the message from messages
-        setMessages(messages.filter((m) => m.title !== message.title))
+    const [error, setError] = React.useState('')
+    const [value, setValue] = React.useState('')
+
+    const handleDelete = (category) => {
+        setCategories(categories.filter((val) => val.title !== category.title))
     }
 
-    const handleAdd = (category) => {
-        setMessages((categories) => [...categories, { title: 'AA' }])
+    const handleAdd = (value) => {
+        for (let i = 0; i < data.length; i++) {
+            if (categories[i].title === value.toLowerCase()) {
+                console.log(`data[i].title`, data[i].title)
+                setError('Category already exists')
+                return
+            }
+        }
+        data.push({ title: value })
+        setCategories(data)
         setModalVisible(false)
     }
+
+    const scrollViewRef = useRef()
 
     return (
         <View style={styles.background}>
@@ -62,47 +67,51 @@ function CategoryScreen() {
                 title='Add new category'
                 placeholderText='Category'
                 modalVisible={modalVisible}
-                onChangeText={() => setError('')}
+                onChangeText={(val) => {
+                    setError('')
+                    setValue(val)
+                }}
                 onPressCancel={() => {
                     setModalVisible(false)
                     setError('')
                 }}
                 onPressSave={() => {
-                    handleAdd('New')
-                    // setError('Category already exists')
+                    handleAdd(value)
                 }}
                 error={error}
             />
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={{ width: '100%' }}
+                ref={scrollViewRef}
+                onContentSizeChange={() =>
+                    scrollViewRef.current.scrollToEnd({ animated: true })
+                }
             >
-                {messages.map((item, index) => {
+                {categories.map((item, index) => {
                     return (
-                        <View style={{ marginBottom: hp(2) }}>
-                            <Card
-                                key={index}
-                                Title={
-                                    <Text
-                                        style={[
-                                            defaultStyles.text,
-                                            defaultStyles.medium,
-                                            { textTransform: 'uppercase' },
-                                        ]}
-                                    >
-                                        {item.title}
-                                    </Text>
-                                }
-                                renderRightActions={() => (
-                                    <ListItemDeleteAction
-                                        onPress={() => handleDelete(item)}
-                                    />
-                                )}
-                            />
-                        </View>
+                        <CardList
+                            key={index}
+                            Title={
+                                <Text
+                                    style={[
+                                        defaultStyles.text,
+                                        defaultStyles.medium,
+                                        { textTransform: 'uppercase' },
+                                    ]}
+                                >
+                                    {item.title}
+                                </Text>
+                            }
+                            renderRightActions={() => (
+                                <ListItemDeleteAction
+                                    onPress={() => handleDelete(item)}
+                                />
+                            )}
+                        />
                     )
                 })}
-                <Card
+                <CardList
                     Title={
                         <Icon
                             iconFamily='AD'
