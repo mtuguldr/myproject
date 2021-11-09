@@ -6,7 +6,7 @@ import { ft, hp, wp } from '../config/const'
 
 import defaultStyles from '../config/styles'
 
-function ProductDetailsScreen({ route }) {
+function GridDetailsScreen({ route }) {
     const listing = route.params
 
     return (
@@ -83,4 +83,4 @@ const styles = StyleSheet.create({
     // },
 })
 
-export default ProductDetailsScreen
+export default GridDetailsScreen

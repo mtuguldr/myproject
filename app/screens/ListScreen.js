@@ -35,7 +35,7 @@ let data = [
     },
 ]
 
-function CategoryScreen() {
+function ListScreen() {
     const [categories, setCategories] = React.useState(data)
     const [modalVisible, setModalVisible] = React.useState(false)
 
@@ -139,4 +139,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default CategoryScreen
+export default ListScreen

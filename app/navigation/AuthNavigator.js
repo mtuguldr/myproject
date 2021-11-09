@@ -13,7 +13,7 @@ import HeaderStack from '../components/HeaderStack'
 const Stack = createStackNavigator()
 
 const AuthNavigator = () => {
-    const [isLoggedIn, setLoggedIn] = React.useState(false)
+    // const [isLoggedIn, setLoggedIn] = React.useState(false)
 
     React.useEffect(() => {
         checkState()

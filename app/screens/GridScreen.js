@@ -4,7 +4,7 @@ import { View, StyleSheet, ScrollView, Text } from 'react-native'
 import Card from '../components/Card'
 import defaultStyles from '../config/styles'
 
-function ProductListScreen({ listings, navigation }) {
+function GridScreen({ listings, navigation }) {
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default ProductListScreen
+export default GridScreen
