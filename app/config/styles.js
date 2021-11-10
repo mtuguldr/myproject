@@ -18,7 +18,10 @@ export default {
     small: {
         fontSize: ft(14),
     },
-
+    inputIcon: {
+        width: wp(5),
+        textAlign: 'center',
+    },
     borderRadius: 25,
     backgroundPadding: wp(5),
     colors,

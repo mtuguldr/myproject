@@ -65,56 +65,45 @@ function LoginScreen({ navigation }) {
             console.log(err)
         }
     }
-
-    const IconAlignCenter = ({ children }) => (
-        <View style={{ width: ICON_SIZE, alignItems: 'center' }}>
-            {children}
-        </View>
-    )
-
     const EmailIcon = () => (
-        <IconAlignCenter>
-            <Icon
-                iconFamily='FA'
-                color={email.color}
-                name='envelope'
-                size={ICON_SIZE}
-            />
-        </IconAlignCenter>
+        <Icon
+            iconFamily='IO'
+            color={email.color}
+            name='mail-outline'
+            size={ICON_SIZE}
+            style={defaultStyles.inputIcon}
+        />
     )
     const EmailCheckIcon = () => (
-        <IconAlignCenter>
-            <Icon
-                iconFamily='FA'
-                name='check'
-                color={email.color}
-                size={ICON_SIZE}
-            />
-        </IconAlignCenter>
+        <Icon
+            iconFamily='IO'
+            name='checkmark'
+            color={email.color}
+            size={ICON_SIZE}
+            style={defaultStyles.inputIcon}
+        />
     )
 
     const PasswordIcon = () => (
-        <IconAlignCenter>
-            <Icon
-                iconFamily='FA'
-                color={password.color}
-                name='lock'
-                size={ICON_SIZE}
-            />
-        </IconAlignCenter>
+        <Icon
+            iconFamily='IO'
+            color={password.color}
+            name='lock-closed-outline'
+            size={ICON_SIZE}
+            style={defaultStyles.inputIcon}
+        />
     )
     const PasswordToggleIcon = () => (
-        <IconAlignCenter>
-            <Icon
-                iconFamily='FA'
-                color={password.color}
-                name={passwordVisible ? 'eye-slash' : 'eye'}
-                onPress={() => {
-                    setPasswordVisible(!passwordVisible)
-                }}
-                size={ICON_SIZE}
-            />
-        </IconAlignCenter>
+        <Icon
+            iconFamily='IO'
+            color={password.color}
+            name={passwordVisible ? 'eye-off-outline' : 'eye-outline'}
+            onPress={() => {
+                setPasswordVisible(!passwordVisible)
+            }}
+            size={ICON_SIZE}
+            style={defaultStyles.inputIcon}
+        />
     )
 
     return (
@@ -125,54 +114,50 @@ function LoginScreen({ navigation }) {
                 </Text>
             </View>
             <View style={{ flex: 2 }}>
-                <View style={styles.container}>
-                    <FormInput
-                        color={email.color}
-                        error={email.error}
-                        focusColor={defaultStyles.colors.primary}
-                        ExtraIcon={<EmailCheckIcon />}
-                        Icon={<EmailIcon />}
-                        maxLength={30}
-                        onChangeText={(text) => {
-                            setEmail({
-                                value: text,
-                                error: '',
-                                color:
-                                    emailValidator(text) === '' &&
-                                    text.length > 0
-                                        ? defaultStyles.colors.primary
-                                        : defaultStyles.colors.light,
-                            })
-                            setError('')
-                        }}
-                        placeholder='Email'
-                        value={email.value}
-                    />
-                </View>
-                <View style={styles.container}>
-                    <FormInput
-                        color={password.color}
-                        error={password.error}
-                        focusColor={defaultStyles.colors.primary}
-                        ExtraIcon={<PasswordToggleIcon />}
-                        Icon={<PasswordIcon />}
-                        maxLength={30}
-                        onChangeText={(text) => {
-                            setPassword({
-                                value: text,
-                                error: '',
-                                color:
-                                    passwordValidator(text) === ''
-                                        ? defaultStyles.colors.primary
-                                        : defaultStyles.colors.light,
-                            })
-                            setError('')
-                        }}
-                        placeholder='Password'
-                        secureTextEntry={!passwordVisible}
-                        value={password.value}
-                    />
-                </View>
+                <FormInput
+                    color={email.color}
+                    error={email.error}
+                    Right={<EmailCheckIcon />}
+                    Left={<EmailIcon />}
+                    maxLength={30}
+                    onChangeText={(text) => {
+                        setEmail({
+                            value: text,
+                            error: '',
+                            color:
+                                emailValidator(text) === '' && text.length > 0
+                                    ? defaultStyles.colors.primary
+                                    : defaultStyles.colors.light,
+                        })
+                        setError('')
+                    }}
+                    placeholder='Email'
+                    value={email.value}
+                    style={styles.container}
+                />
+
+                <FormInput
+                    color={password.color}
+                    error={password.error}
+                    Right={<PasswordToggleIcon />}
+                    Left={<PasswordIcon />}
+                    maxLength={30}
+                    onChangeText={(text) => {
+                        setPassword({
+                            value: text,
+                            error: '',
+                            color:
+                                passwordValidator(text) === ''
+                                    ? defaultStyles.colors.primary
+                                    : defaultStyles.colors.light,
+                        })
+                        setError('')
+                    }}
+                    placeholder='Password'
+                    secureTextEntry={!passwordVisible}
+                    value={password.value}
+                    style={styles.container}
+                />
 
                 <View style={{ alignItems: 'flex-end' }}>
                     <TextButton
@@ -214,7 +199,6 @@ const styles = StyleSheet.create({
     background: {
         backgroundColor: defaultStyles.colors.white, //'#fcfcfc',
         flex: 1,
-        justifyContent: 'space-around',
         paddingHorizontal: defaultStyles.backgroundPadding,
     },
     container: {

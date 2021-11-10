@@ -4,8 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import AuthNavigator from './AuthNavigator'
 import DrawerNavigator from './DrawerNavigator'
-import ProfileEditScreen from '../screens/profileStack/ProfileEditScreen'
-import ProductDetailsScreen from '../screens/ProductDetailsScreen'
+import ProfileEditScreen from '../screens/profile/ProfileEditScreen'
+import GridDetailsScreen from '../screens/GridDetailsScreen'
 import HeaderStack from '../components/HeaderStack'
 
 const Stack = createStackNavigator()
@@ -31,10 +31,7 @@ function MainNavigator() {
             <Stack.Screen name='Payment' component={PaymentScreen} />
             <Stack.Screen name='ProfileEdit' component={ProfileEditScreen} />
             <Stack.Screen name='Wishlist' component={WishListScreen} />
-            <Stack.Screen
-                name='ProductDetails'
-                component={ProductDetailsScreen}
-            />
+            <Stack.Screen name='ProductDetails' component={GridDetailsScreen} />
         </Stack.Navigator>
     )
 }

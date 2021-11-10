@@ -28,7 +28,6 @@ function ModalInput({
                     <FormInput
                         color={defaultStyles.colors.dark}
                         error={error}
-                        focusColor={defaultStyles.colors.primary}
                         maxLength={30}
                         onChangeText={onChangeText}
                         placeholder={placeholderText}

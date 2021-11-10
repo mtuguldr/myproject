@@ -19,8 +19,8 @@ function LikeButton({ size, onPress }) {
             }}
         >
             <Icon
-                iconFamily='AD'
-                name={liked ? 'heart' : 'hearto'}
+                iconFamily='IO'
+                name={liked ? 'heart' : 'heart-outline'}
                 size={size}
                 color={defaultStyles.colors.dark}
             />
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: defaultStyles.colors.shadowWhite,
         justifyContent: 'center',
+        margin: 5,
     },
 })
 

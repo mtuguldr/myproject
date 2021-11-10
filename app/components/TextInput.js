@@ -5,20 +5,20 @@ import defaultStyles from '../config/styles'
 import { hp, wp } from '../config/const'
 
 function AppTextInput({
-    Icon,
+    Left,
     color = defaultStyles.colors.light,
-    ExtraIcon,
+    Right,
     ...otherProps
 }) {
     return (
         <View style={[styles.container, { borderColor: color }]}>
-            {Icon}
+            {Left}
             <TextInput
                 style={[defaultStyles.text, styles.text, { color: color }]}
                 placeholderTextColor={color}
                 {...otherProps}
             />
-            {ExtraIcon}
+            {Right}
         </View>
     )
 }
@@ -26,10 +26,8 @@ function AppTextInput({
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        backgroundColor: '#edf0f7', //defaultStyles.colors.white,
-        // borderBottomWidth: 1,
+        backgroundColor: defaultStyles.colors.primaryLightTint,
         borderRadius: defaultStyles.borderRadius,
-        // borderWidth: 1,
         flexDirection: 'row',
         paddingHorizontal: 15,
     },

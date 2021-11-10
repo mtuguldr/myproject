@@ -7,6 +7,7 @@ export default {
     lightest: '#dcdcdc',
     medium: '#646464',
     primary: '#006bff', //#b2fce3 afterpay
+    primaryLightTint: '#ebf4ff',
     screenBg: '#f2f2f2',
     secondary: '#1768d3',
     shadowBlack: '#0000007f',

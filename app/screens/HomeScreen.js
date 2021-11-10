@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
-import ProductListScreen from '../screens/ProductListScreen'
+import GridScreen from './GridScreen'
+import defaultStyles from '../config/styles'
 
 const listings = [
     {
@@ -62,14 +63,19 @@ const listings = [
 ]
 
 function HomeScreen({ navigation }) {
-    return <ProductListScreen listings={listings} navigation={navigation} />
+    return (
+        <View style={styles.container}>
+            <GridScreen listings={listings} navigation={navigation} />
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        flex: 1,
-        justifyContent: 'center',
+        // alignItems: 'center',
+        backgroundColor: defaultStyles.colors.white,
+        // flex: 1,
+        // justifyContent: 'center',
     },
 })
 

@@ -38,7 +38,7 @@ function Card({ image, title, subTitle, onPressIcon, onPress, style }) {
 const styles = StyleSheet.create({
     container: {
         // borderWidth: 1,
-        marginVertical: hp(1),
+        marginBottom: hp(2),
     },
     image: {
         alignItems: 'flex-end',

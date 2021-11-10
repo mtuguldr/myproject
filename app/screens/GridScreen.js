@@ -2,6 +2,7 @@ import React from 'react'
 import { View, StyleSheet, ScrollView, Text } from 'react-native'
 
 import Card from '../components/Card'
+import { hp, wp } from '../config/const'
 import defaultStyles from '../config/styles'
 
 function GridScreen({ listings, navigation }) {
@@ -35,10 +36,11 @@ function GridScreen({ listings, navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
+        backgroundColor: defaultStyles.colors.white,
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
+        padding: wp(5),
     },
 })
 

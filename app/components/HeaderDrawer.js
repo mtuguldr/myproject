@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { DrawerActions } from '@react-navigation/routers'
 import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
 
@@ -30,13 +30,11 @@ function HeaderDrawer({ route, navigation }) {
         <Header
             left={
                 <Icon
-                    iconFamily='AD'
+                    iconFamily='IO'
                     color={ICON_COLOR}
-                    name='bars'
+                    name='menu'
                     size={ICON_SIZE}
-                    style={{
-                        paddingHorizontal: 12,
-                    }}
+                    style={styles.padding}
                     onPress={() => {
                         navigation.dispatch(DrawerActions.openDrawer())
                     }}
@@ -51,25 +49,21 @@ function HeaderDrawer({ route, navigation }) {
             right={
                 <View style={{ flexDirection: 'row' }}>
                     <Icon
-                        iconFamily='AD'
+                        iconFamily='IO'
                         color={ICON_COLOR}
-                        name='hearto'
+                        name='heart-outline'
                         size={ICON_SIZE}
-                        style={{
-                            paddingHorizontal: 12,
-                        }}
+                        style={styles.padding}
                         onPress={() => {
                             navigation.navigate('Wishlist')
                         }}
                     />
                     <Icon
-                        iconFamily='AD'
+                        iconFamily='IO'
                         color={ICON_COLOR}
-                        name='shoppingcart'
+                        name='cart-outline'
                         size={ICON_SIZE}
-                        style={{
-                            paddingHorizontal: 12,
-                        }}
+                        style={styles.padding}
                         onPress={() => {
                             navigation.navigate('Orders')
                         }}
@@ -79,5 +73,11 @@ function HeaderDrawer({ route, navigation }) {
         />
     )
 }
+
+const styles = StyleSheet.create({
+    padding: {
+        paddingHorizontal: 12,
+    },
+})
 
 export default HeaderDrawer

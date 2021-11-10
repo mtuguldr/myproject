@@ -30,9 +30,9 @@ function HeaderStack(props) {
         <Header
             left={
                 <Icon
-                    iconFamily='AD'
+                    iconFamily='IO'
                     color={ICON_COLOR}
-                    name='back'
+                    name='arrow-back'
                     size={ICON_SIZE}
                     style={styles.icon}
                     onPress={() => {
@@ -41,7 +41,7 @@ function HeaderStack(props) {
                 />
             }
             center={
-                <Text style={(defaultStyles.text, defaultStyles.medium)}>
+                <Text style={[defaultStyles.text, defaultStyles.medium]}>
                     {getHeaderTitle(props.route)}
                     {/* {props.title} */}
                 </Text>

@@ -1,21 +1,16 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 
-import { ft } from '../config/const'
+import { ft, wp } from '../config/const'
 import { Icon } from './Icon'
 import defaultStyles from '../config/styles'
 
-function DrawerItemCustom({ title, icon, onPress, switchComponent }) {
+function DrawerItemCustom({ title, Left, onPress, Right }) {
     return (
         <TouchableOpacity style={styles.container} onPress={onPress}>
-            <Icon
-                color={defaultStyles.colors.medium}
-                iconFamily='AD'
-                name={icon}
-                size={24}
-            />
+            {Left}
             <Text style={[defaultStyles.text, styles.text]}>{title}</Text>
-            {switchComponent}
+            {Right}
         </TouchableOpacity>
     )
 }

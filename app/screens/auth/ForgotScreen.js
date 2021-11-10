@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
-import { Background, Button, FormInput } from '../../components'
+import { Button, FormInput } from '../../components'
 import defaultStyles from '../../config/styles'
-import { emailValidator, ft, hp, wp } from '../../config/const'
+import { emailValidator, hp, wp } from '../../config/const'
+import { Icon } from '../../components/Icon'
 
 const ICON_SIZE = wp(5)
-const HORIZONTAL_SPACE = wp(5)
-function ForgotPasswordScreen({ navigation }) {
+
+function ForgotScreen({ navigation }) {
     const [email, setEmail] = useState({
         value: '',
         error: '',
@@ -28,16 +28,14 @@ function ForgotPasswordScreen({ navigation }) {
         // navigation.goBack()
     }
 
-    const IconAlignCenter = ({ children }) => (
-        <View style={{ width: ICON_SIZE, alignItems: 'center' }}>
-            {children}
-        </View>
-    )
-
     const EmailIcon = () => (
-        <IconAlignCenter>
-            <FontAwesome color={email.color} name='envelope' size={ICON_SIZE} />
-        </IconAlignCenter>
+        <Icon
+            color={email.color}
+            iconFamily='IO'
+            name='mail-outline'
+            size={ICON_SIZE}
+            style={defaultStyles.inputIcon}
+        />
     )
     return (
         <View style={styles.background}>
@@ -47,28 +45,27 @@ function ForgotPasswordScreen({ navigation }) {
                 </Text>
             </View>
             <View style={{ flex: 2 }}>
-                <View style={styles.container}>
-                    <FormInput
-                        color={email.color}
-                        error={email.error}
-                        Icon={<EmailIcon />}
-                        maxLength={20}
-                        onChangeText={(text) => {
-                            setEmail({
-                                value: text,
-                                error: '',
-                                color:
-                                    emailValidator(text) === '' &&
-                                    text.length > 0
-                                        ? defaultStyles.colors.primary
-                                        : defaultStyles.colors.light,
-                            })
-                            setError('')
-                        }}
-                        placeholder='Email'
-                        value={email.value}
-                    />
-                </View>
+                <FormInput
+                    color={email.color}
+                    error={email.error}
+                    Left={<EmailIcon />}
+                    maxLength={20}
+                    onChangeText={(text) => {
+                        setEmail({
+                            value: text,
+                            error: '',
+                            color:
+                                emailValidator(text) === '' && text.length > 0
+                                    ? defaultStyles.colors.primary
+                                    : defaultStyles.colors.light,
+                        })
+                        setError('')
+                    }}
+                    placeholder='Email'
+                    value={email.value}
+                    style={styles.container}
+                />
+
                 <Text style={[defaultStyles.text, styles.error]}>{error}</Text>
             </View>
             <View style={{ flex: 1 }}>
@@ -89,10 +86,9 @@ const styles = StyleSheet.create({
         backgroundColor: defaultStyles.colors.white,
         flex: 1,
         paddingHorizontal: defaultStyles.backgroundPadding,
-        // justifyContent: 'space-around',
     },
     container: {
-        marginVertical: hp(1),
+        marginVertical: hp(1.5),
     },
     error: {
         color: defaultStyles.colors.success,
@@ -101,4 +97,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default ForgotPasswordScreen
+export default ForgotScreen

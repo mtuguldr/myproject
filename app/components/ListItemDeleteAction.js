@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { Icon } from './Icon'
 import defaultStyles from '../config/styles'
+import { wp } from '../config/const'
 
 function ListItemDeleteAction({ onPress }) {
     return (
@@ -10,7 +11,7 @@ function ListItemDeleteAction({ onPress }) {
             <Icon
                 iconFamily='AD'
                 name='delete'
-                size={35}
+                size={wp(8)}
                 color={defaultStyles.colors.white}
             />
         </TouchableOpacity>
@@ -22,8 +23,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: defaultStyles.colors.danger,
         justifyContent: 'center',
-        paddingVertical: defaultStyles.backgroundPadding,
-        width: 70,
+        width: wp(16),
     },
 })
 

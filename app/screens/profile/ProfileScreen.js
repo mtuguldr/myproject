@@ -10,14 +10,16 @@ import {
 import defaultStyles from '../../config/styles'
 import { Icon } from '../../components/Icon'
 import { Background, ListItem, Separator } from '../../components'
-import { ft, hp } from '../../config/const'
+import { ft, hp, wp } from '../../config/const'
 
 const menuItems = [
     // { title: 'edit profile', icon: 'user', targetScreen: 'ProfileEdit' },
-    { title: 'orders', icon: 'shoppingcart', targetScreen: 'Orders' },
-    { title: 'wishlist', icon: 'hearto', targetScreen: 'Wishlist' },
-    { title: 'payment', icon: 'creditcard', targetScreen: 'Payment' },
+    { title: 'orders', icon: 'cart-outline', targetScreen: 'Orders' },
+    { title: 'wishlist', icon: 'heart-outline', targetScreen: 'Wishlist' },
+    { title: 'payment', icon: 'card-outline', targetScreen: 'Payment' },
 ]
+
+const ICON_SIZE = wp(7)
 
 const DrawerHeadLogin = ({ navigation }) => (
     <View
@@ -86,9 +88,9 @@ function ProfileScreen({ navigation }) {
                             title={item.title}
                             IconComponent={
                                 <Icon
-                                    iconFamily='AD'
+                                    iconFamily='IO'
                                     name={item.icon}
-                                    size={20}
+                                    size={ICON_SIZE}
                                     color={defaultStyles.colors.medium}
                                 />
                             }
@@ -104,10 +106,10 @@ function ProfileScreen({ navigation }) {
                     title='log out'
                     IconComponent={
                         <Icon
-                            iconFamily='AD'
+                            iconFamily='IO'
                             color={defaultStyles.colors.medium}
-                            name='logout'
-                            size={20}
+                            name='log-out-outline'
+                            size={ICON_SIZE}
                         />
                     }
                 />
